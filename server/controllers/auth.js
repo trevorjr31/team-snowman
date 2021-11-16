@@ -23,9 +23,7 @@ exports.registerUser = asyncHandler(async (req, res, next) => {
     throw new Error("A user with that username already exists");
   }
   const newProfile = await Profile.create({});
-  console.log(newProfile);
   const profile = newProfile._id;
-  console.log(profile);
 
   const user = await User.create({
     username,
