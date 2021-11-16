@@ -22,9 +22,15 @@ export const AuthProvider: FunctionComponent = ({ children }): JSX.Element => {
   const [loggedInUser, setLoggedInUser] = useState<User | null | undefined>();
   const history = useHistory();
 
-  const updateLoginContext = useCallback((data: AuthApiDataSuccess) => {
-    setLoggedInUser(data.user);
-  }, []);
+  const updateLoginContext = useCallback(
+    (data: AuthApiDataSuccess) => {
+      setLoggedInUser(data.user);
+      if (data.user && (history.location.pathname == '/login' || history.location.pathname == '/signup')) {
+        history.push('/dashboard');
+      }
+    },
+    [history],
+  );
 
   const logout = useCallback(async () => {
     // needed to remove token cookie
@@ -42,12 +48,12 @@ export const AuthProvider: FunctionComponent = ({ children }): JSX.Element => {
       await loginWithCookies().then((data: AuthApiData) => {
         if (data.success) {
           updateLoginContext(data.success);
-          if (history.location.pathname == '/login' || history.location.pathname == '/signup') {
-            history.push('/dashboard');
-          }
         } else {
           // don't need to provide error feedback as this just means user doesn't have saved cookies or the cookies have not been authenticated on the backend
           setLoggedInUser(null);
+          if (!(history.location.pathname == '/signup')) {
+            history.push('/login');
+          }
         }
       });
     };
