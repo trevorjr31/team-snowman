@@ -28,7 +28,7 @@ const profileSchema = new mongoose.Schema({
     default: null
   },
   availability: {
-    type: [Date],
+    type: [timeSlot],
     default: []
   },
   photo: {

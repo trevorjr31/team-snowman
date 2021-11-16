@@ -24,11 +24,6 @@ const NavBar = (): JSX.Element => {
   }, [initSocket]);
 
   if (loggedInUser === undefined) return <CircularProgress />;
-  if (!loggedInUser && history.location.pathname !== '/login' && history.location.pathname !== '/signup') {
-    history.push('/login');
-    // loading for a split seconds until history.push works
-    return <CircularProgress />;
-  }
 
   return (
     <AppBar className={classes.appbar} position="absolute">
