@@ -16,8 +16,12 @@ const useStyles = makeStyles(() => ({
     flexDirection: 'column',
     minHeight: '100%',
   },
-  welcome: {
-    paddingBottom: 20,
+  title: {
+    padding: 40,
+  },
+  reminder: {
+    padding: 20,
+    width: '16vw',
   },
   centerRow: {
     display: 'flex',
@@ -25,8 +29,8 @@ const useStyles = makeStyles(() => ({
   },
   avatar: {
     margin: 10,
-    width: 60,
-    height: 60,
+    width: 140,
+    height: 140,
     alignSelf: 'center',
   },
 }));

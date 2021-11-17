@@ -7,6 +7,8 @@ import Typography from '@material-ui/core/Typography';
 import useStyles from './useStyles';
 import { useAuth } from '../../../context/useAuthContext';
 import { useSnackBar } from '../../../context/useSnackbarContext';
+import ImagePicker from 'react-image-picker'
+
 import logo from '../../../Images/775db5e79c5294846949f1f55059b53317f51e30.png';
 
 export default function EditPhoto(): JSX.Element {
@@ -42,13 +44,18 @@ export default function EditPhoto(): JSX.Element {
           <Box width="100%" maxWidth={450} p={3} alignSelf="center">
             <Grid container>
               <Grid item xs>
-                <Typography className={classes.welcome} component="h1" variant="h5">
+                <Typography className={classes.title} component="h1" variant="h5">
                   Profile Photo
                 </Typography>
               </Grid>
             </Grid>
             <Grid className={classes.centerRow}>
               <Avatar src={logo} className={classes.avatar} />
+            </Grid>
+            <Grid className={classes.centerRow}>
+              <Typography className={classes.reminder} component="h4" variant="h6">
+                Be sure to use a photo that clearly shows your face
+              </Typography>
             </Grid>
           </Box>
         </Box>
