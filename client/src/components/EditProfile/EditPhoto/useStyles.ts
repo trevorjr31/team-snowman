@@ -15,6 +15,7 @@ const useStyles = makeStyles(() => ({
     justifyContent: 'space-between',
     flexDirection: 'column',
     minHeight: '100%',
+    paddingBottom: 40,
   },
   title: {
     padding: 40,
@@ -26,12 +27,27 @@ const useStyles = makeStyles(() => ({
   centerRow: {
     display: 'flex',
     justifyContent: 'center',
+    alignItems: 'center',
   },
   avatar: {
     margin: 10,
     width: 140,
     height: 140,
     alignSelf: 'center',
+  },
+  uploadButton: {
+    textTransform: 'none',
+    fontSize: 12,
+    fontWeight: 700,
+    padding: '12px 30px 12px 30px',
+    margin: '18px 0px 18px 0px',
+  },
+  deleteIcon: {
+    width: 20,
+    height: 20,
+  },
+  deleteText: {
+    margin: 10,
   },
 }));
 

@@ -26,7 +26,7 @@ export const theme = createMuiTheme({
       textAlign: 'center',
     },
     h6: {
-      fontSize: 15,
+      fontSize: 12,
       color: '#888888',
       textAlign: 'center',
     },
