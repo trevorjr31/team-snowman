@@ -21,7 +21,11 @@ const useStyles = makeStyles(() => ({
     borderColor: 'divider',
   },
   tabComponents: {
-    marginTop: 50,
+    marginTop: 60,
+    height: '600px',
+    overflow: 'auto',
+    maxWidth: 600,
+    width: '100%',
   },
 }));
 

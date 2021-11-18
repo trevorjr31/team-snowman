@@ -12,6 +12,7 @@ const useStyles = makeStyles((theme) => ({
   },
   inputs: {
     marginTop: '.8rem',
+    marginLeft: '.8rem',
     height: '2rem',
     padding: '5px',
   },

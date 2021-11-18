@@ -65,9 +65,7 @@ const EditMenu = (): JSX.Element => {
       </Grid>
       <Grid component={Paper} className={classes.tabComponents}>
         <TabPanel value={value} index={0}>
-          <Box style={{ height: '500px', overflow: 'auto' }}>
-            <ProfileForm />
-          </Box>
+          <ProfileForm />
         </TabPanel>
         <TabPanel value={value} index={1}>
           Profile Photo Placeholder

@@ -4,31 +4,14 @@ import TextField from '@material-ui/core/TextField';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import Box from '@material-ui/core/Box';
-import { Formik, FormikHelpers } from 'formik';
+import { Formik, FormikHelpers, Field } from 'formik';
 import * as Yup from 'yup';
 import Typography from '@material-ui/core/Typography';
 import useStyles from './useStyles';
 import { CircularProgress } from '@material-ui/core';
 import DatePicker from '../../DatePicker/DatePicker';
-
-interface Props {
-  handleSubmit: (
-    {
-      email,
-      password,
-    }: {
-      email: string;
-      password: string;
-    },
-    {
-      setStatus,
-      setSubmitting,
-    }: FormikHelpers<{
-      email: string;
-      password: string;
-    }>,
-  ) => void;
-}
+import editProfile from '../../../helpers/APICalls/editProfile';
+import { useSnackBar } from '../../../context/useSnackbarContext';
 
 const genders = [
   { value: 'Male', label: 'Male' },
@@ -36,11 +19,59 @@ const genders = [
   { value: 'Other', label: 'Other' },
 ];
 
+const phoneRegExp =
+  /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
+
 export default function EditProfile(): JSX.Element {
   const classes = useStyles();
 
-  const handleSubmit = () => {
-    return;
+  const { updateSnackBarMessage } = useSnackBar();
+
+  const handleSubmit = (
+    {
+      firstName,
+      lastName,
+      gender,
+      dateOfBirth,
+      phoneNumber,
+      address,
+      description,
+    }: {
+      firstName: string;
+      lastName: string;
+      gender: string;
+      dateOfBirth: Date;
+      phoneNumber: string;
+      address: string;
+      description: string;
+    },
+    {
+      setSubmitting,
+    }: FormikHelpers<{
+      firstName: string;
+      lastName: string;
+      gender: string;
+      dateOfBirth: Date;
+      phoneNumber: string;
+      address: string;
+      description: string;
+    }>,
+  ) => {
+    editProfile({ firstName, lastName, gender, dateOfBirth, phoneNumber, address, description }).then((data) => {
+      if (data.error) {
+        setSubmitting(false);
+        updateSnackBarMessage('Something went wrong');
+      } else if (data.success) {
+        setSubmitting(false);
+        updateSnackBarMessage('Profile Updated');
+      } else {
+        // should not get here from backend but this catch is for an unknown issue
+        console.error({ data });
+
+        setSubmitting(false);
+        updateSnackBarMessage('An unexpected error occurred. Please try again');
+      }
+    });
   };
 
   return (
@@ -49,10 +80,20 @@ export default function EditProfile(): JSX.Element {
         firstName: '',
         lastName: '',
         gender: '',
-        email: '',
+        dateOfBirth: new Date(),
+        phoneNumber: '',
         address: '',
         description: '',
       }}
+      validationSchema={Yup.object().shape({
+        firstName: Yup.string().max(20, 'Name is too long'),
+        lastName: Yup.string().max(20, 'Name is too long'),
+        phoneNumber: Yup.string()
+          .required('required')
+          .matches(phoneRegExp, 'Phone number is not valid')
+          .min(10, 'to short')
+          .max(10, 'to long'),
+      })}
       onSubmit={handleSubmit}
     >
       {({ handleSubmit, handleChange, values, touched, errors, isSubmitting }) => (
@@ -114,12 +155,9 @@ export default function EditProfile(): JSX.Element {
               </MenuItem>
             ))}
           </TextField>
-          <Box>
-            <DatePicker />
-          </Box>
           <TextField
-            id="email"
-            label={<Typography className={classes.label}>Email</Typography>}
+            id="phoneNumber"
+            label={<Typography className={classes.label}>Phone Number</Typography>}
             fullWidth
             margin="normal"
             InputLabelProps={{
@@ -129,11 +167,15 @@ export default function EditProfile(): JSX.Element {
               classes: { input: classes.inputs },
             }}
             variant="outlined"
-            autoComplete="email"
-            helperText={touched.email ? errors.email : ''}
-            value={values.email}
+            name="phoneNumber"
+            helperText={touched.phoneNumber ? errors.phoneNumber : ''}
+            error={touched.phoneNumber && Boolean(errors.phoneNumber)}
+            value={values.phoneNumber}
             onChange={handleChange}
           />
+          <Box>
+            <Field name="dateOfBirth" component={DatePicker} />
+          </Box>
           <TextField
             id="address"
             label={<Typography className={classes.label}>Address</Typography>}
@@ -153,7 +195,7 @@ export default function EditProfile(): JSX.Element {
           />
           <TextField
             id="description"
-            label={<Typography className={classes.label}>Email</Typography>}
+            label={<Typography className={classes.label}>Description</Typography>}
             fullWidth
             margin="normal"
             InputLabelProps={{
