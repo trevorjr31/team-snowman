@@ -53,13 +53,6 @@ export default function EditProfile(): JSX.Element {
         address: '',
         description: '',
       }}
-      validationSchema={Yup.object().shape({
-        firstName: Yup.string().required('Email is required').email('Email is not valid'),
-        lastName: Yup.string()
-          .required('Password is required')
-          .max(100, 'Password is too long')
-          .min(6, 'Password too short'),
-      })}
       onSubmit={handleSubmit}
     >
       {({ handleSubmit, handleChange, values, touched, errors, isSubmitting }) => (
