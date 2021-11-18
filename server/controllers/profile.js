@@ -61,18 +61,12 @@ exports.uploadProfileImage = asyncHandler(async (req, res, next) => {
 
     const update = { photo: req.file.location };
 
-    try {
-      Profile.findOneAndUpdate({ userId: id }, update, {
-        new: true,
-      });
-      res
-        .status(200)
-        .send({ message: "The profile has been successfully updated" });
-    } catch (err) {
-      res.status(500);
-      throw new Error("Server failed to update the profile");
-    }
-
+    Profile.findOneAndUpdate({ userId: id }, update, {
+      new: true,
+    });
+    res
+      .status(200)
+      .send({ message: "The profile has been successfully updated" });
   });
 
 });
