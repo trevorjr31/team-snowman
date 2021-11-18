@@ -21,7 +21,7 @@ const useStyles = makeStyles(() => ({
     borderColor: 'divider',
   },
   tabComponents: {
-    flexGrow: 2,
+    marginTop: 50,
   },
 }));
 
