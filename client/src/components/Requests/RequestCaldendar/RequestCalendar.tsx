@@ -14,7 +14,7 @@ export default function RequestCalendar(): JSX.Element {
   tomorrow.setDate(tomorrow.getDate() + 1);
   const [values, setValues] = useState([today, tomorrow]);
   if (requests) {
-    const allRequests = [...requests.before, ...requests.after, requests.nextRequest];
+    const allRequests = [...requests.before, ...requests.after];
     const entries = [new Date()];
     allRequests.map((request) => {
       if (request.accepted == true) {
