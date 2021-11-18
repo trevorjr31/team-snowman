@@ -1,6 +1,6 @@
 import { MuiThemeProvider } from '@material-ui/core';
 import { theme } from './themes/theme';
-import { BrowserRouter, Route, Redirect, Switch } from 'react-router-dom';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import Login from './pages/Login/Login';
 import Signup from './pages/SignUp/SignUp';
 import Dashboard from './pages/Dashboard/Dashboard';
@@ -10,10 +10,8 @@ import Landing from './pages/Landing/Landing';
 import { AuthProvider } from './context/useAuthContext';
 import { SocketProvider } from './context/useSocketContext';
 import { SnackBarProvider } from './context/useSnackbarContext';
-import { useHistory } from 'react-router-dom';
 
 import './App.css';
-import ReactDOM from 'react-dom';
 
 function App(): JSX.Element {
   return (
@@ -23,8 +21,10 @@ function App(): JSX.Element {
           <AuthProvider>
             <SocketProvider>
               <Switch>
-                <NavBar pathname={window.location.pathname}>
-                  <Route exact path="/" component={Landing} />
+                <NavBar>
+                  <Route exact path="/">
+                    <Landing />
+                  </Route>
                   <Route exact path="/login" component={Login} />
                   <Route exact path="/signup" component={Signup} />
                   <Route exact path="/dashboard">
@@ -40,10 +40,6 @@ function App(): JSX.Element {
                     <Dashboard />
                   </Route>
                   <Route exact path="/edit-profile" component={EditMenu} />
-
-                  <Route path="*">
-                    <Redirect to="/login" />
-                  </Route>
                 </NavBar>
               </Switch>
             </SocketProvider>

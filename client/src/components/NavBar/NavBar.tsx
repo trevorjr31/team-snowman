@@ -14,10 +14,9 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 
 interface Props {
   children?: React.ReactNode;
-  pathname: string;
 }
 
-const NavBar = ({ children, pathname }: Props): JSX.Element => {
+const NavBar = ({ children }: Props): JSX.Element => {
   const [isLandingPage, setIsLandingPage] = useState<boolean>(false);
   const classes = useStyles();
   const { loggedInUser } = useAuth();
@@ -25,7 +24,6 @@ const NavBar = ({ children, pathname }: Props): JSX.Element => {
 
   const history = useHistory();
   useEffect(() => {
-    console.log(history.location.pathname);
     if (history.location.pathname === '/') {
       setIsLandingPage(true);
     } else {
