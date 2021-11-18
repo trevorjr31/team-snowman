@@ -17,8 +17,10 @@ export default function RequestCalendar(): JSX.Element {
     const allRequests = [...requests.before, ...requests.after];
     const entries = [new Date()];
     allRequests.map((request) => {
-      const date = new Date(request.duration.start);
-      entries.push(date);
+      if (request.accepted == true) {
+        const date = new Date(request.duration.start);
+        entries.push(date);
+      }
     });
     return (
       <Grid className={classes.root}>
