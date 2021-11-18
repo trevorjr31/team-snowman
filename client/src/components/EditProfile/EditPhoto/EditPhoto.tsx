@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import CssBaseline from '@material-ui/core/CssBaseline';
 import Paper from '@material-ui/core/Paper';
 import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
@@ -8,6 +7,7 @@ import Avatar from '@material-ui/core/Avatar';
 import Typography from '@material-ui/core/Typography';
 import useStyles from './useStyles';
 import DeleteSharpIcon from '@material-ui/icons/DeleteSharp';
+import IconButton from '@material-ui/core/IconButton';
 
 export default function EditPhoto(): JSX.Element {
   const [file, setFile] = useState<string>('');
@@ -31,9 +31,15 @@ export default function EditPhoto(): JSX.Element {
 
   return (
     <Grid container component="main" className={classes.root}>
-      <CssBaseline />
       <Grid item xs={12} sm={8} md={7} elevation={4} component={Paper} square>
-        <Box className={classes.authWrapper}>
+        <Box
+          display="flex"
+          alignItems="flex-start"
+          justifyContent="space-between"
+          flexDirection="column"
+          minHeight="100%"
+          paddingBottom={40}
+        >
           <Box width="100%" maxWidth={450} p={3} alignSelf="center">
             <Grid container>
               <Grid item xs>
@@ -42,25 +48,27 @@ export default function EditPhoto(): JSX.Element {
                 </Typography>
               </Grid>
             </Grid>
-            <Grid className={classes.centerRow}>
+            <Box className={classes.centerRow}>
               <Avatar src={file} className={classes.avatar} />
-            </Grid>
-            <Grid className={classes.centerRow}>
+            </Box>
+            <Box className={classes.centerRow}>
               <Typography className={classes.reminder} component="h4" variant="h6">
                 Be sure to use a photo that clearly shows your face
               </Typography>
-            </Grid>
-            <Grid className={classes.centerRow}>
+            </Box>
+            <Box className={classes.centerRow}>
               <Button className={classes.uploadButton} variant="outlined" color="primary" onClick={importData}>
                 Upload a file from your device
               </Button>
-            </Grid>
-            <Grid className={classes.centerRow} onClick={removeFile}>
-              <DeleteSharpIcon className={classes.deleteIcon} />
-              <Typography className={classes.deleteText} component="h4" variant="h6">
-                Delete photo
-              </Typography>
-            </Grid>
+            </Box>
+            <Box className={classes.centerRow} onClick={removeFile}>
+              <IconButton aria-label="delete" size="small">
+                <DeleteSharpIcon className={classes.deleteIcon} />
+                <Typography className={classes.deleteText} component="h4" variant="h6">
+                  Delete photo
+                </Typography>
+              </IconButton>
+            </Box>
           </Box>
         </Box>
       </Grid>
