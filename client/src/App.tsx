@@ -10,6 +10,7 @@ import Landing from './pages/Landing/Landing';
 import { AuthProvider } from './context/useAuthContext';
 import { SocketProvider } from './context/useSocketContext';
 import { SnackBarProvider } from './context/useSnackbarContext';
+import { useHistory } from 'react-router-dom';
 
 import './App.css';
 import ReactDOM from 'react-dom';
@@ -21,28 +22,29 @@ function App(): JSX.Element {
         <SnackBarProvider>
           <AuthProvider>
             <SocketProvider>
-              <NavBar path={window.location.pathname} />
               <Switch>
-                <Route exact path="/" component={Landing} />
-                <Route exact path="/login" component={Login} />
-                <Route exact path="/signup" component={Signup} />
-                <Route exact path="/dashboard">
-                  <Dashboard />
-                </Route>
-                <Route exact path="/my-jobs">
-                  <Dashboard />
-                </Route>
-                <Route exact path="/messages">
-                  <Dashboard />
-                </Route>
-                <Route exact path="/my-sitters">
-                  <Dashboard />
-                </Route>
-                <Route exact path="/edit-profile" component={EditMenu} />
+                <NavBar pathname={window.location.pathname}>
+                  <Route exact path="/" component={Landing} />
+                  <Route exact path="/login" component={Login} />
+                  <Route exact path="/signup" component={Signup} />
+                  <Route exact path="/dashboard">
+                    <Dashboard />
+                  </Route>
+                  <Route exact path="/my-jobs">
+                    <Dashboard />
+                  </Route>
+                  <Route exact path="/messages">
+                    <Dashboard />
+                  </Route>
+                  <Route exact path="/my-sitters">
+                    <Dashboard />
+                  </Route>
+                  <Route exact path="/edit-profile" component={EditMenu} />
 
-                <Route path="*">
-                  <Redirect to="/login" />
-                </Route>
+                  <Route path="*">
+                    <Redirect to="/login" />
+                  </Route>
+                </NavBar>
               </Switch>
             </SocketProvider>
           </AuthProvider>

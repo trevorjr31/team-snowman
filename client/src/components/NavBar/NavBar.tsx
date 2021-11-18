@@ -1,3 +1,4 @@
+import Grid from '@material-ui/core/Grid';
 import AppBar from '@material-ui/core/AppBar';
 import ToolBar from '@material-ui/core/Toolbar';
 import useStyles from './useStyles';
@@ -12,22 +13,25 @@ import LoggedOutBar from './AuthBars/LoggedOutBar';
 import CssBaseline from '@material-ui/core/CssBaseline';
 
 interface Props {
-  path: string;
+  children?: React.ReactNode;
+  pathname: string;
 }
 
-const NavBar = ({ path }: Props): JSX.Element => {
-  const [isLandingPage, setIsLandingPage] = useState<boolean>(path === '/');
+const NavBar = ({ children, pathname }: Props): JSX.Element => {
+  const [isLandingPage, setIsLandingPage] = useState<boolean>(false);
   const classes = useStyles();
-
   const { loggedInUser } = useAuth();
   const { initSocket } = useSocket();
 
   const history = useHistory();
-
   useEffect(() => {
-    console.log(path);
-    setIsLandingPage(path === '/');
-  }, [path]);
+    console.log(history.location.pathname);
+    if (history.location.pathname === '/') {
+      setIsLandingPage(true);
+    } else {
+      setIsLandingPage(false);
+    }
+  }, [history.location.pathname]);
 
   useEffect(() => {
     initSocket();
@@ -36,17 +40,20 @@ const NavBar = ({ path }: Props): JSX.Element => {
   if (loggedInUser === undefined) return <CircularProgress />;
 
   return (
-    <AppBar
-      elevation={path === '/' ? 0 : 6}
-      className={isLandingPage ? classes.landingPageBar : classes.appbar}
-      position="absolute"
-    >
-      <CssBaseline />
-      <ToolBar className={classes.toolbar}>
-        <img src={logo} alt="logo" />
-        {loggedInUser ? <LoggedInBar /> : <LoggedOutBar isLandingPage={isLandingPage} />}
-      </ToolBar>
-    </AppBar>
+    <Grid>
+      <AppBar
+        elevation={history.location.pathname === '/' ? 0 : 6}
+        className={isLandingPage ? classes.landingPageBar : classes.appbar}
+        position="absolute"
+      >
+        <CssBaseline />
+        <ToolBar className={classes.toolbar}>
+          <img src={logo} alt="logo" />
+          {loggedInUser ? <LoggedInBar /> : <LoggedOutBar isLandingPage={isLandingPage} />}
+        </ToolBar>
+      </AppBar>
+      {children}
+    </Grid>
   );
 };
 

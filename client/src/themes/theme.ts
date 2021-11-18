@@ -25,10 +25,15 @@ export const theme = createMuiTheme({
       fontFamily: "'Roboto'",
       textAlign: 'center',
     },
+    subtitle1: {
+      fontSize: 14,
+      color: '#ffffff',
+      fontFamily: "'Roboto'",
+    },
   },
   palette: {
     primary: { main: '#f14140' },
-    secondary: { main: '#FFFFFF' },
+    secondary: { main: '#ffffff' },
   },
   shape: {
     borderRadius: 5,
