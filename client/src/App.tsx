@@ -6,11 +6,13 @@ import Signup from './pages/SignUp/SignUp';
 import Dashboard from './pages/Dashboard/Dashboard';
 import NavBar from './components/NavBar/NavBar';
 import EditMenu from './components/EditProfile/EditMenu';
+import Landing from './pages/Landing/Landing';
 import { AuthProvider } from './context/useAuthContext';
 import { SocketProvider } from './context/useSocketContext';
 import { SnackBarProvider } from './context/useSnackbarContext';
 
 import './App.css';
+import ReactDOM from 'react-dom';
 
 function App(): JSX.Element {
   return (
@@ -19,8 +21,9 @@ function App(): JSX.Element {
         <SnackBarProvider>
           <AuthProvider>
             <SocketProvider>
-              <NavBar />
+              <NavBar path={window.location.pathname} />
               <Switch>
+                <Route exact path="/" component={Landing} />
                 <Route exact path="/login" component={Login} />
                 <Route exact path="/signup" component={Signup} />
                 <Route exact path="/dashboard">

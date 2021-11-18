@@ -6,12 +6,17 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import { useAuth } from '../../context/useAuthContext';
 import { useSocket } from '../../context/useSocketContext';
 import { useHistory } from 'react-router-dom';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import LoggedInBar from './AuthBars/LoggedInBar';
 import LoggedOutBar from './AuthBars/LoggedOutBar';
 import CssBaseline from '@material-ui/core/CssBaseline';
 
-const NavBar = (): JSX.Element => {
+interface Props {
+  path: string;
+}
+
+const NavBar = ({ path }: Props): JSX.Element => {
+  const [isLandingPage, setIsLandingPage] = useState<boolean>(path === '/');
   const classes = useStyles();
 
   const { loggedInUser } = useAuth();
@@ -20,17 +25,26 @@ const NavBar = (): JSX.Element => {
   const history = useHistory();
 
   useEffect(() => {
+    console.log(path);
+    setIsLandingPage(path === '/');
+  }, [path]);
+
+  useEffect(() => {
     initSocket();
   }, [initSocket]);
 
   if (loggedInUser === undefined) return <CircularProgress />;
 
   return (
-    <AppBar className={classes.appbar} position="absolute">
+    <AppBar
+      elevation={path === '/' ? 0 : 6}
+      className={isLandingPage ? classes.landingPageBar : classes.appbar}
+      position="absolute"
+    >
       <CssBaseline />
       <ToolBar className={classes.toolbar}>
         <img src={logo} alt="logo" />
-        {loggedInUser ? <LoggedInBar /> : <LoggedOutBar />}
+        {loggedInUser ? <LoggedInBar /> : <LoggedOutBar isLandingPage={isLandingPage} />}
       </ToolBar>
     </AppBar>
   );
