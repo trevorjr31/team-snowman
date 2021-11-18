@@ -7,21 +7,23 @@ import Typography from '@material-ui/core/Typography';
 import useStyles from './useStyles';
 import { CircularProgress } from '@material-ui/core';
 import AuthFooter from '../../../components/AuthFooter/AuthFooter';
-
+import AdapterDateFns from '@mui/lab/AdapterDateFns';
+import LocalizationProvider from '@mui/lab/LocalizationProvider';
+import DatePicker from '@mui/lab/DatePicker';
 interface Props {
   handleSubmit: (
     {
-      email,
+      address,
       password,
     }: {
-      email: string;
+      address: string;
       password: string;
     },
     {
       setStatus,
       setSubmitting,
     }: FormikHelpers<{
-      email: string;
+      address: string;
       password: string;
     }>,
   ) => void;
@@ -33,11 +35,11 @@ export default function FindSitter({ handleSubmit }: Props): JSX.Element {
   return (
     <Formik
       initialValues={{
-        email: '',
+        address: '',
         password: '',
       }}
       validationSchema={Yup.object().shape({
-        email: Yup.string().required('Email is required').email('Email is not valid'),
+        address: Yup.string().required('Address is required'),
         password: Yup.string()
           .required('Password is required')
           .max(100, 'Password is too long')
@@ -47,11 +49,13 @@ export default function FindSitter({ handleSubmit }: Props): JSX.Element {
     >
       {({ handleSubmit, handleChange, values, touched, errors, isSubmitting }) => (
         <form onSubmit={handleSubmit} className={classes.form} noValidate>
+          <Typography className={classes.label} variant="subtitle1">
+            where
+          </Typography>
           <TextField
-            id="email"
-            label={<Typography className={classes.label}>E-mail address</Typography>}
+            id="address"
             fullWidth
-            margin="normal"
+            margin="none"
             InputLabelProps={{
               shrink: true,
             }}
@@ -59,14 +63,26 @@ export default function FindSitter({ handleSubmit }: Props): JSX.Element {
               classes: { input: classes.inputs },
             }}
             variant="outlined"
-            name="email"
-            autoComplete="email"
+            name="address"
+            autoComplete="address"
             autoFocus
-            helperText={touched.email ? errors.email : ''}
-            error={touched.email && Boolean(errors.email)}
-            value={values.email}
+            placeholder="Anywhere"
+            value={values.address}
             onChange={handleChange}
           />
+          <LocalizationProvider dateAdapter={AdapterDateFns}>
+            <DatePicker
+              disablePast
+              label="Responsive"
+              openTo="year"
+              views={['year', 'month', 'day']}
+              value={value}
+              onChange={(newValue) => {
+                setValue(newValue);
+              }}
+              renderInput={(params) => <TextField {...params} />}
+            />
+          </LocalizationProvider>
           <TextField
             id="password"
             label={<Typography className={classes.label}>Password</Typography>}

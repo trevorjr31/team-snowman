@@ -16,10 +16,10 @@ export default function Landing(): JSX.Element {
   const { updateSnackBarMessage } = useSnackBar();
 
   const handleSubmit = (
-    { email, password }: { email: string; password: string },
-    { setSubmitting }: FormikHelpers<{ email: string; password: string }>,
+    { address, password }: { address: string; password: string },
+    { setSubmitting }: FormikHelpers<{ address: string; password: string }>,
   ) => {
-    login(email, password).then((data) => {
+    login(address, password).then((data) => {
       if (data.error) {
         setSubmitting(false);
         updateSnackBarMessage(data.error.message);
@@ -43,8 +43,8 @@ export default function Landing(): JSX.Element {
           <Box width="100%" maxWidth={450} p={3} alignSelf="center">
             <Grid container>
               <Grid item xs>
-                <Typography className={classes.welcome} component="h1" variant="h5">
-                  Welcome back!
+                <Typography className={classes.welcome} component="h1" variant="h2">
+                  Find the care your dog deserves
                 </Typography>
               </Grid>
             </Grid>

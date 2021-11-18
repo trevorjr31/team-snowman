@@ -24,7 +24,8 @@ const useStyles = makeStyles(() => ({
     minHeight: '100%',
   },
   welcome: {
-    paddingBottom: 20,
+    padding: '100px 0px 30px 0px',
+    width: 300,
   },
 }));
 
