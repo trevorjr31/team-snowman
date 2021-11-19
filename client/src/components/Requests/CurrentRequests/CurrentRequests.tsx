@@ -1,11 +1,7 @@
-import { Paper, Typography, Grid, IconButton } from '@material-ui/core';
+import { Paper, Typography, Grid } from '@material-ui/core';
 import Box from '@material-ui/core/Box';
-import Request from '../../../interface/Request';
 import useStyles from './useStyles';
-import Avatar from '@material-ui/core/Avatar';
-import SettingsIcon from '@material-ui/icons/Settings';
 import RequestListing from '../RequestListing/RequestListing';
-import RequestMenu from '../RequestMenu/RequestMenu';
 import RequestData from '../../../interface/Request';
 
 interface Props {
