@@ -8,6 +8,7 @@ import Typography from '@material-ui/core/Typography';
 import useStyles from './useStyles';
 import DeleteSharpIcon from '@material-ui/icons/DeleteSharp';
 import IconButton from '@material-ui/core/IconButton';
+import { uploadImage } from '../../../helpers/APICalls/uploadImage';
 
 export default function EditPhoto(): JSX.Element {
   const [file, setFile] = useState<string>('');
@@ -21,6 +22,11 @@ export default function EditPhoto(): JSX.Element {
     input.onchange = () => {
       const files = input.files;
       setFile(files === null ? '' : URL.createObjectURL(files[0]));
+      uploadImage({ file: files[0] })
+        .then()
+        .catch(() => ({
+          error: { message: 'Unable to connect to server. Please try again' },
+        }));
     };
     input.click();
   }
