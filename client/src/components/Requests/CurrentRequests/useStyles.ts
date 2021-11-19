@@ -16,7 +16,6 @@ const useStyles = makeStyles(() => ({
       background: 'grey',
       borderRadius: theme.shape.borderRadius,
     },
-    /* Handle on hover */
     '&::-webkit-scrollbar-thumb:hover': {
       background: '#555',
     },

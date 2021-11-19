@@ -26,5 +26,5 @@ export default function RequestCalendar(): JSX.Element {
       </Grid>
     );
   }
-  return <Box></Box>;
+  return <Box />;
 }

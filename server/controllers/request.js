@@ -2,7 +2,6 @@ const Request = require("../models/Request");
 const User = require("../models/User");
 const asyncHandler = require("express-async-handler");
 
-//two helpers to process requests for frontend
 const sortRequests = (listToSort) => {
   return listToSort.sort(function(reqA, reqB) {
     return Date.parse(reqA.duration.start) < Date.parse(reqB.duration.start);
@@ -68,7 +67,6 @@ exports.getRequest = asyncHandler(async (req, res, next) => {
   let nextRequest = null;
   const requests = await Request.find({ sitterId: req.user.id });
   for (let request of requests) {
-    //Sort and process requests for the Frontend
     request = JSON.parse(JSON.stringify(request));
     const sitterInfo = await User.findById(request.sitterId);
     request.sitterInfo = {};
