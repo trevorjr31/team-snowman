@@ -17,7 +17,7 @@ const RequestMenu = ({ request }: Props): JSX.Element => {
   const classes = useStyles();
   const [menuToggle, setmenuToggle] = React.useState<null | HTMLElement>(null);
   if (request) {
-    const accepted = request.accepted == true;
+    const accepted = request.accepted === true;
 
     const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
       setmenuToggle(event.currentTarget);
