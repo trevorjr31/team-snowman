@@ -25,7 +25,6 @@ const organizeRequests = async (requests) => {
   let after = [];
   let nextRequest = null;
   for (let request of requests) {
-    //Sort and process requests for the Frontend
     request = JSON.parse(JSON.stringify(request));
     const sitterInfo = await User.findById(request.sitterId);
     request.sitterInfo = {};

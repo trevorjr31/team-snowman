@@ -17,8 +17,6 @@ const RequestMenu = ({ request }: Props): JSX.Element => {
   const classes = useStyles();
   const [menuToggle, setmenuToggle] = React.useState<null | HTMLElement>(null);
   if (request) {
-    const accepted = request.accepted == true;
-
     const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
       setmenuToggle(event.currentTarget);
     };
@@ -36,10 +34,10 @@ const RequestMenu = ({ request }: Props): JSX.Element => {
           <SettingsIcon />
         </IconButton>
         <Menu id="request-menu" anchorEl={menuToggle} keepMounted open={Boolean(menuToggle)} onClose={handleClose}>
-          <MenuItem className={classes.menuText} disabled={accepted} onClick={() => handleSubmit('accept')}>
+          <MenuItem className={classes.menuText} disabled={request.accepted} onClick={() => handleSubmit('accept')}>
             Accept
           </MenuItem>
-          <MenuItem className={classes.menuText} disabled={!accepted} onClick={() => handleSubmit('decline')}>
+          <MenuItem className={classes.menuText} disabled={!request.accepted} onClick={() => handleSubmit('decline')}>
             Decline
           </MenuItem>
         </Menu>

@@ -41,7 +41,7 @@ exports.makeRequest = asyncHandler(async (req, res, next) => {
 // @desc Get requests for a logged in user
 // @access Private
 exports.getRequest = asyncHandler(async (req, res, next) => {
-  let requests = await Request.find({ sitterId: req.user.id });
+  const requests = await Request.find({ sitterId: req.user.id });
   const processedRequests = await organizeRequests(requests);
   res.status(200).json({
     success: {
@@ -68,7 +68,7 @@ exports.editRequest = asyncHandler(async (req, res, next) => {
     { new: true }
   );
   if (updatedRequest) {
-    let requests = await Request.find({ sitterId: req.user.id });
+    const requests = await Request.find({ sitterId: req.user.id });
     const processedRequests = await organizeRequests(requests);
     res.status(200).json({
       success: {
