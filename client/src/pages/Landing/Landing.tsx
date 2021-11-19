@@ -4,7 +4,6 @@ import Grid from '@material-ui/core/Grid';
 import { FormikHelpers } from 'formik';
 import Typography from '@material-ui/core/Typography';
 import useStyles from './useStyles';
-import login from '../../helpers/APICalls/login';
 import FindSitter from './LandingForm/LandingForm';
 import { useAuth } from '../../context/useAuthContext';
 import { useSnackBar } from '../../context/useSnackbarContext';
@@ -16,23 +15,10 @@ export default function Landing(): JSX.Element {
   const { updateSnackBarMessage } = useSnackBar();
 
   const handleSubmit = (
-    { address, password }: { address: string; password: string },
-    { setSubmitting }: FormikHelpers<{ address: string; password: string }>,
+    { address, startDate, endDate }: { address: string; startDate: Date; endDate: Date },
+    { setSubmitting }: FormikHelpers<{ address: string; startDate: Date; endDate: Date }>,
   ) => {
-    login(address, password).then((data) => {
-      if (data.error) {
-        setSubmitting(false);
-        updateSnackBarMessage(data.error.message);
-      } else if (data.success) {
-        updateLoginContext(data.success);
-      } else {
-        // should not get here from backend but this catch is for an unknown issue
-        console.error({ data });
-
-        setSubmitting(false);
-        updateSnackBarMessage('An unexpected error occurred. Please try again');
-      }
-    });
+    //construct this function in the next ticket
   };
 
   return (

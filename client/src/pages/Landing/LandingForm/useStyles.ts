@@ -19,19 +19,20 @@ const useStyles = makeStyles((theme) => ({
     fontSize: 18,
     margin: 0,
   },
+  datePicker: {
+    width: 300,
+  },
   forgot: {
     paddingRight: 10,
   },
   submit: {
-    margin: theme.spacing(3, 2, 2),
-    padding: 10,
-    width: 160,
-    height: 56,
+    width: 300,
+    height: 70,
     borderRadius: theme.shape.borderRadius,
-    marginTop: 49,
+    marginTop: 36,
     fontSize: 16,
     backgroundColor: '#f14140',
-    fontWeight: 'bold',
+    fontWeight: 600,
   },
 }));
 
