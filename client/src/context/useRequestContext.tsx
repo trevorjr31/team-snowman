@@ -24,7 +24,6 @@ export const RequestProvider: FunctionComponent = ({ children }): JSX.Element =>
   }, []);
 
   const sendResponse = async (bookingStatus: string, sitterId: string) => {
-    console.log(`HI FROM CONTEXT, ${bookingStatus} ${sitterId}`);
     const updated = await updateRequest(bookingStatus, sitterId);
     updateRequests(updated);
   };
