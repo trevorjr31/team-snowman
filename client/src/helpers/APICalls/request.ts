@@ -1,7 +1,7 @@
 import { FetchOptions } from '../../interface/FetchOptions';
 import RequestData from '../../interface/Request';
 
-const fetchRequests = async (): Promise<RequestData> => {
+export const fetchRequests = async (): Promise<RequestData> => {
   const fetchOptions: FetchOptions = {
     method: 'GET',
     headers: { 'Content-Type': 'application/json' },
@@ -18,4 +18,21 @@ const fetchRequests = async (): Promise<RequestData> => {
     }));
 };
 
-export default fetchRequests;
+export const updateRequest = async (bookingStatus: string, requestId: string): Promise<RequestData> => {
+  const accepted = bookingStatus == 'accept' ? true : false;
+  const fetchOptions: FetchOptions = {
+    method: 'PATCH',
+    body: `{"accepted":${accepted},"_id": "${requestId}"}`,
+    headers: { 'Content-Type': 'application/json' },
+    credentials: 'include',
+  };
+  return await fetch(`/request`, fetchOptions)
+    .then((res) => res.json())
+    .then((data) => {
+      const updatedRequestList = data.success.updatedRequests;
+      return updatedRequestList;
+    })
+    .catch(() => ({
+      error: { message: 'Unable to connect to server. Please try again' },
+    }));
+};
