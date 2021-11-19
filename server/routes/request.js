@@ -11,6 +11,6 @@ router.route("/").post(protect, makeRequest);
 
 router.route("/").get(protect, getRequest);
 
-router.route("/").patch(protect, editRequest);
+router.route("/:id").patch(protect, editRequest);
 
 module.exports = router;

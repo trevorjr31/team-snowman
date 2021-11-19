@@ -52,8 +52,8 @@ exports.getRequest = asyncHandler(async (req, res) => {
 // @desc Update a user's request
 // @access Private
 exports.editRequest = asyncHandler(async (req, res, next) => {
-  const body = req.body;
-  if (!(body || body._id || body.accepted)) {
+  const body = { ...req.params, ...req.query };
+  if (!(body || body.id || body.accepted)) {
     res.status(400);
     throw new Error("Bad Request");
   }
