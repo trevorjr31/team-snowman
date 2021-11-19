@@ -8,7 +8,9 @@ export default function RequestCalendar(): JSX.Element {
   const classes = useStyles();
   const { requests } = useRequest();
   if (requests) {
-    const allRequests = [...requests.before, ...requests.after, requests.nextRequest];
+    const allRequests = requests.nextRequest
+      ? [...requests.before, ...requests.after, requests.nextRequest]
+      : [...requests.before, ...requests.after];
     const entries = [new Date()];
     allRequests.map((request) => {
       if (request.accepted == true) {

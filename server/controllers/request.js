@@ -85,9 +85,11 @@ exports.getRequest = asyncHandler(async (req, res, next) => {
   after = sortRequests(after);
   before = sortRequests(before);
   nextRequest = getNext(after);
-  after = after.filter((req) => {
-    return req._id != nextRequest._id;
-  });
+  if (nextRequest) {
+    after = after.filter((req) => {
+      return req._id != nextRequest._id;
+    });
+  }
 
   res.status(200).json({
     success: {
