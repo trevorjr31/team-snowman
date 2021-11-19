@@ -41,7 +41,7 @@ const CurrentRequests = ({ requests }: Props): JSX.Element => {
             {requests.before.map((pastRequest, i) => {
               return (
                 <Box
-                  key={afterRequest._id}
+                  key={pastRequest._id}
                   width={'440px'}
                   paddingTop={2}
                   marginBottom={1}
