@@ -5,8 +5,12 @@ const asyncHandler = require("express-async-handler");
 // @route POST /request
 // @desc create a new pet sitting request
 // @access Private
-exports.makeRequest = asyncHandler(async (req, res, next) => {
+exports.makeRequest = asyncHandler(async (req, res) => {
   const body = req.body;
+  if (!(body || body.sitterId || body.ownerId || body.duration)) {
+    res.status(400);
+    throw new Error("Bad Request");
+  }
   const sitter = await User.findById(body.sitterId);
   if (!sitter) {
     res.status(404);
@@ -35,11 +39,11 @@ exports.makeRequest = asyncHandler(async (req, res, next) => {
 // @route GET /request
 // @desc Get requests for a logged in user
 // @access Private
-exports.getRequest = asyncHandler(async (req, res, next) => {
+exports.getRequest = asyncHandler(async (req, res) => {
   const requests = await Request.find({ sitterId: req.user.id });
   res.status(200).json({
     success: {
-      requests: requests,
+      requests,
     },
   });
 });
@@ -49,6 +53,10 @@ exports.getRequest = asyncHandler(async (req, res, next) => {
 // @access Private
 exports.editRequest = asyncHandler(async (req, res, next) => {
   const body = req.body;
+  if (!(body || body._id || body.accepted)) {
+    res.status(400);
+    throw new Error("Bad Request");
+  }
   const verifyUser = await Request.findOne({ _id: body.id });
 
   if (req.user.id != (verifyUser.ownerId || verifyUser.sitterId)) {
