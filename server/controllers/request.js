@@ -26,8 +26,12 @@ const getNext = (upcomingRequests) => {
 // @route POST /request
 // @desc create a new pet sitting request
 // @access Private
-exports.makeRequest = asyncHandler(async (req, res, next) => {
+exports.makeRequest = asyncHandler(async (req, res) => {
   const body = req.body;
+  if (!(body || body.sitterId || body.ownerId || body.duration)) {
+    res.status(400);
+    throw new Error("Bad Request");
+  }
   const sitter = await User.findById(body.sitterId);
   if (!sitter) {
     res.status(404);
@@ -100,7 +104,11 @@ exports.getRequest = asyncHandler(async (req, res, next) => {
 // @desc Update a user's request
 // @access Private
 exports.editRequest = asyncHandler(async (req, res, next) => {
-  const body = req.body;
+  const body = { ...req.params, ...req.query };
+  if (!(body || body.id || body.accepted)) {
+    res.status(400);
+    throw new Error("Bad Request");
+  }
   const verifyUser = await Request.findOne({ _id: body.id });
 
   if (req.user.id != (verifyUser.ownerId || verifyUser.sitterId)) {
