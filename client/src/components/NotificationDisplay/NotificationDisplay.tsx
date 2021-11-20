@@ -61,7 +61,7 @@ const NotificationLink = (): JSX.Element => {
       </Box>
     );
   }
-  return <Box />;
+  return <Typography variant="h3">Notifications</Typography>;
 };
 
 export default NotificationLink;
