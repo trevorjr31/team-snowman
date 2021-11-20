@@ -71,16 +71,16 @@ exports.getNewNotifications = asyncHandler(async (req, res) => {
 // @desc all user notifications
 // @access Private
 exports.getAllNotifications = asyncHandler(async (req, res) => {
-  const AllNotifications = await Notification.find({
+  const allNotifications = await Notification.find({
     userId: req.user.id,
   });
-  if (!AllNotifications) {
+  if (!allNotifications) {
     res.status(500);
     throw new Error("Error handling request");
   }
   res.status(200).json({
     success: {
-      AllNotifications,
+      allNotifications,
     },
   });
 });
@@ -89,7 +89,7 @@ exports.getAllNotifications = asyncHandler(async (req, res) => {
 // @desc read user notifications
 // @access Private
 exports.readNotifications = asyncHandler(async (req, res) => {
-  success = await Notifiication.updateMany(
+  success = await Notification.updateMany(
     { userId: req.user.id },
     { read: true }
   );
