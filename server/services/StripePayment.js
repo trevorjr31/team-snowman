@@ -20,7 +20,41 @@ const stripePayment = async (req, res, next) => {
     cancel_url: `${process.env.DOMAIN}/?canceled=true`,
   });
 
-  res.redirect(303, session.url);
+  res.json({url: session.url})
+};
+
+const createCustomer = async (req, res, next) => {
+  const customer = await stripe.customers.create({
+    description: 'Pet Sitter Customer (created for API docs)',
+  });
+
+  req.createdCustomer = customer;
+
+  res
+    .status(200)
+    .send({ customer: customer });
 }
 
-module.exports = stripePayment;
+const subscriptionOneTimePayment = async (req, res, next) => {
+  const session = await stripe.checkout.sessions.create({
+    line_items: [
+      {
+        price: req.body.priceId,
+        quantity: req.body.quantity,
+      },
+    ],
+    mode: 'payment',
+    success_url: `${process.env.DOMAIN}/?success=true&session_id={CHECKOUT_SESSION_ID}`,
+    cancel_url: `${process.env.DOMAIN}/?canceled=true`,
+  });
+
+  res.json({url: session.url});
+};
+
+const StripeServices = { 
+  stripePayment: stripePayment, 
+  createCustomer: createCustomer, 
+  subscriptionOneTimePayment: subscriptionOneTimePayment
+};
+
+module.exports = StripeServices;
