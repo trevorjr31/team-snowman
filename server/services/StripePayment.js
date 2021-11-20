@@ -21,6 +21,20 @@ const stripePayment = async (req, res, next) => {
   });
 
   res.redirect(303, session.url);
+};
+
+const createCustomer = async (req, res, next) => {
+  const customer = await stripe.customers.create({
+    description: 'Pet Sitter Customer (created for API docs)',
+  });
+
+  req.createdCustomer = customer;
+
+  res
+    .status(200)
+    .send({ customer: customer });
 }
 
-module.exports = stripePayment;
+
+const StripeServices = { stripePayment: stripePayment, createCustomer: createCustomer };
+module.exports = StripeServices;
