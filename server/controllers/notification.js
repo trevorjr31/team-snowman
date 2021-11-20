@@ -74,7 +74,7 @@ exports.getAllNotifications = asyncHandler(async (req, res) => {
   const AllNotifcations = await Notification.find({
     userId: req.user.id,
   });
-  if (!newNotifcations) {
+  if (!AllNotifcations) {
     res.status(500);
     throw new Error("Error handling request");
   }
