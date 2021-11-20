@@ -11,6 +11,8 @@ import { AuthProvider } from './context/useAuthContext';
 import { SocketProvider } from './context/useSocketContext';
 import { SnackBarProvider } from './context/useSnackbarContext';
 
+import EditPhoto from './components/EditProfile/EditPhoto/EditPhoto';
+
 import './App.css';
 
 function App(): JSX.Element {
@@ -40,6 +42,7 @@ function App(): JSX.Element {
                     <Dashboard />
                   </Route>
                   <Route exact path="/edit-profile" component={EditMenu} />
+                  <Route exact path="/edit-image" component={EditPhoto} />
                 </NavBar>
               </Switch>
             </SocketProvider>

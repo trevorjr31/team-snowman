@@ -36,6 +36,11 @@ export const theme = createMuiTheme({
       color: '#ffffff',
       fontFamily: "'Roboto'",
     },
+    h6: {
+      fontSize: 12,
+      color: '#888888',
+      textAlign: 'center',
+    },
   },
   palette: {
     primary: { main: '#f14140' },
