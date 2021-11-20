@@ -13,13 +13,11 @@ const CurrentRequests = ({ requests }: Props): JSX.Element => {
 
   if (requests) {
     return (
-      <Grid className={classes.root} component={Paper} elevation={2}>
+      <Grid container className={classes.root} component={Paper} elevation={2}>
         <Box>
-          <Box>
-            <Typography className={classes.heading}>current requests:</Typography>
-          </Box>
-          <Grid className={classes.listing}>
-            {requests.after.map((afterRequest, i) => {
+          <Typography className={classes.heading}>current requests:</Typography>
+          <Grid item className={classes.listing}>
+            {requests.after.map((afterRequest) => {
               return (
                 <Box
                   key={afterRequest._id}
@@ -34,11 +32,9 @@ const CurrentRequests = ({ requests }: Props): JSX.Element => {
               );
             })}
           </Grid>
-          <Box>
-            <Typography className={classes.heading}>past requests:</Typography>
-          </Box>
-          <Grid className={classes.listing}>
-            {requests.before.map((pastRequest, i) => {
+          <Typography className={classes.heading}>past requests:</Typography>
+          <Grid item className={classes.listing}>
+            {requests.before.map((pastRequest) => {
               return (
                 <Box
                   key={pastRequest._id}
@@ -57,7 +53,11 @@ const CurrentRequests = ({ requests }: Props): JSX.Element => {
       </Grid>
     );
   }
-  return <Box component="main"></Box>;
+  return (
+    <Grid container className={classes.root} component={Paper} elevation={2}>
+      <Typography className={classes.heading}>no active requests</Typography>
+    </Grid>
+  );
 };
 
 export default CurrentRequests;
