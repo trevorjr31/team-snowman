@@ -34,7 +34,7 @@ const NavBar = ({ children }: Props): JSX.Element => {
   return (
     <Grid>
       <AppBar
-        elevation={history.location.pathname === '/' ? 0 : 5}
+        elevation={history.location.pathname === '/' ? 0 : 6}
         className={isLandingPage ? classes.landingPageBar : classes.appbar}
         position="absolute"
       >
