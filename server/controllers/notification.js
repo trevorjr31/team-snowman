@@ -62,7 +62,7 @@ exports.getNewNotifications = asyncHandler(async (req, res) => {
   }
   res.status(200).json({
     success: {
-      newNotifiications,
+      newNotifications,
     },
   });
 });
@@ -71,7 +71,7 @@ exports.getNewNotifications = asyncHandler(async (req, res) => {
 // @desc all user notifications
 // @access Private
 exports.getAllNotifications = asyncHandler(async (req, res) => {
-  const AllNotifcations = await Notification.find({
+  const AllNotifications = await Notification.find({
     userId: req.user.id,
   });
   if (!AllNotifications) {
