@@ -15,13 +15,7 @@ const useStyles = makeStyles(() => ({
   dogs: {
     width: '100%',
     height: '100%',
-  },
-  authWrapper: {
-    display: 'flex',
-    alignItems: 'flex-start',
-    justifyContent: 'space-between',
-    flexDirection: 'column',
-    minHeight: '100%',
+    objectFit: 'cover',
   },
   welcome: {
     padding: '100px 0px 30px 0px',

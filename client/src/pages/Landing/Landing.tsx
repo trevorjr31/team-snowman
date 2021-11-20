@@ -23,9 +23,14 @@ export default function Landing(): JSX.Element {
 
   return (
     <Grid container component="main" className={classes.root}>
-      <CssBaseline />
-      <Grid className={classes.column}>
-        <Box className={classes.authWrapper}>
+      <Grid item className={classes.column}>
+        <Box
+          display="flex"
+          alignItems="flex-start"
+          justifyContent="space-between"
+          flexDirection="column"
+          minHeight="100%"
+        >
           <Box width="100%" maxWidth={450} p={3} alignSelf="center">
             <Grid container>
               <Grid item xs>
@@ -38,7 +43,7 @@ export default function Landing(): JSX.Element {
           </Box>
         </Box>
       </Grid>
-      <Grid className={classes.column}>
+      <Grid item className={classes.column}>
         <img src={dogs} alt="dogs" className={classes.dogs} />
       </Grid>
     </Grid>
