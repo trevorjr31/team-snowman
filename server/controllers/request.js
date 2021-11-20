@@ -55,14 +55,17 @@ exports.getRequests = asyncHandler(async (req, res) => {
 // @desc Update a user's request
 // @access Private
 exports.editRequest = asyncHandler(async (req, res, next) => {
+  const bodyData = ({
+    duration,
+    accepted,
+    totalCost,
+    completed,
+    notes,
+    viewed,
+  } = req.body);
   const newRequestData = {
     ...req.params,
-    duration: req.body.duration,
-    accepted: req.body.accepted,
-    totalCost: req.body.totalCost,
-    completed: req.body.completed,
-    notes: req.body.notes,
-    viewed: req.body.viewed,
+    ...bodyData,
   };
   if (!(newRequestData || newRequestData.id || newRequestData.accepted)) {
     res.status(400);
