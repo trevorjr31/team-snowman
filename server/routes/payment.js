@@ -5,6 +5,6 @@ const {
   payment,
 } = require('../controllers/payment');
 
-router.route('/create-checkout-session').post(protect, payment);
+router.route('/:id/pay').post(protect, payment);
 
 module.exports = router;
