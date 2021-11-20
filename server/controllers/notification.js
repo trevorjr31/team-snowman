@@ -52,17 +52,17 @@ exports.createNotification = asyncHandler(async (req, res) => {
 // @desc Get user profile data
 // @access Private
 exports.getNewNotifications = asyncHandler(async (req, res) => {
-  const newNotifcations = await Notification.find({
+  const newNotifications = await Notification.find({
     userId: req.user.id,
     read: false,
   });
-  if (!newNotifcations) {
+  if (!newNotifications) {
     res.status(500);
     throw new Error("Error handling request");
   }
   res.status(200).json({
     success: {
-      newNotifcations,
+      newNotifiications,
     },
   });
 });
@@ -74,13 +74,13 @@ exports.getAllNotifications = asyncHandler(async (req, res) => {
   const AllNotifcations = await Notification.find({
     userId: req.user.id,
   });
-  if (!AllNotifcations) {
+  if (!AllNotifications) {
     res.status(500);
     throw new Error("Error handling request");
   }
   res.status(200).json({
     success: {
-      AllNotifcations,
+      AllNotifications,
     },
   });
 });
@@ -89,7 +89,7 @@ exports.getAllNotifications = asyncHandler(async (req, res) => {
 // @desc read user notifications
 // @access Private
 exports.readNotifications = asyncHandler(async (req, res) => {
-  success = await Notification.updateMany(
+  success = await Notifiication.updateMany(
     { userId: req.user.id },
     { read: true }
   );
@@ -97,13 +97,13 @@ exports.readNotifications = asyncHandler(async (req, res) => {
     res.status(500);
     throw new Error("Error hanlding request");
   }
-  const newNotifcations = await Notification.find({
+  const newNotifications = await Notifiication.find({
     userId: req.user.id,
     read: false,
   });
   res.status(200).json({
     success: {
-      newNotifcations,
+      newNotifications,
     },
   });
 });
