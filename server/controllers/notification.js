@@ -20,32 +20,32 @@ const notifications = {
 // @desc create notification
 // @access Private
 exports.createNotification = asyncHandler(async (req, res) => {
-  const sender = rep.params.sender;
-  const type = req.params.type;
-  const userId = req.params.userId;
+  const { sender, type } = req.query;
+  const userId = req.params.id;
 
-  if (!sender | type | userid) {
+  if (!sender | !type | !userId) {
     res.status(400);
     throw new Error("Bad Request");
   }
 
   const newNotification = await Notification.create({
     type,
-    title: notifications.type.title,
-    description: `${notifications.type.message}${sender}`,
-    date: new Date.now(),
+    title: notifications[type].title,
+    description: `${notifications[type].message}${sender}`,
+    date: Date.now(),
     userId,
   });
 
-  if (!newNotification) {
+  if (newNotification) {
     res.status(200).json({
       success: {
         profile: newNotification,
       },
     });
+  } else {
+    res.status(500);
+    throw new Error("Error handling request");
   }
-  res.status(500);
-  throw new Error("Error handling request");
 });
 
 // @route GET /notification
@@ -56,7 +56,7 @@ exports.getNewNotifications = asyncHandler(async (req, res) => {
     userId: req.user.id,
     read: false,
   });
-  if (!newNotifcations && newNotifcations == []) {
+  if (!newNotifcations) {
     res.status(500);
     throw new Error("Error handling request");
   }
@@ -74,7 +74,7 @@ exports.getAllNotifications = asyncHandler(async (req, res) => {
   const newNotifcations = await Notification.find({
     userId: req.user.id,
   });
-  if (!newNotifcations && newNotifcations == []) {
+  if (!newNotifcations) {
     res.status(500);
     throw new Error("Error handling request");
   }
