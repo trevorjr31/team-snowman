@@ -71,7 +71,7 @@ exports.getNewNotifications = asyncHandler(async (req, res) => {
 // @desc all user notifications
 // @access Private
 exports.getAllNotifications = asyncHandler(async (req, res) => {
-  const newNotifcations = await Notification.find({
+  const AllNotifcations = await Notification.find({
     userId: req.user.id,
   });
   if (!newNotifcations) {
@@ -80,7 +80,7 @@ exports.getAllNotifications = asyncHandler(async (req, res) => {
   }
   res.status(200).json({
     success: {
-      newNotifcations,
+      AllNotifcations,
     },
   });
 });
@@ -99,6 +99,7 @@ exports.readNotifications = asyncHandler(async (req, res) => {
   }
   const newNotifcations = await Notification.find({
     userId: req.user.id,
+    read: false,
   });
   res.status(200).json({
     success: {
