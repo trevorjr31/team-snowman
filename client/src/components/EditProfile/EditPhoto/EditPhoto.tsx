@@ -21,12 +21,14 @@ export default function EditPhoto(): JSX.Element {
     input.accept = 'image/png, image/jpeg';
     input.onchange = () => {
       const files = input.files;
-      setFile(files === null ? '' : URL.createObjectURL(files[0]));
-      uploadImage({ file: files[0] })
-        .then()
-        .catch(() => ({
-          error: { message: 'Unable to connect to server. Please try again' },
-        }));
+      if (files) {
+        setFile(URL.createObjectURL(files[0]));
+        uploadImage({ file: files[0] })
+          .then()
+          .catch(() => ({
+            error: { message: 'Unable to connect to server. Please try again' },
+          }));
+      }
     };
     input.click();
   }
