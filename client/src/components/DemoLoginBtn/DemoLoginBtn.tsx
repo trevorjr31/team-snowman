@@ -27,10 +27,8 @@ export default function DemoLoginBtn(): JSX.Element {
   };
 
   return (
-    <Box>
-      <Button size="large" className={classes.btn} color="primary" variant="outlined" onClick={handleDemoLogin}>
-        Demo User Login
-      </Button>
-    </Box>
+    <Button size="large" className={classes.btn} color="primary" variant="outlined" onClick={handleDemoLogin}>
+      Demo User Login
+    </Button>
   );
 }
