@@ -39,8 +39,11 @@ exports.makeRequest = asyncHandler(async (req, res) => {
 // @route GET /request
 // @desc Get requests for a logged in user
 // @access Private
-exports.getRequest = asyncHandler(async (req, res) => {
-  const requests = await Request.find({ sitterId: req.user.id });
+exports.getRequests = asyncHandler(async (req, res) => {
+  const requests = await Request.find({
+    ownerId: userId,
+    sitterId: req.user.id,
+  });
   res.status(200).json({
     success: {
       requests,
@@ -52,26 +55,34 @@ exports.getRequest = asyncHandler(async (req, res) => {
 // @desc Update a user's request
 // @access Private
 exports.editRequest = asyncHandler(async (req, res, next) => {
-  const body = { ...req.params, ...req.query };
-  if (!(body || body.id || body.accepted)) {
+  const newRequestData = {
+    ...req.params,
+    duration: req.body.duration,
+    accepted: req.body.accepted,
+    totalCost: req.body.totalCost,
+    completed: req.body.completed,
+    notes: req.body.notes,
+    viewed: req.body.viewed,
+  };
+  if (!(newRequestData || newRequestData.id || newRequestData.accepted)) {
     res.status(400);
     throw new Error("Bad Request");
   }
-  const verifyUser = await Request.findOne({ _id: body.id });
+  const verifyUser = await Request.findOne({ _id: newRequestData.id });
 
   if (req.user.id != (verifyUser.ownerId || verifyUser.sitterId)) {
     res.status(401);
     throw new Error("Not authorized");
   }
   const updatedRequest = await Request.findOneAndUpdate(
-    { _id: body.id },
-    body,
+    { _id: newRequestData.id },
+    newRequestData,
     { new: true }
   );
   if (updatedRequest) {
     res.status(200).json({
       success: {
-        updatedRequest: updatedRequest,
+        updatedRequest,
       },
     });
   } else {
