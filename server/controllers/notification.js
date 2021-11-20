@@ -97,7 +97,7 @@ exports.readNotifications = asyncHandler(async (req, res) => {
     res.status(500);
     throw new Error("Error hanlding request");
   }
-  const newNotifications = await Notifiication.find({
+  const newNotifications = await Notification.find({
     userId: req.user.id,
     read: false,
   });
