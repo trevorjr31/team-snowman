@@ -46,8 +46,9 @@ app.use((req, res, next) => {
 app.use("/auth", authRouter);
 app.use("/users", userRouter);
 app.use("/profile", profileRouter);
-
 app.use("/notification", notificationRouter);
+
+
 
 if (process.env.NODE_ENV === "production") {
   app.use(express.static(path.join(__dirname, "/client/build")));
