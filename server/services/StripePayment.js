@@ -20,7 +20,7 @@ const stripePayment = async (req, res, next) => {
     cancel_url: `${process.env.DOMAIN}/?canceled=true`,
   });
 
-  res.redirect(303, session.url);
+  res.json({url: session.url})
 };
 
 const createCustomer = async (req, res, next) => {
@@ -35,6 +35,26 @@ const createCustomer = async (req, res, next) => {
     .send({ customer: customer });
 }
 
+const subscriptionOneTimePayment = async (req, res, next) => {
+  const session = await stripe.checkout.sessions.create({
+    line_items: [
+      {
+        price: req.body.priceId,
+        quantity: req.body.quantity,
+      },
+    ],
+    mode: 'payment',
+    success_url: `${process.env.DOMAIN}/?success=true&session_id={CHECKOUT_SESSION_ID}`,
+    cancel_url: `${process.env.DOMAIN}/?canceled=true`,
+  });
 
-const StripeServices = { stripePayment: stripePayment, createCustomer: createCustomer };
+  res.json({url: session.url});
+};
+
+const StripeServices = { 
+  stripePayment: stripePayment, 
+  createCustomer: createCustomer, 
+  subscriptionOneTimePayment: subscriptionOneTimePayment
+};
+
 module.exports = StripeServices;

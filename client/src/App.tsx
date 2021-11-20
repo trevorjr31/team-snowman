@@ -6,6 +6,7 @@ import Signup from './pages/SignUp/SignUp';
 import Dashboard from './pages/Dashboard/Dashboard';
 import NavBar from './components/NavBar/NavBar';
 import EditMenu from './components/EditProfile/EditMenu';
+import Checkout from './components/Checkout/Checkout';
 import { AuthProvider } from './context/useAuthContext';
 import { SocketProvider } from './context/useSocketContext';
 import { SnackBarProvider } from './context/useSnackbarContext';
@@ -36,6 +37,7 @@ function App(): JSX.Element {
                   <Dashboard />
                 </Route>
                 <Route exact path="/edit-profile" component={EditMenu} />
+                <Route exact path="/checkout" component={Checkout} />
 
                 <Route path="*">
                   <Redirect to="/login" />
