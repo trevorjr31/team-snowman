@@ -1,4 +1,4 @@
-const stripe = require('stripe')('sk_test_51JxhcgLh4SIDIpz9Gb8DSJQyeUBGQ1urUxsnr7ij2CnH8820LlOyXabBVTA1ltlMcNPeWVns66L2ieDUZTddgXjp00TK47fkNS');
+const stripe = require('stripe')(process.env.SECRET_KEY);
 
 const stripePayment = async (req, res, next) => {
   const product = await stripe.products.create({ name: 'Pet Sitter' });
