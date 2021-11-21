@@ -11,13 +11,13 @@ import { Badge } from '@material-ui/core';
 const NotificationLink = (): JSX.Element => {
   const classes = useStyles();
   const { notifications, update } = useNotification();
-  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+  const [notificationDisplay, toggleNotificationDisplay] = React.useState<null | HTMLElement>(null);
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-    setAnchorEl(event.currentTarget);
+    toggleNotificationDisplay(event.currentTarget);
   };
   const handleClose = () => {
     update();
-    setAnchorEl(null);
+    toggleNotificationDisplay(null);
   };
   if (notifications) {
     return (
@@ -30,9 +30,9 @@ const NotificationLink = (): JSX.Element => {
         <Menu
           className={classes.menu}
           id="simple-menu"
-          anchorEl={anchorEl}
+          anchorEl={notificationDisplay}
           keepMounted
-          open={Boolean(anchorEl)}
+          open={Boolean(notificationDisplay)}
           onClose={handleClose}
         >
           {notifications.length < 1 ? (
