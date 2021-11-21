@@ -7,6 +7,8 @@ import Dashboard from './pages/Dashboard/Dashboard';
 import NavBar from './components/NavBar/NavBar';
 import EditMenu from './components/EditProfile/EditMenu';
 import Checkout from './components/Checkout/Checkout';
+import AddCard from './components/AddCard/AddCard';
+import AddCardInfo from './components/AddCard/AddCardInfo/AddCardInfo';
 import { AuthProvider } from './context/useAuthContext';
 import { SocketProvider } from './context/useSocketContext';
 import { SnackBarProvider } from './context/useSnackbarContext';
@@ -38,10 +40,8 @@ function App(): JSX.Element {
                 </Route>
                 <Route exact path="/edit-profile" component={EditMenu} />
                 <Route exact path="/checkout" component={Checkout} />
-
-                <Route path="*">
-                  <Redirect to="/login" />
-                </Route>
+                <Route exact path="/payment-profile" component={AddCard} />
+                <Route exact path="/add-card-info" component={AddCardInfo} />
               </Switch>
             </SocketProvider>
           </AuthProvider>

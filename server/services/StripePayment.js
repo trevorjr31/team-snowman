@@ -20,19 +20,24 @@ const stripePayment = async (req, res, next) => {
     cancel_url: `${process.env.DOMAIN}/?canceled=true`,
   });
 
-  res.json({url: session.url})
+  req.url = session.url;
 };
 
 const createCustomer = async (req, res, next) => {
   const customer = await stripe.customers.create({
     description: 'Pet Sitter Customer (created for API docs)',
+    email: req.email,
   });
-
   req.createdCustomer = customer;
+}
 
-  res
-    .status(200)
-    .send({ customer: customer });
+const getCustomer = async (req, res, next) => {
+  const customer = await stripe.customers.list({
+    email: req.email,
+  });
+  if (customer.data.length > 0) {
+    req.createdCustomer = customer.data[0];
+  }
 }
 
 const subscriptionOneTimePayment = async (req, res, next) => {
@@ -48,13 +53,35 @@ const subscriptionOneTimePayment = async (req, res, next) => {
     cancel_url: `${process.env.DOMAIN}/?canceled=true`,
   });
 
-  res.json({url: session.url});
+  req.url = session.url;
 };
 
-const StripeServices = { 
-  stripePayment: stripePayment, 
-  createCustomer: createCustomer, 
-  subscriptionOneTimePayment: subscriptionOneTimePayment
+const createIntent = async (req, res, next) => {
+  const intent = await stripe.setupIntents.create({
+    customer: req.createdCustomer.id,
+    payment_method_types: ['card'],
+  });
+
+  req.intent = intent;
+};
+
+const getPaymentMethods = async (req, res, next) => {
+  const allPaymentMethods = await stripe.paymentMethods.list({
+    customer: req.createdCustomer.id,
+    type: 'card',
+  });
+  if (customer.data.length > 0) {
+    req.allPaymentMethods = customer.data;
+  }
+}
+
+const StripeServices = {
+  stripePayment: stripePayment,
+  createCustomer: createCustomer,
+  getCustomer: getCustomer,
+  subscriptionOneTimePayment: subscriptionOneTimePayment,
+  createIntent: createIntent,
+  getPaymentMethods: getPaymentMethods
 };
 
 module.exports = StripeServices;
