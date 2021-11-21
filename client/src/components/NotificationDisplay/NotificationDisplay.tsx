@@ -11,7 +11,6 @@ import { Badge } from '@material-ui/core';
 const NotificationLink = (): JSX.Element => {
   const classes = useStyles();
   const { notifications, update } = useNotification();
-  console.log(`notifications`, notifications);
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);

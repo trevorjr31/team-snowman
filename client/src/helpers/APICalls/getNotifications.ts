@@ -11,7 +11,6 @@ export const fetchNotifications = async (): Promise<[Notification]> => {
     .then((res) => res.json())
     .then((data) => {
       const NotificationsList = data.success.newNotifications;
-      console.log('API', NotificationsList);
       return NotificationsList;
     })
     .catch(() => ({
