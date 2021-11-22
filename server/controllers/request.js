@@ -44,6 +44,7 @@ exports.getRequests = asyncHandler(async (req, res) => {
   const requests = await Request.find({
     $or: [{ ownerId: req.user.id }, { sitterId: req.user.id }],
   });
+  const processedRequests = await organizeRequests(requests);
   res.status(200).json({
     success: {
       requests: processedRequests,
