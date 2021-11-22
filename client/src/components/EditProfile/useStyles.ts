@@ -9,6 +9,13 @@ const useStyles = makeStyles(() => ({
     justifyContent: 'center',
     alignItems: 'center',
   },
+  content: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+    flexWrap: 'nowrap',
+  },
   tabContainer: {
     flexGrow: 1,
     display: 'flex',
@@ -21,7 +28,13 @@ const useStyles = makeStyles(() => ({
     borderColor: 'divider',
   },
   tabComponents: {
-    marginTop: 50,
+    flexGrow: 2,
+    marginTop: 80,
+    height: '600px',
+    overflow: 'auto',
+  },
+  tabComponentHolder: {
+    overflow: 'auto',
   },
 }));
 

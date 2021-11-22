@@ -46,43 +46,45 @@ const EditMenu = (): JSX.Element => {
 
   return (
     <Grid container component="main" className={classes.root}>
-      <Grid item xs={6} md={2} lg={2} className={classes.tabContainer}>
-        <Tabs
-          orientation="vertical"
-          variant="scrollable"
-          value={value}
-          className={classes.tabs}
-          onChange={handleChange}
-        >
-          <Tab label="Edit Profile" {...a11yProps(0)} />
-          <Tab label="Profile Photo" {...a11yProps(1)} />
-          <Tab label="Availability" {...a11yProps(2)} />
-          <Tab label="Payment" {...a11yProps(3)} />
-          <Tab label="Security" {...a11yProps(4)} />
-          <Tab label="Settings" {...a11yProps(5)} />
-        </Tabs>
-      </Grid>
-      <Grid component={Paper} className={classes.tabComponents}>
-        <TabPanel value={value} index={0}>
-          <Box style={{ height: '500px', overflow: 'auto' }}>
-            <ProfileForm />
-          </Box>
-        </TabPanel>
-        <TabPanel value={value} index={1}>
-          Profile Photo Placeholder
-        </TabPanel>
-        <TabPanel value={value} index={2}>
-          Availability Placeholder
-        </TabPanel>
-        <TabPanel value={value} index={3}>
-          Payment Placeholder
-        </TabPanel>
-        <TabPanel value={value} index={4}>
-          Security Placeholder
-        </TabPanel>
-        <TabPanel value={value} index={5}>
-          Settings Placeholder
-        </TabPanel>
+      <Grid item xs={9} md={9} lg={9} className={classes.content}>
+        <Grid item className={classes.tabContainer}>
+          <Tabs
+            orientation="vertical"
+            variant="scrollable"
+            value={value}
+            className={classes.tabs}
+            onChange={handleChange}
+          >
+            <Tab label="Edit Profile" {...a11yProps(0)} />
+            <Tab label="Profile Photo" {...a11yProps(1)} />
+            <Tab label="Availability" {...a11yProps(2)} />
+            <Tab label="Payment" {...a11yProps(3)} />
+            <Tab label="Security" {...a11yProps(4)} />
+            <Tab label="Settings" {...a11yProps(5)} />
+          </Tabs>
+        </Grid>
+        <Grid component={Paper} className={classes.tabComponents}>
+          <TabPanel value={value} index={0}>
+            <Box className={classes.tabComponentHolder}>
+              <ProfileForm />
+            </Box>
+          </TabPanel>
+          <TabPanel value={value} index={1}>
+            Profile Photo Placeholder
+          </TabPanel>
+          <TabPanel value={value} index={2}>
+            Availability Placeholder
+          </TabPanel>
+          <TabPanel value={value} index={3}>
+            Payment Placeholder
+          </TabPanel>
+          <TabPanel value={value} index={4}>
+            Security Placeholder
+          </TabPanel>
+          <TabPanel value={value} index={5}>
+            Settings Placeholder
+          </TabPanel>
+        </Grid>
       </Grid>
     </Grid>
   );
