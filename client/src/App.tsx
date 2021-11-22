@@ -13,6 +13,8 @@ import { AuthProvider } from './context/useAuthContext';
 import { SocketProvider } from './context/useSocketContext';
 import { SnackBarProvider } from './context/useSnackbarContext';
 
+import EditPhoto from './components/EditProfile/EditPhoto/EditPhoto';
+
 import './App.css';
 
 function App(): JSX.Element {
@@ -42,6 +44,11 @@ function App(): JSX.Element {
                 <Route exact path="/checkout" component={Checkout} />
                 <Route exact path="/payment-profile" component={AddCard} />
                 <Route exact path="/add-card-info" component={AddCardInfo} />
+                <Route exact path="/edit-image" component={EditPhoto} />
+
+                <Route path="*">
+                  <Redirect to="/login" />
+                </Route>
               </Switch>
             </SocketProvider>
           </AuthProvider>
