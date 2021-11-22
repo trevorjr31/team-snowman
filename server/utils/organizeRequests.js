@@ -23,10 +23,6 @@ const organizeRequests = async (requests) => {
   let nextRequest = null;
   for (let request of requests) {
     request = JSON.parse(JSON.stringify(request));
-    const sitterInfo = await User.findById(request.sitterId);
-    request.sitterInfo = {};
-    request.sitterInfo.username = sitterInfo.username;
-    request.sitterInfo.email = sitterInfo.email;
     if (Date.parse(now) < Date.parse(request.duration.start)) {
       after.push(request);
     } else {
