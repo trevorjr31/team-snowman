@@ -54,7 +54,6 @@ exports.getRequest = asyncHandler(async (req, res, next) => {
 // @desc Update a user's request
 // @access Private
 exports.editRequest = asyncHandler(async (req, res, next) => {
-  console.log(req.body);
   const body = req.body;
   const verifyUser = await Request.findOne({ _id: body._id });
 
