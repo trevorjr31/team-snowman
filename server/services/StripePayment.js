@@ -70,8 +70,8 @@ const getPaymentMethods = async (req, res, next) => {
     customer: req.createdCustomer.id,
     type: 'card',
   });
-  if (customer.data.length > 0) {
-    req.allPaymentMethods = customer.data;
+  if (allPaymentMethods.data.length > 0) {
+    req.allPaymentMethods = allPaymentMethods.data;
   }
 }
 
@@ -81,7 +81,7 @@ const StripeServices = {
   getCustomer: getCustomer,
   subscriptionOneTimePayment: subscriptionOneTimePayment,
   createIntent: createIntent,
-  getPaymentMethods: getPaymentMethods
+  getPaymentMethods: getPaymentMethods,
 };
 
 module.exports = StripeServices;

@@ -7,7 +7,7 @@ const {
   getCustomer,
   subscriptionOneTimePayment,
   createIntent,
-  getPaymentMethods
+  getPaymentMethods,
 } = StripeServices;
 
 // @route POST /:id/single-pay
@@ -41,7 +41,7 @@ exports.payment = asyncHandler(async (req, res, next) => {
 exports.createCustomer = asyncHandler(async (req, res, next) => {
   const id = req.user.id;
   const user = await User.findById(id);
-  req.email=user.email;
+  req.email = user.email;
 
   if (id === req.params.id) {
     await createCustomer(req, res, function (err) {
@@ -69,7 +69,7 @@ exports.createCustomer = asyncHandler(async (req, res, next) => {
 exports.newCustomerCreateIntent = asyncHandler(async (req, res, next) => {
   const id = req.user.id;
   const user = await User.findById(id);
-  req.email=user.email;
+  req.email = user.email;
 
   if (id === req.params.id) {
     await createCustomer(req, res, function (err) {
@@ -114,7 +114,7 @@ exports.newCustomerCreateIntent = asyncHandler(async (req, res, next) => {
 exports.getOrCreateCustomerCreateIntent = asyncHandler(async (req, res, next) => {
   const id = req.user.id;
   const user = await User.findById(id);
-  req.email=user.email;
+  req.email = user.email;
 
   if (id === req.params.id) {
     await getCustomer(req, res, next);
@@ -141,17 +141,25 @@ exports.getOrCreateCustomerCreateIntent = asyncHandler(async (req, res, next) =>
 exports.getAllPaymentMethods = asyncHandler(async (req, res, next) => {
   const id = req.user.id;
   const user = await User.findById(id);
-  req.email=user.email;
-
+  req.email = user.email;
   if (id === req.params.id) {
-    await this.getAllPaymentMethods(req, res, next);
+    await getCustomer(req, res, next);
 
-    res
-      .status(200)
-      .send({
-        message: "Get all payment methods successfully",
-        allPaymentMethods: req.allPaymentMethods
-      });
+    if (req.createdCustomer != undefined) {
+      await getPaymentMethods(req, res, next);
+      res
+        .status(200)
+        .send({
+          message: "Get all payment methods successfully",
+          allPaymentMethods: req.allPaymentMethods
+        });
+    } else {
+      res
+        .status(400)
+        .send({
+          message: "New customer without records"
+        });
+    }
   }
 });
 
@@ -175,7 +183,6 @@ exports.createCheckoutSession = asyncHandler(async (req, res, next) => {
 
       }
     });
-    console.log('abc');
     res
       .status(200)
       .send({ message: "The payment session has been successfully created", url: req.url });

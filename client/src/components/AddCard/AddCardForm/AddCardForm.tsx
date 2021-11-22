@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react';
 import Button from '@material-ui/core/Button';
 import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
@@ -10,6 +11,7 @@ import useStyles from './useStyles';
 import { useAuth } from '../../../context/useAuthContext';
 import { CircularProgress } from '@material-ui/core';
 import { addCard } from '../../../helpers/APICalls/addCard';
+import { getAllPaymentMethods } from '../../../helpers/APICalls/getAllPaymentMethods';
 import { useSnackBar } from '../../../context/useSnackbarContext';
 import { useHistory } from 'react-router-dom';
 
@@ -30,9 +32,25 @@ interface Props {
 }
 
 export default function AddCard({ handleSubmit }: Props): JSX.Element {
+  const [paymentMethods, setPaymentMethods] = useState<any>([{}]);
   const { loggedInUser } = useAuth();
   const { updateSnackBarMessage } = useSnackBar();
   const history = useHistory();
+
+  useEffect(() => {
+    if (loggedInUser != undefined && loggedInUser) {
+      getAllPaymentMethods({ userId: loggedInUser.id }).then((data) => {
+        if (data.error) {
+          updateSnackBarMessage(data.error.message);
+        } else if (data.allPaymentMethods) {
+          console.log(data.allPaymentMethods);
+          setPaymentMethods(data.allPaymentMethods);
+        } else {
+          updateSnackBarMessage('An unexpected error occurred. Please try again');
+        }
+      });
+    }
+  }, [loggedInUser, updateSnackBarMessage]);
 
   const handleAddCard = () => {
     if (loggedInUser != undefined && loggedInUser) {
