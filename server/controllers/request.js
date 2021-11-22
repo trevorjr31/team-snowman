@@ -8,11 +8,11 @@ const asyncHandler = require("express-async-handler");
 // @access Private
 exports.makeRequest = asyncHandler(async (req, res) => {
   const body = req.body;
-  if (!(body || body.sitterId || body.ownerId || body.duration)) {
+  if (!(body || body.sitter || body.owner || body.duration)) {
     res.status(400);
     throw new Error("Bad Request");
   }
-  const sitter = await User.findById(body.sitterId);
+  const sitter = await User.findById(body.sitter);
   if (!sitter) {
     res.status(404);
     throw new Error("Sitter doesn't exist");
@@ -22,8 +22,8 @@ exports.makeRequest = asyncHandler(async (req, res) => {
     throw new Error("Bad Request");
   }
   const newRequest = await Request.create({
-    ownerId: req.user.id,
-    sitterId: body.sitterId,
+    owner: req.user.id,
+    sitter: body.sitter,
     duration: {
       start: new Date(body.duration.start),
       end: new Date(body.duration.end),
@@ -46,11 +46,14 @@ exports.makeRequest = asyncHandler(async (req, res) => {
 // @access Private
 exports.getRequests = asyncHandler(async (req, res) => {
   const requests = await Request.find({
-    $or: [{ ownerId: req.user.id }, { sitterId: req.user.id }],
-  });
+    $or: [{ owner: req.user.id }, { sitter: req.user.id }],
+  })
+    .populate("sitter", ["username", "email", "_id"])
+    .populate("owner", ["username", "email", "_id"]);
+  const processedRequests = await organizeRequests(requests);
   res.status(200).json({
     success: {
-      requests,
+      processedRequests,
     },
   });
 });
@@ -77,7 +80,7 @@ exports.editRequest = asyncHandler(async (req, res, next) => {
   }
   const verifyUser = await Request.findOne({ _id: newRequestData.id });
 
-  if (req.user.id != (verifyUser.ownerId || verifyUser.sitterId)) {
+  if (req.user.id != (verifyUser.owner || verifyUser.sitter)) {
     res.status(401);
     throw new Error("Not authorized");
   }
@@ -87,11 +90,11 @@ exports.editRequest = asyncHandler(async (req, res, next) => {
     { new: true }
   );
   if (updatedRequest) {
-    const requests = await Request.find({ sitterId: req.user.id });
+    const requests = await Request.find({ sitter: req.user.id });
     const processedRequests = await organizeRequests(requests);
     res.status(200).json({
       success: {
-        updatedRequest,
+        processedRequests,
       },
     });
   } else {

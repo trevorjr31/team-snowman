@@ -3,14 +3,14 @@ const Schema = mongoose.Schema;
 const timeSlot = new Schema({ start: Date, end: Date });
 
 const requestSchema = new Schema({
-  ownerId: {
+  owner: {
     type: Schema.Types.ObjectId,
-    ref: "user",
+    ref: "User",
     required: true,
   },
-  sitterId: {
+  sitter: {
     type: Schema.Types.ObjectId,
-    ref: "user",
+    ref: "User",
     required: true,
   },
   duration: {
