@@ -53,7 +53,7 @@ exports.getRequests = asyncHandler(async (req, res) => {
   const processedRequests = await organizeRequests(requests);
   res.status(200).json({
     success: {
-      processedRequests,
+      requests: processedRequests,
     },
   });
 });
@@ -94,7 +94,7 @@ exports.editRequest = asyncHandler(async (req, res, next) => {
     const processedRequests = await organizeRequests(requests);
     res.status(200).json({
       success: {
-        processedRequests,
+        requests: processedRequests,
       },
     });
   } else {
