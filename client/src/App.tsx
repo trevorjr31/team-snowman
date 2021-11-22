@@ -9,6 +9,7 @@ import EditMenu from './components/EditProfile/EditMenu';
 import Checkout from './components/Checkout/Checkout';
 import AddCard from './components/AddCard/AddCard';
 import AddCardInfo from './components/AddCard/AddCardInfo/AddCardInfo';
+import Payment from './components/EditProfile/Payment/Payment';
 import { AuthProvider } from './context/useAuthContext';
 import { SocketProvider } from './context/useSocketContext';
 import { SnackBarProvider } from './context/useSnackbarContext';
@@ -45,6 +46,7 @@ function App(): JSX.Element {
                 <Route exact path="/payment-profile" component={AddCard} />
                 <Route exact path="/add-card-info" component={AddCardInfo} />
                 <Route exact path="/edit-image" component={EditPhoto} />
+                <Route exact path="/edit-payment" component={Payment} />
 
                 <Route path="*">
                   <Redirect to="/login" />
