@@ -13,7 +13,7 @@ export async function uploadImage({ file }: Props) {
     body: data,
   };
   return await fetch(`/profile/upload-image`, fetchOptions)
-    .then((res) => console.log(res.json()))
+    .then((res) => res.json())
     .catch(() => ({
       error: { message: 'Unable to connect to server. Please try again' },
     }));
