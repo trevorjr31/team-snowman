@@ -7,9 +7,8 @@ export default interface Request {
   notes: string;
   viewed: boolean;
   _id: string;
-  ownerId: string;
-  sitterId: string;
-  sitterInfo: { username: string; email: string };
+  owner: { username: string; email: string; _id: string };
+  sitter: { username: string; email: string; _id: string };
   duration: {
     _id: string;
     start: string;

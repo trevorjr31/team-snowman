@@ -42,7 +42,7 @@ const RequestListing = ({ request, component }: Props): JSX.Element => {
         </Box>
         <Box className={classes.ownerInfo} display="flex" alignItems="center">
           <Avatar alt="Profile Image" src={''} />
-          <Typography className={classes.ownerName}>{request.sitterInfo.username}</Typography>
+          <Typography className={classes.ownerName}>{request.sitter.username}</Typography>
           <Typography
             className={
               component == 'nextBooking'
