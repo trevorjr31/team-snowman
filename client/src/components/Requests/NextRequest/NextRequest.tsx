@@ -1,9 +1,7 @@
-import { Paper, Typography, Grid, IconButton } from '@material-ui/core';
+import { Paper, Typography, Grid } from '@material-ui/core';
 import Box from '@material-ui/core/Box';
 import Request from '../../../interface/Request';
 import useStyles from './useStyles';
-import Avatar from '@material-ui/core/Avatar';
-import SettingsIcon from '@material-ui/icons/Settings';
 import RequestListing from '../RequestListing/RequestListing';
 import RequestMenu from '../RequestMenu/RequestMenu';
 
@@ -16,13 +14,13 @@ const NextRequest = ({ request }: Props): JSX.Element => {
 
   if (request) {
     return (
-      <Grid className={classes.root} component={Paper} elevation={2}>
+      <Grid item className={classes.root} component={Paper} elevation={2}>
         <Box>
           <Box display="flex" justifyContent="space-between">
             <Typography className={classes.heading}>your next booking:</Typography>
             <RequestMenu request={request} />
           </Box>
-          <Grid className={classes.listing}>
+          <Grid item className={classes.listing}>
             <RequestListing request={request} component={'nextBooking'}></RequestListing>
           </Grid>
         </Box>
@@ -30,11 +28,9 @@ const NextRequest = ({ request }: Props): JSX.Element => {
     );
   }
   return (
-    <Grid className={classes.root} component={Paper} elevation={2}>
-      <Box>
-        <Box display="flex" marginLeft={-5} paddingBottom={7} padding={5} justifyContent="center">
-          <Typography className={classes.heading}>you have no upcoming jobs</Typography>
-        </Box>
+    <Grid container className={classes.root} component={Paper} elevation={2}>
+      <Box display="flex" marginLeft={-5} paddingBottom={7} padding={5} justifyContent="center">
+        <Typography className={classes.heading}>you have no upcoming jobs</Typography>
       </Box>
     </Grid>
   );

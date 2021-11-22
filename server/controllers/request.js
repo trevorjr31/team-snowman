@@ -6,12 +6,8 @@ const asyncHandler = require("express-async-handler");
 // @route POST /request
 // @desc create a new pet sitting request
 // @access Private
-exports.makeRequest = asyncHandler(async (req, res) => {
+exports.makeRequest = asyncHandler(async (req, res, next) => {
   const body = req.body;
-  if (!(body || body.sitterId || body.ownerId || body.duration)) {
-    res.status(400);
-    throw new Error("Bad Request");
-  }
   const sitter = await User.findById(body.sitterId);
   if (!sitter) {
     res.status(404);
@@ -48,9 +44,10 @@ exports.getRequests = asyncHandler(async (req, res) => {
   const requests = await Request.find({
     $or: [{ ownerId: req.user.id }, { sitterId: req.user.id }],
   });
+  const processedRequests = await organizeRequests(requests);
   res.status(200).json({
     success: {
-      requests,
+      requests: processedRequests,
     },
   });
 });
@@ -91,7 +88,7 @@ exports.editRequest = asyncHandler(async (req, res, next) => {
     const processedRequests = await organizeRequests(requests);
     res.status(200).json({
       success: {
-        updatedRequest,
+        updatedRequests: processedRequests,
       },
     });
   } else {
