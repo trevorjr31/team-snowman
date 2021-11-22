@@ -6,6 +6,7 @@ import Signup from './pages/SignUp/SignUp';
 import Dashboard from './pages/Dashboard/Dashboard';
 import NavBar from './components/NavBar/NavBar';
 import EditMenu from './components/EditProfile/EditMenu';
+import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute';
 import { AuthProvider } from './context/useAuthContext';
 import { SocketProvider } from './context/useSocketContext';
 import { SnackBarProvider } from './context/useSnackbarContext';
@@ -23,19 +24,19 @@ function App(): JSX.Element {
               <Switch>
                 <Route exact path="/login" component={Login} />
                 <Route exact path="/signup" component={Signup} />
-                <Route exact path="/dashboard">
+                <ProtectedRoute exact path="/dashboard">
                   <Dashboard />
-                </Route>
-                <Route exact path="/my-jobs">
+                </ProtectedRoute>
+                <ProtectedRoute exact path="/my-jobs">
                   <Dashboard />
-                </Route>
-                <Route exact path="/messages">
+                </ProtectedRoute>
+                <ProtectedRoute exact path="/messages">
                   <Dashboard />
-                </Route>
-                <Route exact path="/my-sitters">
+                </ProtectedRoute>
+                <ProtectedRoute exact path="/my-sitters">
                   <Dashboard />
-                </Route>
-                <Route exact path="/edit-profile" component={EditMenu} />
+                </ProtectedRoute>
+                <ProtectedRoute exact path="/edit-profile" component={EditMenu} />
 
                 <Route path="*">
                   <Redirect to="/login" />
