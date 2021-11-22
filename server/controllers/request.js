@@ -1,5 +1,6 @@
 const Request = require("../models/Request");
 const User = require("../models/User");
+const organizeRequests = require("../utils/organizeRequests");
 const asyncHandler = require("express-async-handler");
 
 // @route POST /request
@@ -15,6 +16,10 @@ exports.makeRequest = asyncHandler(async (req, res) => {
   if (!sitter) {
     res.status(404);
     throw new Error("Sitter doesn't exist");
+  }
+  if (Date.parse(body.duration.end) < Date.parse(body.duration.start)) {
+    res.status(400);
+    throw new Error("Bad Request");
   }
   const newRequest = await Request.create({
     ownerId: req.user.id,
@@ -43,10 +48,9 @@ exports.getRequests = asyncHandler(async (req, res) => {
   const requests = await Request.find({
     $or: [{ ownerId: req.user.id }, { sitterId: req.user.id }],
   });
-  const processedRequests = await organizeRequests(requests);
   res.status(200).json({
     success: {
-      processedRequests,
+      requests,
     },
   });
 });
@@ -83,6 +87,8 @@ exports.editRequest = asyncHandler(async (req, res, next) => {
     { new: true }
   );
   if (updatedRequest) {
+    const requests = await Request.find({ sitterId: req.user.id });
+    const processedRequests = await organizeRequests(requests);
     res.status(200).json({
       success: {
         updatedRequest,
