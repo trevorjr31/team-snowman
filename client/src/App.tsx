@@ -6,10 +6,15 @@ import Signup from './pages/SignUp/SignUp';
 import Dashboard from './pages/Dashboard/Dashboard';
 import NavBar from './components/NavBar/NavBar';
 import EditMenu from './components/EditProfile/EditMenu';
+import Checkout from './components/Checkout/Checkout';
+import AddCard from './components/AddCard/AddCard';
+import AddCardInfo from './components/AddCard/AddCardInfo/AddCardInfo';
 import Payment from './components/EditProfile/Payment/Payment';
 import { AuthProvider } from './context/useAuthContext';
 import { SocketProvider } from './context/useSocketContext';
 import { SnackBarProvider } from './context/useSnackbarContext';
+
+import EditPhoto from './components/EditProfile/EditPhoto/EditPhoto';
 
 import './App.css';
 
@@ -37,6 +42,10 @@ function App(): JSX.Element {
                   <Dashboard />
                 </Route>
                 <Route exact path="/edit-profile" component={EditMenu} />
+                <Route exact path="/checkout" component={Checkout} />
+                <Route exact path="/payment-profile" component={AddCard} />
+                <Route exact path="/add-card-info" component={AddCardInfo} />
+                <Route exact path="/edit-image" component={EditPhoto} />
                 <Route exact path="/edit-payment" component={Payment} />
 
                 <Route path="*">
