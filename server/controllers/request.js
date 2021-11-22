@@ -41,8 +41,7 @@ exports.makeRequest = asyncHandler(async (req, res) => {
 // @access Private
 exports.getRequests = asyncHandler(async (req, res) => {
   const requests = await Request.find({
-    ownerId: userId,
-    sitterId: req.user.id,
+    $or: [{ ownerId: req.user.id }, { sitterId: req.user.id }],
   });
   res.status(200).json({
     success: {
