@@ -16,7 +16,7 @@ export default function Requests(): JSX.Element {
           <CurrentRequests requests={requests} />
         </Box>
         <Box>
-          <RequestCalendar requests={requests} />
+          <RequestCalendar />
         </Box>
       </Box>
     );

@@ -22,14 +22,14 @@ export const updateRequest = async (bookingStatus: string, requestId: string): P
   const accepted = bookingStatus == 'accept' ? true : false;
   const fetchOptions: FetchOptions = {
     method: 'PATCH',
-    body: `{"accepted":${accepted},"_id": "${requestId}"}`,
+    body: `{"accepted":${accepted}}`,
     headers: { 'Content-Type': 'application/json' },
     credentials: 'include',
   };
-  return await fetch(`/request`, fetchOptions)
+  return await fetch(`/request/${requestId}`, fetchOptions)
     .then((res) => res.json())
     .then((data) => {
-      const updatedRequestList = data.success.updatedRequests;
+      const updatedRequestList = data.success.requests;
       return updatedRequestList;
     })
     .catch(() => ({

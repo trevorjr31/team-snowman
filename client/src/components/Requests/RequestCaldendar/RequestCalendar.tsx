@@ -3,6 +3,7 @@ import { Grid } from '@material-ui/core';
 import useStyles from './useStyles';
 import { Calendar } from 'react-multi-date-picker';
 import 'react-multi-date-picker/styles/colors/red.css';
+import { useRequest } from '../../../context/useRequestContext';
 export default function RequestCalendar(): JSX.Element {
   const classes = useStyles();
   const { requests } = useRequest();
