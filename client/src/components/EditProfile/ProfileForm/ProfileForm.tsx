@@ -1,34 +1,12 @@
-import { useState, ChangeEvent } from 'react';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
-import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import Box from '@material-ui/core/Box';
-import { Formik, FormikHelpers } from 'formik';
-import * as Yup from 'yup';
+import { Formik } from 'formik';
 import Typography from '@material-ui/core/Typography';
 import useStyles from './useStyles';
 import { CircularProgress } from '@material-ui/core';
 import DatePicker from '../../DatePicker/DatePicker';
-
-interface Props {
-  handleSubmit: (
-    {
-      email,
-      password,
-    }: {
-      email: string;
-      password: string;
-    },
-    {
-      setStatus,
-      setSubmitting,
-    }: FormikHelpers<{
-      email: string;
-      password: string;
-    }>,
-  ) => void;
-}
 
 const genders = [
   { value: 'Male', label: 'Male' },

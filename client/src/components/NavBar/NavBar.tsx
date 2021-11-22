@@ -5,7 +5,6 @@ import logo from '../../Images/logo.png';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { useAuth } from '../../context/useAuthContext';
 import { useSocket } from '../../context/useSocketContext';
-import { useHistory } from 'react-router-dom';
 import { useEffect } from 'react';
 import LoggedInBar from './AuthBars/LoggedInBar';
 import LoggedOutBar from './AuthBars/LoggedOutBar';
@@ -16,8 +15,6 @@ const NavBar = (): JSX.Element => {
 
   const { loggedInUser } = useAuth();
   const { initSocket } = useSocket();
-
-  const history = useHistory();
 
   useEffect(() => {
     initSocket();
