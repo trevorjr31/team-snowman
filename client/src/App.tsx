@@ -10,6 +10,10 @@ import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute';
 import { AuthProvider } from './context/useAuthContext';
 import { SocketProvider } from './context/useSocketContext';
 import { SnackBarProvider } from './context/useSnackbarContext';
+import Requests from './components/Requests/Requests';
+import { RequestProvider } from './context/useRequestContext';
+
+import EditPhoto from './components/EditProfile/EditPhoto/EditPhoto';
 
 import './App.css';
 

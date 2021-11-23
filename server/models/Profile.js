@@ -28,12 +28,17 @@ const profileSchema = new mongoose.Schema({
     default: null
   },
   availability: {
-    type: [Date],
+    type: [timeSlot],
     default: []
   },
   photo: {
     type: String,
     default: "",
+  },
+  userId: {
+    type: mongoose.Schema.Types.ObjectId,
+    required: true,
+    ref: "User",
   },
 });
 

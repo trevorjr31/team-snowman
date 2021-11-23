@@ -15,6 +15,13 @@ const NavBar = (): JSX.Element => {
   const classes = useStyles();
 
   const { loggedInUser } = useAuth();
+  const { initSocket } = useSocket();
+
+  useEffect(() => {
+    initSocket();
+  }, [initSocket]);
+
+  if (loggedInUser === undefined) return <CircularProgress />;
 
   return (
     <AppBar className={classes.appbar} position="absolute">

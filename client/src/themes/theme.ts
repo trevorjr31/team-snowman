@@ -7,6 +7,13 @@ export const theme = createMuiTheme({
     button: {
       fontFamily: '"Roboto"',
     },
+    subtitle1: {
+      fontSize: 10,
+      color: '#000000',
+      fontWeight: 'bold',
+      textAlign: 'center',
+      textTransform: 'uppercase',
+    },
     body1: {
       color: '#f14140',
     },
@@ -23,6 +30,11 @@ export const theme = createMuiTheme({
       color: '#000000',
       fontWeight: 700,
       fontFamily: "'Roboto'",
+      textAlign: 'center',
+    },
+    h6: {
+      fontSize: 12,
+      color: '#888888',
       textAlign: 'center',
     },
   },
