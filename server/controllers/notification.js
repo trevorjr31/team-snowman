@@ -20,9 +20,8 @@ const notifications = {
 // @desc create notification
 // @access Private
 exports.createNotification = asyncHandler(async (req, res) => {
-  const { sender, type } = req.query;
-  const userId = req.params.id;
-
+  const { sender, type } = req.body;
+  const userId = req.user.id;
   if (!sender | !type | !userId) {
     res.status(400);
     throw new Error("Bad Request");
@@ -32,7 +31,6 @@ exports.createNotification = asyncHandler(async (req, res) => {
     type,
     title: notifications[type].title,
     description: `${notifications[type].message}${sender}`,
-    date: Date.now(),
     userId,
   });
 
@@ -95,7 +93,7 @@ exports.readNotifications = asyncHandler(async (req, res) => {
   );
   if (!success) {
     res.status(500);
-    throw new Error("Error hanlding request");
+    throw new Error("Error handling request");
   }
   const newNotifications = await Notification.find({
     userId: req.user.id,

@@ -11,6 +11,8 @@ import { SocketProvider } from './context/useSocketContext';
 import { SnackBarProvider } from './context/useSnackbarContext';
 import { NotificationProvider } from './context/useNotificationContext';
 
+import EditPhoto from './components/EditProfile/EditPhoto/EditPhoto';
+
 import './App.css';
 
 function App(): JSX.Element {
@@ -20,6 +22,7 @@ function App(): JSX.Element {
         <SnackBarProvider>
           <AuthProvider>
             <SocketProvider>
+
               <NotificationProvider>
                 <NavBar />
                 <Switch>
@@ -38,6 +41,26 @@ function App(): JSX.Element {
                     <Dashboard />
                   </Route>
                   <Route exact path="/edit-profile" component={EditMenu} />
+
+              <NavBar />
+              <Switch>
+                <Route exact path="/login" component={Login} />
+                <Route exact path="/signup" component={Signup} />
+                <Route exact path="/dashboard">
+                  <Dashboard />
+                </Route>
+                <Route exact path="/my-jobs">
+                  <Dashboard />
+                </Route>
+                <Route exact path="/messages">
+                  <Dashboard />
+                </Route>
+                <Route exact path="/my-sitters">
+                  <Dashboard />
+                </Route>
+                <Route exact path="/edit-profile" component={EditMenu} />
+                <Route exact path="/edit-image" component={EditPhoto} />
+
 
                   <Route path="*">
                     <Redirect to="/login" />
