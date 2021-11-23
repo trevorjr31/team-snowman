@@ -90,7 +90,11 @@ exports.editRequest = asyncHandler(async (req, res, next) => {
     { new: true }
   );
   if (updatedRequest) {
-    const requests = await Request.find({ sitter: req.user.id });
+    const requests = await Request.find({
+      $or: [{ owner: req.user.id }, { sitter: req.user.id }],
+    })
+      .populate("sitter", ["username", "email", "_id"])
+      .populate("owner", ["username", "email", "_id"]);
     const processedRequests = await organizeRequests(requests);
     res.status(200).json({
       success: {
