@@ -35,7 +35,7 @@ const NotificationLink = (): JSX.Element => {
           open={Boolean(notificationDisplay)}
           onClose={handleClose}
         >
-          {notifications.length < 1 ? (
+          {!notifications.length ? (
             <Box padding={2}>
               <Typography variant="h3">You have no new notifications</Typography>
             </Box>
