@@ -13,6 +13,7 @@ const authRouter = require("./routes/auth");
 const userRouter = require("./routes/user");
 const profileRouter = require("./routes/profile");
 const paymentRouter = require("./routes/payment");
+const requestRouter = require("./routes/request");
 
 const { json, urlencoded } = express;
 
@@ -45,6 +46,7 @@ app.use((req, res, next) => {
 
 app.use("/auth", authRouter);
 app.use("/users", userRouter);
+app.use("/request", requestRouter);
 app.use("/profile", profileRouter);
 app.use("/request", paymentRouter);
 
