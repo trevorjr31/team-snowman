@@ -10,9 +10,12 @@ import Checkout from './components/Checkout/Checkout';
 import AddCard from './components/AddCard/AddCard';
 import AddCardInfo from './components/AddCard/AddCardInfo/AddCardInfo';
 import Payment from './components/EditProfile/Payment/Payment';
+import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute';
 import { AuthProvider } from './context/useAuthContext';
 import { SocketProvider } from './context/useSocketContext';
 import { SnackBarProvider } from './context/useSnackbarContext';
+import Requests from './components/Requests/Requests';
+import { RequestProvider } from './context/useRequestContext';
 
 import EditPhoto from './components/EditProfile/EditPhoto/EditPhoto';
 
@@ -29,15 +32,17 @@ function App(): JSX.Element {
               <Switch>
                 <Route exact path="/login" component={Login} />
                 <Route exact path="/signup" component={Signup} />
-                <Route exact path="/dashboard">
+                <ProtectedRoute exact path="/dashboard">
                   <Dashboard />
-                </Route>
-                <Route exact path="/my-jobs">
+                </ProtectedRoute>
+                <RequestProvider>
+                  <ProtectedRoute exact path="/my-jobs">
+                    <Requests />
+                  </ProtectedRoute>
+                </RequestProvider>
+                <ProtectedRoute exact path="/messages">
                   <Dashboard />
-                </Route>
-                <Route exact path="/messages">
-                  <Dashboard />
-                </Route>
+                </ProtectedRoute>
                 <Route exact path="/my-sitters">
                   <Dashboard />
                 </Route>
@@ -47,6 +52,13 @@ function App(): JSX.Element {
                 <Route exact path="/add-card-info" component={AddCardInfo} />
                 <Route exact path="/edit-image" component={EditPhoto} />
                 <Route exact path="/edit-payment" component={Payment} />
+                <RequestProvider>
+                  <ProtectedRoute exact path="/my-sitters">
+                    <Dashboard />
+                  </ProtectedRoute>
+                </RequestProvider>
+                <ProtectedRoute exact path="/edit-profile" component={EditMenu} />
+                <ProtectedRoute exact path="/edit-image" component={EditPhoto} />
 
                 <Route path="*">
                   <Redirect to="/login" />
