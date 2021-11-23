@@ -32,9 +32,11 @@ function App(): JSX.Element {
                 <ProtectedRoute exact path="/dashboard">
                   <Dashboard />
                 </ProtectedRoute>
-                <ProtectedRoute exact path="/my-jobs">
-                  <Dashboard />
-                </ProtectedRoute>
+                <RequestProvider>
+                  <ProtectedRoute exact path="/my-jobs">
+                    <Requests />
+                  </ProtectedRoute>
+                </RequestProvider>
                 <ProtectedRoute exact path="/messages">
                   <Dashboard />
                 </ProtectedRoute>
@@ -44,7 +46,13 @@ function App(): JSX.Element {
                 <Route exact path="/edit-profile" component={EditMenu} />
                 <Route exact path="/checkout" component={Checkout} />
                 <Route exact path="/edit-image" component={EditPhoto} />
+                <RequestProvider>
+                  <ProtectedRoute exact path="/my-sitters">
+                    <Dashboard />
+                  </ProtectedRoute>
+                </RequestProvider>
                 <ProtectedRoute exact path="/edit-profile" component={EditMenu} />
+                <ProtectedRoute exact path="/edit-image" component={EditPhoto} />
 
                 <Route path="*">
                   <Redirect to="/login" />
