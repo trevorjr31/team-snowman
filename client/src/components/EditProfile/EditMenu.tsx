@@ -6,6 +6,7 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Paper from '@material-ui/core/Paper';
 import { useState, ChangeEvent } from 'react';
+import ProfileForm from './ProfileForm/ProfileForm';
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -24,11 +25,7 @@ function TabPanel(props: TabPanelProps) {
       aria-labelledby={`vertical-tab-${index}`}
       {...other}
     >
-      {value === index && (
-        <Box p={3}>
-          <Typography>{children}</Typography>
-        </Box>
-      )}
+      {value === index && <Box p={3}>{children}</Box>}
     </div>
   );
 }
@@ -66,9 +63,9 @@ const EditMenu = (): JSX.Element => {
           <Tab label="Settings" {...a11yProps(5)} />
         </Tabs>
       </Grid>
-      <Grid item xs={6} md={6} lg={6} component={Paper} className={classes.tabComponents}>
+      <Grid component={Paper} className={classes.tabComponents}>
         <TabPanel value={value} index={0}>
-          Edit Profile Placeholder
+          <ProfileForm />
         </TabPanel>
         <TabPanel value={value} index={1}>
           Profile Photo Placeholder
