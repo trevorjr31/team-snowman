@@ -30,6 +30,9 @@ export const theme = createMuiTheme({
       color: '#888888',
       textAlign: 'center',
     },
+    subtitle2: {
+      fontSize: 14,
+    },
   },
   palette: {
     primary: { main: '#f14140' },

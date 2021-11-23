@@ -35,6 +35,10 @@ const profileSchema = new mongoose.Schema({
     type: String,
     default: "",
   },
+  defaultPaymentMethod: {
+    type: String,
+    default: ""
+  },
   userId: {
     type: mongoose.Schema.Types.ObjectId,
     required: true,
