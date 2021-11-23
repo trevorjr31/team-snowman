@@ -44,10 +44,10 @@ export default function EditPhoto(): JSX.Element {
                 </Typography>
               </Grid>
             </Grid>
-            <Box className={classes.centerRow}>
+            <Box display="flex" alignItems="center" justifyContent="center">
               <Avatar src={file} className={classes.avatar} />
             </Box>
-            <Box className={classes.centerRow}>
+            <Box display="flex" alignItems="center" justifyContent="center">
               <Typography className={classes.reminder} component="h4" variant="h6">
                 Be sure to use a photo that clearly shows your face
               </Typography>
@@ -65,7 +65,7 @@ export default function EditPhoto(): JSX.Element {
                 />
               </Button>
             </Box>
-            <Box className={classes.centerRow} onClick={removeFile}>
+            <Box display="flex" alignItems="center" justifyContent="center" onClick={removeFile}>
               <IconButton aria-label="delete" size="small">
                 <DeleteSharpIcon className={classes.deleteIcon} />
                 <Typography className={classes.deleteText} component="h4" variant="h6">
