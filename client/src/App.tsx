@@ -9,6 +9,8 @@ import EditMenu from './components/EditProfile/EditMenu';
 import { AuthProvider } from './context/useAuthContext';
 import { SocketProvider } from './context/useSocketContext';
 import { SnackBarProvider } from './context/useSnackbarContext';
+import Requests from './components/Requests/Requests';
+import { RequestProvider } from './context/useRequestContext';
 
 import EditPhoto from './components/EditProfile/EditPhoto/EditPhoto';
 
@@ -28,15 +30,19 @@ function App(): JSX.Element {
                 <Route exact path="/dashboard">
                   <Dashboard />
                 </Route>
-                <Route exact path="/my-jobs">
-                  <Dashboard />
-                </Route>
+                <RequestProvider>
+                  <Route exact path="/my-jobs">
+                    <Requests />
+                  </Route>
+                </RequestProvider>
                 <Route exact path="/messages">
                   <Dashboard />
                 </Route>
-                <Route exact path="/my-sitters">
-                  <Dashboard />
-                </Route>
+                <RequestProvider>
+                  <Route exact path="/my-sitters">
+                    <Dashboard />
+                  </Route>
+                </RequestProvider>
                 <Route exact path="/edit-profile" component={EditMenu} />
                 <Route exact path="/edit-image" component={EditPhoto} />
 

@@ -6,7 +6,7 @@ const asyncHandler = require("express-async-handler");
 // @route POST /request
 // @desc create a new pet sitting request
 // @access Private
-exports.makeRequest = asyncHandler(async (req, res) => {
+exports.makeRequest = asyncHandler(async (req, res, next) => {
   const body = req.body;
   if (!(body || body.sitter || body.owner || body.duration)) {
     res.status(400);
