@@ -1,6 +1,6 @@
 const stripe = require('stripe')(process.env.SECRET_KEY);
 
-const stripePayment = async (req, res, next) => {
+const stripePayment = async (req, res) => {
   const product = await stripe.products.create({ name: 'Pet Sitter' });
   const price = await stripe.prices.create({
     product: product.id,
@@ -23,7 +23,7 @@ const stripePayment = async (req, res, next) => {
   req.url = session.url;
 };
 
-const createCustomer = async (req, res, next) => {
+const createCustomer = async (req, res) => {
   const customer = await stripe.customers.create({
     description: 'Pet Sitter Customer (created for API docs)',
     email: req.email,
@@ -31,7 +31,7 @@ const createCustomer = async (req, res, next) => {
   req.createdCustomer = customer;
 }
 
-const getCustomer = async (req, res, next) => {
+const getCustomer = async (req, res) => {
   const customer = await stripe.customers.list({
     email: req.email,
   });
@@ -40,7 +40,7 @@ const getCustomer = async (req, res, next) => {
   }
 }
 
-const subscriptionOneTimePayment = async (req, res, next) => {
+const subscriptionOneTimePayment = async (req, res) => {
   const session = await stripe.checkout.sessions.create({
     line_items: [
       {
@@ -56,7 +56,7 @@ const subscriptionOneTimePayment = async (req, res, next) => {
   req.url = session.url;
 };
 
-const createIntent = async (req, res, next) => {
+const createIntent = async (req, res) => {
   const intent = await stripe.setupIntents.create({
     customer: req.createdCustomer.id,
     payment_method_types: ['card'],
@@ -65,7 +65,7 @@ const createIntent = async (req, res, next) => {
   req.intent = intent;
 };
 
-const getPaymentMethods = async (req, res, next) => {
+const getPaymentMethods = async (req, res) => {
   const allPaymentMethods = await stripe.paymentMethods.list({
     customer: req.createdCustomer.id,
     type: 'card',
@@ -75,7 +75,7 @@ const getPaymentMethods = async (req, res, next) => {
   }
 }
 
-const StripeServices = {
+const stripeServices = {
   stripePayment: stripePayment,
   createCustomer: createCustomer,
   getCustomer: getCustomer,
@@ -84,4 +84,4 @@ const StripeServices = {
   getPaymentMethods: getPaymentMethods,
 };
 
-module.exports = StripeServices;
+module.exports = stripeServices;

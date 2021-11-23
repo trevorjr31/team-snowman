@@ -37,7 +37,7 @@ export default function AddCard({ handleSubmit }: Props): JSX.Element {
   const history = useHistory();
 
   useEffect(() => {
-    if (loggedInUser != undefined && loggedInUser) {
+    if (loggedInUser) {
       getAllPaymentMethods({ userId: loggedInUser.id }).then((data) => {
         if (data.error) {
           updateSnackBarMessage(data.error.message);
@@ -51,7 +51,7 @@ export default function AddCard({ handleSubmit }: Props): JSX.Element {
   }, [loggedInUser, updateSnackBarMessage]);
 
   const handleAddCard = () => {
-    if (loggedInUser != undefined && loggedInUser) {
+    if (loggedInUser) {
       addCard({ userId: loggedInUser.id }).then((data) => {
         if (data.error) {
           updateSnackBarMessage(data.error.message);
@@ -70,7 +70,7 @@ export default function AddCard({ handleSubmit }: Props): JSX.Element {
   };
   const classes = useStyles();
 
-  if (process.env.REACT_APP_PRICE_ID != undefined) {
+  if (process.env.REACT_APP_PRICE_ID) {
     return (
       <Formik
         initialValues={{

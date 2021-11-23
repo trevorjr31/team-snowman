@@ -18,14 +18,13 @@ export default function AddCard(): JSX.Element {
     { paymentMethod }: { paymentMethod: string },
     { setSubmitting }: FormikHelpers<{ paymentMethod: string }>,
   ) => {
-    if (loggedInUser != undefined && loggedInUser) {
+    if (loggedInUser) {
       setDefaultPayment({ paymentMethod: paymentMethod, userId: loggedInUser.id }).then((data) => {
         if (data.error) {
           setSubmitting(false);
           updateSnackBarMessage(data.error.message);
         } else if (data.url) {
           setSubmitting(false);
-          //window.open(data.url, '', 'width=1000,height=700');
         } else {
           setSubmitting(false);
           updateSnackBarMessage('An unexpected error occurred. Please try again');
