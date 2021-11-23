@@ -23,6 +23,15 @@ export const SocketProvider: FunctionComponent = ({ children }): JSX.Element => 
     );
   }, []);
 
+  if (socket) {
+    socket.on('connect', () => {
+      console.log('Socket Connection Initialized');
+      socket.emit('goOnline', socket.id);
+    });
+  } else {
+    console.log('Socket Connection Failed');
+  }
+
   return <SocketContext.Provider value={{ socket, initSocket }}>{children}</SocketContext.Provider>;
 };
 

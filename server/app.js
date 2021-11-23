@@ -8,6 +8,8 @@ const connectDB = require("./db");
 const { join } = require("path");
 const cookieParser = require("cookie-parser");
 const logger = require("morgan");
+const jwt = require("jsonwebtoken");
+const cookie = require("cookie");
 
 const authRouter = require("./routes/auth");
 const userRouter = require("./routes/user");
@@ -25,8 +27,30 @@ const io = socketio(server, {
   },
 });
 
+io.use(async (socket, next) => {
+  if (socket.handshake.headers.cookie) {
+    token = cookie.parse(socket.handshake.headers.cookie).token;
+    if (token) {
+      const authorized = await jwt.verify(token, process.env.JWT_SECRET);
+      if (authorized.id) {
+        next();
+      } else {
+        next(new Error("Invalid Authorization"));
+      }
+    } else {
+      next(new Error("Authorization Error"));
+    }
+  } else {
+    next(new Error("Authorization Error"));
+  }
+});
+
 io.on("connection", (socket) => {
   console.log("connected");
+
+  socket.on("goOnline", (connectionId) => {
+    console.log(`New socket connection, id:'${connectionId}'`);
+  });
 });
 
 if (process.env.NODE_ENV === "development") {
