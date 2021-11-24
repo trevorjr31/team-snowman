@@ -8,7 +8,7 @@ import * as Yup from 'yup';
 import Typography from '@material-ui/core/Typography';
 import useStyles from './useStyles';
 import { CircularProgress } from '@material-ui/core';
-import DatePicker from '../../DatePicker/DatePicker';
+import DayPicker from '../../DatePicker/DayPicker';
 import editProfile from '../../../helpers/APICalls/editProfile';
 import { useSnackBar } from '../../../context/useSnackbarContext';
 
@@ -182,7 +182,7 @@ export default function EditProfile(): JSX.Element {
                   Birthday
                 </Typography>
               </Grid>
-              <Field name="dateOfBirth" component={DatePicker} />
+              <Field name="dateOfBirth" component={DayPicker} />
             </Grid>
             <Grid item className={classes.field}>
               <Grid item className={classes.label}>

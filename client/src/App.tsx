@@ -28,24 +28,30 @@ function App(): JSX.Element {
               <Switch>
                 <Route exact path="/login" component={Login} />
                 <Route exact path="/signup" component={Signup} />
+                <ProtectedRoute exact path="/edit-profile" component={EditMenu} />
                 <ProtectedRoute exact path="/dashboard">
                   <Dashboard />
                 </ProtectedRoute>
-                <RequestProvider>
-                  <ProtectedRoute exact path="/my-jobs">
+
+                <ProtectedRoute exact path="/my-jobs">
+                  <RequestProvider>
                     <Requests />
-                  </ProtectedRoute>
-                </RequestProvider>
+                  </RequestProvider>
+                </ProtectedRoute>
+
                 <ProtectedRoute exact path="/messages">
                   <Dashboard />
                 </ProtectedRoute>
-                <RequestProvider>
-                  <ProtectedRoute exact path="/my-sitters">
+
+                <ProtectedRoute exact path="/my-sitters">
+                  <RequestProvider>
                     <Dashboard />
-                  </ProtectedRoute>
-                </RequestProvider>
-                <ProtectedRoute exact path="/edit-profile" component={EditMenu} />
-                <ProtectedRoute exact path="/edit-image" component={EditPhoto} />
+                  </RequestProvider>
+                </ProtectedRoute>
+
+                <ProtectedRoute exact path="/edit-image">
+                  <EditPhoto />
+                </ProtectedRoute>
 
                 <Route path="*">
                   <Redirect to="/login" />

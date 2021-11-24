@@ -6,6 +6,7 @@ import Tab from '@material-ui/core/Tab';
 import Paper from '@material-ui/core/Paper';
 import { useState, ChangeEvent } from 'react';
 import ProfileForm from './ProfileForm/ProfileForm';
+import Availability from '../Availability/Availability';
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -43,7 +44,6 @@ const EditMenu = (): JSX.Element => {
   const handleChange = (event: ChangeEvent<Record<string, unknown>>, newValue: number) => {
     setValue(newValue);
   };
-
   return (
     <Grid container component="main" className={classes.root}>
       <Grid item xs={9} md={9} lg={9} className={classes.content}>
@@ -73,7 +73,7 @@ const EditMenu = (): JSX.Element => {
             Profile Photo Placeholder
           </TabPanel>
           <TabPanel value={value} index={2}>
-            Availability Placeholder
+            <Availability />
           </TabPanel>
           <TabPanel value={value} index={3}>
             Payment Placeholder
