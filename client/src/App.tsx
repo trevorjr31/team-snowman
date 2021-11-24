@@ -13,6 +13,7 @@ import { SocketProvider } from './context/useSocketContext';
 import { SnackBarProvider } from './context/useSnackbarContext';
 import Requests from './components/Requests/Requests';
 import { RequestProvider } from './context/useRequestContext';
+import { SitterListingProvider } from './context/useSitterContext';
 
 import EditPhoto from './components/EditProfile/EditPhoto/EditPhoto';
 
@@ -30,7 +31,9 @@ function App(): JSX.Element {
                 <Route exact path="/login" component={Login} />
                 <Route exact path="/signup" component={Signup} />
                 <ProtectedRoute exact path="/dashboard">
-                  <Dashboard />
+                  <SitterListingProvider>
+                    <Dashboard />
+                  </SitterListingProvider>
                 </ProtectedRoute>
                 <RequestProvider>
                   <ProtectedRoute exact path="/my-jobs">

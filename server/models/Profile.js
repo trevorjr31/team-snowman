@@ -25,19 +25,30 @@ const profileSchema = new mongoose.Schema({
   },
   dateOfBirth: {
     type: Date,
-    default: null
+    default: null,
   },
   availability: {
     type: [timeSlot],
-    default: []
+    default: [],
   },
   photo: {
     type: String,
     default: "",
   },
+  isSitter: {
+    type: Boolean,
+    default: false,
+  },
+  hourlyRate: {
+    type: Number,
+    default: null,
+  },
+  title: {
+    type: String,
+    default: null,
+  },
   userId: {
     type: mongoose.Schema.Types.ObjectId,
-    required: true,
     ref: "User",
   },
 });

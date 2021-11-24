@@ -50,7 +50,7 @@ exports.loadProfile = asyncHandler(async (req, res, next) => {
 exports.uploadProfileImage = asyncHandler(async (req, res, next) => {
   const id = req.user.id;
 
-  singleUpload(req, res, function (err) {
+  singleUpload(req, res, function(err) {
     if (err) {
       return res.json({
         success: false,
@@ -71,5 +71,22 @@ exports.uploadProfileImage = asyncHandler(async (req, res, next) => {
       .status(200)
       .send({ message: "The profile has been successfully updated" });
   });
+});
 
+// @route GET /profile/load/sitters
+// @desc Get all sitter profiles
+// @access Private
+exports.loadSitterProfiles = asyncHandler(async (req, res) => {
+  const sitterProfiles = await Profile.find({ isSitter: true });
+
+  if (!sitterProfiles) {
+    res.status(500);
+    throw new Error("An error occured");
+  }
+
+  res.status(200).json({
+    success: {
+      sitterProfiles,
+    },
+  });
 });

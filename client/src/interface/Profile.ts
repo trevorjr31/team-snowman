@@ -1,13 +1,16 @@
 export interface Profile {
   firstName: string;
   lastName: string;
-  gender: string;
   dateOfBirth: Date;
   phoneNumber: string;
   address: string;
   description: string;
   availability: [{ start: Date; end: Date }];
   photo: string;
+  isSitter: Boolean;
+  hourlyRate: Number;
+  title: string;
+  userId: string;
   _id: string;
   _v: number;
 }
