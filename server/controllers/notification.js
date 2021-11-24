@@ -85,7 +85,7 @@ exports.getAllNotifications = asyncHandler(async (req, res) => {
 // @desc read user notifications
 // @access Private
 exports.readNotifications = asyncHandler(async (req, res) => {
-  success = await Notification.updateMany(
+  const success = await Notification.updateMany(
     { userId: req.user.id },
     { read: true }
   );
