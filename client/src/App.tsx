@@ -43,15 +43,9 @@ function App(): JSX.Element {
                 <ProtectedRoute exact path="/messages">
                   <Dashboard />
                 </ProtectedRoute>
-                <Route exact path="/my-sitters">
-                  <Dashboard />
-                </Route>
-                <Route exact path="/edit-profile" component={EditMenu} />
-                <Route exact path="/checkout" component={Checkout} />
-                <Route exact path="/payment-profile" component={AddCard} />
-                <Route exact path="/add-card-info" component={AddCardInfo} />
-                <Route exact path="/edit-image" component={EditPhoto} />
-                <Route exact path="/edit-payment" component={Payment} />
+                <RequestProvider>
+                  <ProtectedRoute exact path="/checkout" component={Checkout} />
+                </RequestProvider>
                 <RequestProvider>
                   <ProtectedRoute exact path="/my-sitters">
                     <Dashboard />
@@ -59,6 +53,9 @@ function App(): JSX.Element {
                 </RequestProvider>
                 <ProtectedRoute exact path="/edit-profile" component={EditMenu} />
                 <ProtectedRoute exact path="/edit-image" component={EditPhoto} />
+                <ProtectedRoute exact path="/payment-profile" component={AddCard} />
+                <ProtectedRoute exact path="/add-card-info" component={AddCardInfo} />
+                <ProtectedRoute exact path="/edit-payment" component={Payment} />
 
                 <Route path="*">
                   <Redirect to="/login" />
