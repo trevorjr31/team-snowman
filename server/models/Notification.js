@@ -12,8 +12,9 @@ const notificationSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    description: {
-      type: String,
+    data: {
+      type: Schema.Types.ObjectId,
+      ref: "data",
       required: true,
     },
     read: {
