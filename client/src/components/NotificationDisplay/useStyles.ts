@@ -1,12 +1,29 @@
 import { makeStyles } from '@material-ui/core/styles';
-import { theme } from '../../themes/theme';
 
 const useStyles = makeStyles((theme) => ({
   menu: {
-    marginTop: theme.spacing(5),
+    marginTop: theme.spacing(6.9),
+    '& .MuiPopover-paper': { borderTop: '5px solid black' },
   },
-  message: {
+  badge: {
+    '& .MuiBadge-dot': { backgroundColor: '#1ec311 !important' },
+  },
+  link: {
     textDecoration: 'none',
+  },
+  point: {
+    height: '10px',
+    width: '10px',
+    marginLeft: '-50%',
+    marginTop: '43px',
+    color: 'black',
+  },
+  pointClosed: {
+    height: '10px',
+    width: '10px',
+    marginLeft: '-50%',
+    marginTop: '43px',
+    display: 'hidden',
   },
 }));
 

@@ -1,8 +1,8 @@
 export interface Notification {
   _id: string;
-  userid: string;
+  useriD: string;
   type: string;
-  description: string;
+  updatedAt: string;
   read: string;
-  date: Date;
+  data: { date: string; duration: number; firstName: string; photo: string; requestId: string };
 }
