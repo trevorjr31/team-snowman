@@ -65,6 +65,19 @@ const createIntent = async (req, res) => {
   req.intent = intent;
 };
 
+const createPaymentIntent = async (req, res) => {
+  const paymentIntent = await stripe.paymentIntents.create({
+    amount: req.body.totalCost,
+    currency: 'cad',
+    customer: req.createdCustomer.id,
+    payment_method: req.body.paymentMethod,
+    off_session: true,
+    confirm: true,
+  });
+
+  req.paymentIntent = paymentIntent;
+};
+
 const getPaymentMethods = async (req, res) => {
   const allPaymentMethods = await stripe.paymentMethods.list({
     customer: req.createdCustomer.id,
@@ -81,6 +94,7 @@ const stripeServices = {
   getCustomer: getCustomer,
   subscriptionOneTimePayment: subscriptionOneTimePayment,
   createIntent: createIntent,
+  createPaymentIntent: createPaymentIntent,
   getPaymentMethods: getPaymentMethods,
 };
 

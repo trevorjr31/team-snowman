@@ -91,6 +91,33 @@ exports.getOrCreateCustomerCreateIntent = asyncHandler(async (req, res) => {
   }
 });
 
+// @route POST /:id/checkout-with-created-intent
+// @desc create payment intent with totalCost and paymentMethod
+// @access Private
+exports.checkoutWithCreatedIntent = asyncHandler(async (req, res) => {
+  const id = req.user.id;
+  const user = await User.findById(id);
+  req.email = user.email;
+
+  if (id === req.params.id) {
+    await getCustomer(req, res);
+
+    if (req.createdCustomer === undefined) {
+      await createCustomer(req, res);
+    }
+
+    await createPaymentIntent(req, res);
+
+    res
+      .status(200)
+      .send({
+        message: "Both customer and paymentIntent have been successfully created",
+        customer: req.createdCustomer,
+        paymentIntent: req.paymentIntent
+      });
+  }
+});
+
 // @route GET /:id/all-payment-methods
 // @desc get all payment methods
 // @access Private
