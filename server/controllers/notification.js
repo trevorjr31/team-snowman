@@ -8,6 +8,7 @@ const asyncHandler = require("express-async-handler");
 exports.createNotification = asyncHandler(async (req, res) => {
   const { type, data } = req.body;
   const userId = req.user.id;
+
   if (!data | !type | !userId) {
     res.status(400);
     throw new Error("Bad Request");
@@ -16,20 +17,30 @@ exports.createNotification = asyncHandler(async (req, res) => {
     res.status(400);
     throw new Error("Bad Request");
   }
+
+  const request = await Request.findById(data);
+  const profile = await User.findById(request.owner).populate("profile");
+
+  const date = new Date(request.duration.start).toLocaleDateString();
+  const durationMS = request.duration.end - request.duration.start;
+  const duration = Math.floor((durationMS / (1000 * 60 * 60)) % 24);
+
   const newNotification = await Notification.create({
     type,
     userId,
-    data,
+    data: {
+      requestId: data,
+      firstName: profile.profile.firstName || "",
+      photo: profile.profile.photo || "nophoto",
+      duration,
+      date,
+    },
   });
 
   if (newNotification) {
-    result = await Notification.findById(newNotification._id).populate({
-      path: "data",
-      model: Request,
-    });
     res.status(200).json({
       success: {
-        notification: result,
+        notification: newNotification,
       },
     });
   } else {
