@@ -1,6 +1,6 @@
 const stripe = require('stripe')(process.env.SECRET_KEY);
 
-const stripePayment = async (req, res, next) => {
+const stripePayment = async (req, res) => {
   const product = await stripe.products.create({ name: 'Pet Sitter' });
   const price = await stripe.prices.create({
     product: product.id,
@@ -20,22 +20,27 @@ const stripePayment = async (req, res, next) => {
     cancel_url: `${process.env.DOMAIN}/?canceled=true`,
   });
 
-  res.json({url: session.url})
+  req.url = session.url;
 };
 
-const createCustomer = async (req, res, next) => {
+const createCustomer = async (req, res) => {
   const customer = await stripe.customers.create({
     description: 'Pet Sitter Customer (created for API docs)',
+    email: req.email,
   });
-
   req.createdCustomer = customer;
-
-  res
-    .status(200)
-    .send({ customer: customer });
 }
 
-const subscriptionOneTimePayment = async (req, res, next) => {
+const getCustomer = async (req, res) => {
+  const customer = await stripe.customers.list({
+    email: req.email,
+  });
+  if (customer.data.length > 0) {
+    req.createdCustomer = customer.data[0];
+  }
+}
+
+const subscriptionOneTimePayment = async (req, res) => {
   const session = await stripe.checkout.sessions.create({
     line_items: [
       {
@@ -48,13 +53,35 @@ const subscriptionOneTimePayment = async (req, res, next) => {
     cancel_url: `${process.env.DOMAIN}/?canceled=true`,
   });
 
-  res.json({url: session.url});
+  req.url = session.url;
 };
 
-const StripeServices = { 
-  stripePayment: stripePayment, 
-  createCustomer: createCustomer, 
-  subscriptionOneTimePayment: subscriptionOneTimePayment
+const createIntent = async (req, res) => {
+  const intent = await stripe.setupIntents.create({
+    customer: req.createdCustomer.id,
+    payment_method_types: ['card'],
+  });
+
+  req.intent = intent;
 };
 
-module.exports = StripeServices;
+const getPaymentMethods = async (req, res) => {
+  const allPaymentMethods = await stripe.paymentMethods.list({
+    customer: req.createdCustomer.id,
+    type: 'card',
+  });
+  if (allPaymentMethods.data.length > 0) {
+    req.allPaymentMethods = allPaymentMethods.data;
+  }
+}
+
+const stripeServices = {
+  stripePayment: stripePayment,
+  createCustomer: createCustomer,
+  getCustomer: getCustomer,
+  subscriptionOneTimePayment: subscriptionOneTimePayment,
+  createIntent: createIntent,
+  getPaymentMethods: getPaymentMethods,
+};
+
+module.exports = stripeServices;

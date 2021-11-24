@@ -4,12 +4,21 @@ const protect = require('../middleware/auth');
 const {
   payment,
   createCustomer,
+  newCustomerCreateIntent,
+  getOrCreateCustomerCreateIntent,
   createCheckoutSession,
+  getAllPaymentMethods,
 } = require('../controllers/payment');
 
 router.route('/:id/single-pay').post(protect, payment);
 
-router.route('/:id/create-customer').post(protect, createCustomer);
+router.route('/:id/create-customer').get(protect, createCustomer);
+
+router.route('/:id/new-customer-create-intent').get(protect, newCustomerCreateIntent);
+
+router.route('/:id/add-card').get(protect, getOrCreateCustomerCreateIntent);
+
+router.route('/:id/all-payment-methods').get(protect, getAllPaymentMethods);
 
 router.route('/:id/create-checkout-session').post(protect, createCheckoutSession);
 
