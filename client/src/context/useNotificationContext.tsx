@@ -5,31 +5,35 @@ import { createContext, FunctionComponent, useState, useContext, useEffect } fro
 
 interface INotificationContext {
   notifications: [Notification] | null | undefined;
-  update: () => void;
+  markNotificationsAsRead: () => void;
 }
 
 export const NotificationContext = createContext<INotificationContext>({
   notifications: null,
-  update: () => null,
+  markNotificationsAsRead: () => null,
 });
 
 export const NotificationProvider: FunctionComponent = ({ children }): JSX.Element => {
-  const [notifications, readNotifications] = useState<[Notification] | null | undefined>();
+  const [notifications, SetNotifications] = useState<[Notification] | null | undefined>();
 
   useEffect(() => {
     const getNotifications = async () => {
       const fetchedNotifications = await fetchNotifications();
-      readNotifications(fetchedNotifications);
+      SetNotifications(fetchedNotifications);
     };
     getNotifications();
   }, []);
 
-  const update = async () => {
+  const markNotificationsAsRead = async () => {
     const updated = await updateNotifications();
-    readNotifications(updated);
+    SetNotifications(updated);
   };
 
-  return <NotificationContext.Provider value={{ notifications, update }}>{children}</NotificationContext.Provider>;
+  return (
+    <NotificationContext.Provider value={{ notifications, markNotificationsAsRead }}>
+      {children}
+    </NotificationContext.Provider>
+  );
 };
 
 export function useNotification(): INotificationContext {

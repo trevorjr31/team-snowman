@@ -1,11 +1,4 @@
-import Button from '@material-ui/core/Button';
-import Typography from '@material-ui/core/Typography';
-import Avatar from '@material-ui/core/Avatar';
-import React from 'react';
-import Menu from '@material-ui/core/Menu';
-import { Box } from '@material-ui/core';
-//import { useNotification } from '../../context/useNotificationContext';
-import { Link } from 'react-router-dom';
+import { Box, Typography, Avatar } from '@material-ui/core';
 import useStyles from './useStyles';
 import { Notification } from '../../../interface/Notification';
 

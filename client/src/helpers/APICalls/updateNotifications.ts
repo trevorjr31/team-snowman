@@ -10,8 +10,8 @@ export const updateNotifications = async (): Promise<[Notification]> => {
   return await fetch(`/notification`, fetchOptions)
     .then((res) => res.json())
     .then((data) => {
-      const NotificationsList = data.success.newNotifications;
-      return NotificationsList;
+      const notificationsList = data.success.newNotifications;
+      return notificationsList;
     })
     .catch(() => ({
       error: { message: 'Unable to connect to server. Please try again' },
