@@ -17,8 +17,6 @@ const NavBar = (): JSX.Element => {
   const { loggedInUser } = useAuth();
   const { initSocket } = useSocket();
 
-  const history = useHistory();
-
   useEffect(() => {
     initSocket();
   }, [initSocket]);
