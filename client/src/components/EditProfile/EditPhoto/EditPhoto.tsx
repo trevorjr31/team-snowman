@@ -49,7 +49,7 @@ export default function EditPhoto(): JSX.Element {
               </Grid>
             </Grid>
             <Box display="flex" alignItems="center" justifyContent="center">
-              <Avatar src={file} className={classes.avatar} />
+              <Avatar src={loggedInUserProfile?.photo} className={classes.avatar} />
             </Box>
             <Box display="flex" alignItems="center" justifyContent="center">
               <Typography className={classes.reminder} component="h4" variant="h6">
