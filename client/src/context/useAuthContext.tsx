@@ -31,6 +31,18 @@ export const AuthProvider: FunctionComponent = ({ children }): JSX.Element => {
   const [loggedInUserProfile, setLoggedInUserProfile] = useState<Profile | null | undefined>();
   const history = useHistory();
 
+  const updateProfileContext = useCallback((profile: Profile) => {
+    setLoggedInUserProfile(profile);
+  }, []);
+
+  const fetchProfileAndUpdateContext = useCallback(async () => {
+    await loadProfile().then((data: ProfileData) => {
+      if (data.success) {
+        updateProfileContext(data.profile);
+      }
+    });
+  }, [updateProfileContext]);
+
   const updateLoginContext = useCallback(
     async (data: AuthApiDataSuccess) => {
       setLoggedInUser(data.user);
@@ -39,20 +51,8 @@ export const AuthProvider: FunctionComponent = ({ children }): JSX.Element => {
         history.push('/dashboard');
       }
     },
-    [history],
+    [fetchProfileAndUpdateContext, history],
   );
-
-  const updateProfileContext = (profile: Profile) => {
-    setLoggedInUserProfile(profile);
-  };
-
-  const fetchProfileAndUpdateContext = async () => {
-    await loadProfile().then((data: ProfileData) => {
-      if (data.success) {
-        updateProfileContext(data.profile);
-      }
-    });
-  };
 
   const logout = useCallback(async () => {
     // needed to remove token cookie
@@ -83,7 +83,7 @@ export const AuthProvider: FunctionComponent = ({ children }): JSX.Element => {
       });
     };
     checkLoginWithCookies();
-  }, [updateLoginContext, history]);
+  }, [updateLoginContext, fetchProfileAndUpdateContext, history]);
 
   return (
     <AuthContext.Provider

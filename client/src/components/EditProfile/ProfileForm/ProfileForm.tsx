@@ -11,6 +11,7 @@ import { CircularProgress } from '@material-ui/core';
 import DatePicker from '../../DatePicker/DatePicker';
 import editProfile from '../../../helpers/APICalls/editProfile';
 import { useSnackBar } from '../../../context/useSnackbarContext';
+import { useAuth } from '../../../context/useAuthContext';
 
 const genders = [
   { value: 'Male', label: 'Male' },
@@ -18,11 +19,13 @@ const genders = [
   { value: 'Other', label: 'Other' },
 ];
 
-const phoneRegExp = /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
+const phoneRegExp =
+  /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
 
 export default function EditProfile(): JSX.Element {
   const classes = useStyles();
 
+  const { loggedInUserProfile } = useAuth();
   const { updateSnackBarMessage } = useSnackBar();
 
   const handleSubmit = (
@@ -34,6 +37,7 @@ export default function EditProfile(): JSX.Element {
       phoneNumber,
       address,
       description,
+      defaultPaymentMethod,
     }: {
       firstName: string;
       lastName: string;
@@ -42,6 +46,7 @@ export default function EditProfile(): JSX.Element {
       phoneNumber: string;
       address: string;
       description: string;
+      defaultPaymentMethod: string;
     },
     {
       setSubmitting,
@@ -53,9 +58,19 @@ export default function EditProfile(): JSX.Element {
       phoneNumber: string;
       address: string;
       description: string;
+      defaultPaymentMethod: string;
     }>,
   ) => {
-    editProfile({ firstName, lastName, gender, dateOfBirth, phoneNumber, address, description }).then((data) => {
+    editProfile({
+      firstName,
+      lastName,
+      gender,
+      dateOfBirth,
+      phoneNumber,
+      address,
+      description,
+      defaultPaymentMethod,
+    }).then((data) => {
       if (data.error) {
         setSubmitting(false);
         updateSnackBarMessage('Something went wrong');
@@ -82,6 +97,7 @@ export default function EditProfile(): JSX.Element {
         phoneNumber: '',
         address: '',
         description: '',
+        defaultPaymentMethod: loggedInUserProfile ? loggedInUserProfile.defaultPaymentMethod : '',
       }}
       validationSchema={Yup.object().shape({
         firstName: Yup.string().max(20, 'Name is too long'),
