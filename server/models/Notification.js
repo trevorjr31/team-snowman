@@ -13,9 +13,15 @@ const notificationSchema = new mongoose.Schema(
       required: true,
     },
     data: {
-      type: Schema.Types.ObjectId,
-      ref: "data",
-      required: true,
+      requestId: {
+        type: Schema.Types.ObjectId,
+        ref: "request",
+        required: true,
+      },
+      firstName: { type: String, required: true },
+      photo: { type: String, required: true },
+      date: { type: String, required: true },
+      duration: { type: Number, required: true },
     },
     read: {
       type: Boolean,
