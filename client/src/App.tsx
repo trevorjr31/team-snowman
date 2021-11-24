@@ -11,7 +11,6 @@ import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute';
 import { AuthProvider } from './context/useAuthContext';
 import { SocketProvider } from './context/useSocketContext';
 import { SnackBarProvider } from './context/useSnackbarContext';
-import { NotificationProvider } from './context/useNotificationContext';
 import Requests from './components/Requests/Requests';
 import { RequestProvider } from './context/useRequestContext';
 
@@ -26,26 +25,6 @@ function App(): JSX.Element {
         <SnackBarProvider>
           <AuthProvider>
             <SocketProvider>
-
-              <NotificationProvider>
-                <NavBar />
-                <Switch>
-                  <Route exact path="/login" component={Login} />
-                  <Route exact path="/signup" component={Signup} />
-                  <Route exact path="/dashboard">
-                    <Dashboard />
-                  </Route>
-                  <Route exact path="/my-jobs">
-                    <Dashboard />
-                  </Route>
-                  <Route exact path="/messages">
-                    <Dashboard />
-                  </Route>
-                  <Route exact path="/my-sitters">
-                    <Dashboard />
-                  </Route>
-                  <Route exact path="/edit-profile" component={EditMenu} />
-
               <NavBar />
               <Switch>
                 <Route exact path="/login" component={Login} />
@@ -75,12 +54,10 @@ function App(): JSX.Element {
                 <ProtectedRoute exact path="/edit-profile" component={EditMenu} />
                 <ProtectedRoute exact path="/edit-image" component={EditPhoto} />
 
-
-                  <Route path="*">
-                    <Redirect to="/login" />
-                  </Route>
-                </Switch>
-              </NotificationProvider>
+                <Route path="*">
+                  <Redirect to="/login" />
+                </Route>
+              </Switch>
             </SocketProvider>
           </AuthProvider>
         </SnackBarProvider>
