@@ -1,7 +1,9 @@
 import { makeStyles } from '@material-ui/core/styles';
+import { theme } from '../../themes/theme';
 
 const useStyles = makeStyles(() => ({
   root: {
+    marginTop: theme.spacing(6),
     minHeight: '100vh',
     '& .MuiInput-underline:before': {
       borderBottom: '1.2px solid rgba(0, 0, 0, 0.2)',
