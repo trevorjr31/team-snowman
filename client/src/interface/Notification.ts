@@ -1,6 +1,6 @@
 export interface Notification {
   _id: string;
-  useriD: string;
+  userId: string;
   type: string;
   updatedAt: string;
   read: string;
