@@ -3,7 +3,7 @@ import { fetchNotifications } from '../helpers/APICalls/getNotifications';
 import { updateNotifications } from '../helpers/APICalls/updateNotifications';
 import { createContext, FunctionComponent, useState, useContext, useEffect } from 'react';
 
-interface INotificationContext {
+interface NotificationContext {
   notifications: [Notification] | null | undefined;
   markNotificationsAsRead: () => void;
 }
