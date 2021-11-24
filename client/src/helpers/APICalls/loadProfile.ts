@@ -1,7 +1,7 @@
-import { Profile } from '../../interface/Profile';
+import { ProfileData } from '../../interface/Profile';
 import { FetchOptions } from '../../interface/FetchOptions';
 
-const loadProfile = async (): Promise<Profile> => {
+const loadProfile = async (): Promise<ProfileData> => {
   const fetchOptions: FetchOptions = {
     method: 'GET',
     credentials: 'include',

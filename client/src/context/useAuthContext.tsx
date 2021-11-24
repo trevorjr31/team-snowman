@@ -2,15 +2,17 @@ import { useState, useContext, createContext, FunctionComponent, useEffect, useC
 import { useHistory } from 'react-router-dom';
 import { AuthApiData, AuthApiDataSuccess } from '../interface/AuthApiData';
 import { User } from '../interface/User';
-import { Profile } from '../interface/Profile';
+import { Profile, ProfileData } from '../interface/Profile';
 import loginWithCookies from '../helpers/APICalls/loginWithCookies';
 import logoutAPI from '../helpers/APICalls/logout';
+import loadProfile from '../helpers/APICalls/loadProfile';
 
 interface IAuthContext {
   loggedInUser: User | null | undefined;
   loggedInUserProfile: Profile | null | undefined;
   updateLoginContext: (data: AuthApiDataSuccess) => void;
   updateProfileContext: (profile: Profile) => void;
+  fetchProfileAndUpdateContext: () => void;
   logout: () => void;
 }
 
@@ -19,6 +21,7 @@ export const AuthContext = createContext<IAuthContext>({
   loggedInUserProfile: undefined,
   updateLoginContext: () => null,
   updateProfileContext: () => null,
+  fetchProfileAndUpdateContext: () => null,
   logout: () => null,
 });
 
@@ -29,8 +32,9 @@ export const AuthProvider: FunctionComponent = ({ children }): JSX.Element => {
   const history = useHistory();
 
   const updateLoginContext = useCallback(
-    (data: AuthApiDataSuccess) => {
+    async (data: AuthApiDataSuccess) => {
       setLoggedInUser(data.user);
+      await fetchProfileAndUpdateContext();
       if (data.user && (history.location.pathname == '/login' || history.location.pathname == '/signup')) {
         history.push('/dashboard');
       }
@@ -40,6 +44,14 @@ export const AuthProvider: FunctionComponent = ({ children }): JSX.Element => {
 
   const updateProfileContext = (profile: Profile) => {
     setLoggedInUserProfile(profile);
+  };
+
+  const fetchProfileAndUpdateContext = async () => {
+    await loadProfile().then((data: ProfileData) => {
+      if (data.success) {
+        updateProfileContext(data.profile);
+      }
+    });
   };
 
   const logout = useCallback(async () => {
@@ -56,9 +68,10 @@ export const AuthProvider: FunctionComponent = ({ children }): JSX.Element => {
   // use our cookies to check if we can login straight away
   useEffect(() => {
     const checkLoginWithCookies = async () => {
-      await loginWithCookies().then((data: AuthApiData) => {
+      await loginWithCookies().then(async (data: AuthApiData) => {
         if (data.success) {
           updateLoginContext(data.success);
+          await fetchProfileAndUpdateContext();
         } else {
           // don't need to provide error feedback as this just means user doesn't have saved cookies or the cookies have not been authenticated on the backend
           setLoggedInUser(null);
@@ -74,7 +87,14 @@ export const AuthProvider: FunctionComponent = ({ children }): JSX.Element => {
 
   return (
     <AuthContext.Provider
-      value={{ loggedInUser, loggedInUserProfile, updateLoginContext, updateProfileContext, logout }}
+      value={{
+        loggedInUser,
+        loggedInUserProfile,
+        updateLoginContext,
+        updateProfileContext,
+        fetchProfileAndUpdateContext,
+        logout,
+      }}
     >
       {children}
     </AuthContext.Provider>

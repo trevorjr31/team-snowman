@@ -3,9 +3,11 @@ import { Paper, Box, Grid, Button, IconButton, Avatar, Typography } from '@mater
 import useStyles from './useStyles';
 import DeleteSharpIcon from '@material-ui/icons/DeleteSharp';
 import { uploadImage } from '../../../helpers/APICalls/uploadImage';
+import { useAuth } from '../../../context/useAuthContext';
 
 export default function EditPhoto(): JSX.Element {
   const [file, setFile] = useState<string>('');
+  const { loggedInUserProfile, fetchProfileAndUpdateContext } = useAuth();
 
   const classes = useStyles();
 
@@ -14,7 +16,9 @@ export default function EditPhoto(): JSX.Element {
     if (files) {
       setFile(URL.createObjectURL(files[0]));
       uploadImage({ file: files[0] })
-        .then()
+        .then(() => {
+          fetchProfileAndUpdateContext();
+        })
         .catch(() => ({
           error: { message: 'Unable to connect to server. Please try again' },
         }));
