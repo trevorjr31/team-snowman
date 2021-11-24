@@ -1,43 +1,35 @@
 const Notification = require("../models/Notification");
+const Request = require("../models/Request");
 const asyncHandler = require("express-async-handler");
 
-const notifications = {
-  newRequest: {
-    title: "New Request",
-    message: "You recieved a new request from ",
-  },
-  message: {
-    title: "New Message",
-    message: "You received a new message from ",
-  },
-  requestResponse: {
-    title: "Response Received",
-    message: "You received a response from ",
-  },
-};
-
-// @route POST /notification/:id
+// @route POST /notification/
 // @desc create notification
 // @access Private
 exports.createNotification = asyncHandler(async (req, res) => {
-  const { sender, type } = req.body;
+  const { type, data } = req.body;
   const userId = req.user.id;
-  if (!sender | !type | !userId) {
+  if (!data | !type | !userId) {
     res.status(400);
     throw new Error("Bad Request");
   }
-
+  if (!type === ("message" || "newRequest" || "requestUpdate")) {
+    res.status(400);
+    throw new Error("Bad Request");
+  }
   const newNotification = await Notification.create({
     type,
-    title: notifications[type].title,
-    description: `${notifications[type].message}${sender}`,
     userId,
+    data,
   });
 
   if (newNotification) {
+    result = await Notification.findById(newNotification._id).populate({
+      path: "data",
+      model: Request,
+    });
     res.status(200).json({
       success: {
-        profile: newNotification,
+        notification: result,
       },
     });
   } else {
@@ -53,6 +45,9 @@ exports.getNewNotifications = asyncHandler(async (req, res) => {
   const newNotifications = await Notification.find({
     userId: req.user.id,
     read: false,
+  }).populate({
+    path: "data",
+    model: Request,
   });
   if (!newNotifications) {
     res.status(500);
@@ -71,6 +66,9 @@ exports.getNewNotifications = asyncHandler(async (req, res) => {
 exports.getAllNotifications = asyncHandler(async (req, res) => {
   const allNotifications = await Notification.find({
     userId: req.user.id,
+  }).populate({
+    path: "data",
+    model: Request,
   });
   if (!allNotifications) {
     res.status(500);
@@ -98,6 +96,9 @@ exports.readNotifications = asyncHandler(async (req, res) => {
   const newNotifications = await Notification.find({
     userId: req.user.id,
     read: false,
+  }).populate({
+    path: "data",
+    model: Request,
   });
   res.status(200).json({
     success: {
