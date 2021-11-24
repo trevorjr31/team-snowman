@@ -27,15 +27,15 @@ const io = socketio(server, {
   },
 });
 
-io.use(async (socket, next) => {
+io.use((socket, next) => {
   if (socket.handshake.headers.cookie) {
     token = cookie.parse(socket.handshake.headers.cookie).token;
     if (token) {
-      const authorized = await jwt.verify(token, process.env.JWT_SECRET);
-      if (authorized.id) {
+      try {
+        jwt.verify(token, process.env.JWT_SECRET);
         next();
-      } else {
-        next(new Error("Invalid Authorization"));
+      } catch (error) {
+        next(error);
       }
     } else {
       next(new Error("Authorization Error"));

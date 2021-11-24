@@ -29,7 +29,7 @@ export const SocketProvider: FunctionComponent = ({ children }): JSX.Element => 
       socket.emit('goOnline', socket.id);
     });
   } else {
-    console.log('Socket Connection Failed');
+    console.error('Socket Connection Failed');
   }
 
   return <SocketContext.Provider value={{ socket, initSocket }}>{children}</SocketContext.Provider>;
