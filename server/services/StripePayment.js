@@ -2,6 +2,7 @@ const stripe = require("stripe")(process.env.SECRET_KEY);
 
 const stripePayment = async (req, res) => {
   const product = await stripe.products.create({ name: "Pet Sitter" });
+
   const price = await stripe.prices.create({
     product: product.id,
     unit_amount: req.body.price,
@@ -59,21 +60,34 @@ const subscriptionOneTimePayment = async (req, res) => {
 const createIntent = async (req, res) => {
   const intent = await stripe.setupIntents.create({
     customer: req.createdCustomer.id,
-    payment_method_types: ["card"],
+    payment_method_types: ['card'],
   });
 
   req.intent = intent;
 };
 
+const createPaymentIntent = async (req, res) => {
+  const paymentIntent = await stripe.paymentIntents.create({
+    amount: req.body.totalCost,
+    currency: 'cad',
+    customer: req.createdCustomer.id,
+    payment_method: req.body.paymentMethod,
+    off_session: true,
+    confirm: true,
+  });
+
+  req.paymentIntent = paymentIntent;
+};
+
 const getPaymentMethods = async (req, res) => {
   const allPaymentMethods = await stripe.paymentMethods.list({
     customer: req.createdCustomer.id,
-    type: "card",
+    type: 'card',
   });
   if (allPaymentMethods.data.length > 0) {
     req.allPaymentMethods = allPaymentMethods.data;
   }
-};
+}
 
 const stripeServices = {
   stripePayment: stripePayment,
@@ -81,6 +95,7 @@ const stripeServices = {
   getCustomer: getCustomer,
   subscriptionOneTimePayment: subscriptionOneTimePayment,
   createIntent: createIntent,
+  createPaymentIntent: createPaymentIntent,
   getPaymentMethods: getPaymentMethods,
 };
 
