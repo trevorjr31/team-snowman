@@ -33,7 +33,7 @@ function App(): JSX.Element {
                 <ProtectedRoute exact path="/edit-image" component={EditPhoto} />
                 <ProtectedRoute exact path="/dashboard">
                   <Dashboard />
-                </RequestProvider>
+                </ProtectedRoute>
 
                 <ProtectedRoute exact path="/my-jobs">
                   <RequestProvider>
