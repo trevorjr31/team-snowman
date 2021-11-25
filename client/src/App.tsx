@@ -10,9 +10,12 @@ import Checkout from './components/Checkout/Checkout';
 import AddCard from './components/AddCard/AddCard';
 import AddCardInfo from './components/AddCard/AddCardInfo/AddCardInfo';
 import Payment from './components/EditProfile/Payment/Payment';
+import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute';
 import { AuthProvider } from './context/useAuthContext';
 import { SocketProvider } from './context/useSocketContext';
 import { SnackBarProvider } from './context/useSnackbarContext';
+import Requests from './components/Requests/Requests';
+import { RequestProvider } from './context/useRequestContext';
 
 import EditPhoto from './components/EditProfile/EditPhoto/EditPhoto';
 
@@ -29,34 +32,42 @@ function App(): JSX.Element {
               <Switch>
                 <Route exact path="/login" component={Login} />
                 <Route exact path="/signup" component={Signup} />
-                <Route exact path="/dashboard">
-                  <Dashboard />
-                </Route>
-                <Route exact path="/my-jobs">
-                  <Dashboard />
-                </Route>
-                <Route exact path="/messages">
-                  <Dashboard />
-                </Route>
-                <Route exact path="/my-sitters">
-                  <Dashboard />
-                </Route>
-                <Route exact path="/edit-profile" component={EditMenu} />
-                <Route exact path="/checkout" component={Checkout} />
-                <Route exact path="/payment-profile" component={AddCard} />
-                <Route exact path="/add-card-info" component={AddCardInfo} />
-                <Route exact path="/edit-image" component={EditPhoto} />
-                <Route exact path="/edit-payment" component={Payment} />
+                <ProtectedRoute exact path="/edit-profile" component={EditMenu} />
+                <ProtectedRoute exact path="/checkout" component={Checkout} />
+                <ProtectedRoute exact path="/edit-image" component={EditPhoto} />
+                <ProtectedRoute exact path="/payment-profile" component={AddCard} />
+                <ProtectedRoute exact path="/add-card-info" component={AddCardInfo} />
+                <ProtectedRoute exact path="/edit-payment" component={Payment} />
 
-                <Route path="*">
-                  <Redirect to="/login" />
-                </Route>
-              </Switch>
-            </SocketProvider>
-          </AuthProvider>
-        </SnackBarProvider>
-      </BrowserRouter>
-    </MuiThemeProvider>
+                <ProtectedRoute exact path="/dashboard">
+                  <Dashboard />
+                </ProtectedRoute>
+
+                <ProtectedRoute exact path="/my-jobs">
+                  <RequestProvider>
+                    <Requests />
+                  </RequestProvider>
+                </ProtectedRoute>
+
+                <ProtectedRoute exact path="/messages">
+                  <Dashboard />
+                </ProtectedRoute>
+
+                <ProtectedRoute exact path="/my-sitters">
+                  <RequestProvider>
+                    <Dashboard />
+                  </RequestProvider>
+                </ProtectedRoute>
+
+              <Route path="*">
+                <Redirect to="/login" />
+              </Route>
+            </Switch>
+          </SocketProvider>
+        </AuthProvider>
+      </SnackBarProvider>
+    </BrowserRouter>
+    </MuiThemeProvider >
   );
 }
 
