@@ -1,25 +1,27 @@
 import { Grid, Typography, Box } from '@material-ui/core';
 import useStyles from './useStyles';
 import { useSitters } from '../../context/useSitterContext';
+import SitterSearchBar from '../../components/SitterSearchBar/SitterSearchBar';
+import SitterListing from '../../components/SitterListing/SitterListing';
 
 export default function Dashboard(): JSX.Element {
   const classes = useStyles();
   const { sitterProfiles } = useSitters();
   return (
-    <Grid container component="main" className={`${classes.root} ${classes.dashboard}`}>
-      {sitterProfiles?.map((profile) => {
-        return (
-          <Box key={profile._id}>
-            <Typography>{`First Name: ${profile.firstName}`}</Typography>
-            <Typography>{`Last Name: ${profile.lastName}`}</Typography>
-            <Typography>{`Title: ${profile.title}`}</Typography>
-            <Typography>{`Description: ${profile.description}`}</Typography>
-            <Typography>{`Address: ${profile.address}`}</Typography>
-            <Typography>{`Rate: ${profile.hourlyRate}`}</Typography>
-            <Typography>{`Photo: ${profile.photo}`}</Typography>
-          </Box>
-        );
-      })}
-    </Grid>
+    <Box justifyContent="center" className={`${classes.root}`}>
+      <Box display="flex" flexDirection="column" alignItems="center" width="100vw">
+        <Typography className={classes.title}>your search results</Typography>
+        <SitterSearchBar />
+      </Box>
+      <Grid container component="main">
+        {sitterProfiles?.map((profile) => {
+          return (
+            <Grid item xs={12} sm={6} md={4} lg={4} key={profile._id}>
+              <SitterListing profile={profile} />
+            </Grid>
+          );
+        })}
+      </Grid>
+    </Box>
   );
 }
