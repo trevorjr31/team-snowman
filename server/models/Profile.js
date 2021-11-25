@@ -29,7 +29,6 @@ const profileSchema = new mongoose.Schema({
   },
   availability: {
     type: [timeSlot],
-    default: [],
   },
   photo: {
     type: String,
