@@ -16,7 +16,7 @@ import { SocketProvider } from './context/useSocketContext';
 import { SnackBarProvider } from './context/useSnackbarContext';
 import Requests from './components/Requests/Requests';
 import { RequestProvider } from './context/useRequestContext';
-
+import { NotificationProvider } from './context/useNotificationContext';
 import EditPhoto from './components/EditProfile/EditPhoto/EditPhoto';
 
 import './App.css';
@@ -28,7 +28,9 @@ function App(): JSX.Element {
         <SnackBarProvider>
           <AuthProvider>
             <SocketProvider>
-              <NavBar />
+              <NotificationProvider>
+                <NavBar />
+              </NotificationProvider>
               <Switch>
                 <Route exact path="/login" component={Login} />
                 <Route exact path="/signup" component={Signup} />
@@ -58,7 +60,7 @@ function App(): JSX.Element {
                     <Dashboard />
                   </RequestProvider>
                 </ProtectedRoute>
-
+                
               <Route path="*">
                 <Redirect to="/login" />
               </Route>
