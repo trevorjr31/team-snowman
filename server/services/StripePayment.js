@@ -1,11 +1,12 @@
-const stripe = require('stripe')(process.env.SECRET_KEY);
+const stripe = require("stripe")(process.env.SECRET_KEY);
 
 const stripePayment = async (req, res) => {
-  const product = await stripe.products.create({ name: 'Pet Sitter' });
+  const product = await stripe.products.create({ name: "Pet Sitter" });
+
   const price = await stripe.prices.create({
     product: product.id,
     unit_amount: req.body.price,
-    currency: 'cad',
+    currency: "cad",
   });
 
   const session = await stripe.checkout.sessions.create({
@@ -15,7 +16,7 @@ const stripePayment = async (req, res) => {
         quantity: 1,
       },
     ],
-    mode: 'payment',
+    mode: "payment",
     success_url: `${process.env.DOMAIN}/?success=true&session_id={CHECKOUT_SESSION_ID}`,
     cancel_url: `${process.env.DOMAIN}/?canceled=true`,
   });
@@ -25,11 +26,11 @@ const stripePayment = async (req, res) => {
 
 const createCustomer = async (req, res) => {
   const customer = await stripe.customers.create({
-    description: 'Pet Sitter Customer (created for API docs)',
+    description: "Pet Sitter Customer (created for API docs)",
     email: req.email,
   });
   req.createdCustomer = customer;
-}
+};
 
 const getCustomer = async (req, res) => {
   const customer = await stripe.customers.list({
@@ -38,7 +39,7 @@ const getCustomer = async (req, res) => {
   if (customer.data.length > 0) {
     req.createdCustomer = customer.data[0];
   }
-}
+};
 
 const subscriptionOneTimePayment = async (req, res) => {
   const session = await stripe.checkout.sessions.create({
@@ -48,7 +49,7 @@ const subscriptionOneTimePayment = async (req, res) => {
         quantity: req.body.quantity,
       },
     ],
-    mode: 'payment',
+    mode: "payment",
     success_url: `${process.env.DOMAIN}/?success=true&session_id={CHECKOUT_SESSION_ID}`,
     cancel_url: `${process.env.DOMAIN}/?canceled=true`,
   });
