@@ -1,3 +1,5 @@
+const upload = require("../services/ImageUpload");
+const singleUpload = upload.single("image");
 const Profile = require("../models/Profile");
 const User = require("../models/User");
 const asyncHandler = require("express-async-handler");
@@ -63,7 +65,7 @@ exports.uploadProfileImage = asyncHandler(async (req, res, next) => {
     }
     
     const update = { photo: req.file.location };
-
+    console.log(update);
     const updateProfile = await Profile.findByIdAndUpdate(
       user.profile,
       update,
