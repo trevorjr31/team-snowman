@@ -60,16 +60,16 @@ function App(): JSX.Element {
                     <Dashboard />
                   </RequestProvider>
                 </ProtectedRoute>
-                
-              <Route path="*">
-                <Redirect to="/login" />
-              </Route>
-            </Switch>
-          </SocketProvider>
-        </AuthProvider>
-      </SnackBarProvider>
-    </BrowserRouter>
-    </MuiThemeProvider >
+
+                <Route path="*">
+                  <Redirect to="/login" />
+                </Route>
+              </Switch>
+            </SocketProvider>
+          </AuthProvider>
+        </SnackBarProvider>
+      </BrowserRouter>
+    </MuiThemeProvider>
   );
 }
 

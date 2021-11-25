@@ -1,23 +1,16 @@
+import Typography from '@material-ui/core/Typography';
 import { Elements } from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';
 import AddCardInfoForm from './AddCardInfoForm/AddCardInfoForm';
 
-/*interface Props {
-  clientSecret: string;
-}*/
-
 const AddCardInfo = (props: any): JSX.Element => {
   const options = {
-    // passing the client secret obtained in step 2
     clientSecret: props.location.state.clientSecret,
-    // Fully customizable with appearance API.
-    appearance: {
-      /*...*/
-    },
+    appearance: {},
   };
 
   if (process.env.REACT_APP_SECRET_KEY === undefined) {
-    return <p>No secret key</p>;
+    return <Typography>No secret key</Typography>;
   } else {
     const stripePromise = loadStripe(process.env.REACT_APP_SECRET_KEY);
     return (
