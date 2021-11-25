@@ -35,6 +35,10 @@ const profileSchema = new mongoose.Schema({
     type: String,
     default: "",
   },
+  defaultPaymentMethod: {
+    type: String,
+    default: ""
+  },
 });
 
 module.exports = Profile = mongoose.model("Profile", profileSchema);

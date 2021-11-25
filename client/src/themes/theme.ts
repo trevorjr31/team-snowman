@@ -36,6 +36,9 @@ export const theme = createMuiTheme({
       fontSize: 12,
       textAlign: 'center',
     },
+    subtitle2: {
+      fontSize: 14,
+    },
   },
   palette: {
     primary: { main: '#f14140' },
