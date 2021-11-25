@@ -21,7 +21,6 @@ const CheckoutForm = () => {
 
     if (result.error) {
       console.log(result.error.message);
-    } else {
     }
   };
 

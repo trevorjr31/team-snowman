@@ -11,7 +11,7 @@ import AddCard from './components/AddCard/AddCard';
 import AddCardInfo from './components/AddCard/AddCardInfo/AddCardInfo';
 import Payment from './components/EditProfile/Payment/Payment';
 import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute';
-import { AuthProvider, useAuth } from './context/useAuthContext';
+import { AuthProvider } from './context/useAuthContext';
 import { SocketProvider } from './context/useSocketContext';
 import { SnackBarProvider } from './context/useSnackbarContext';
 import Requests from './components/Requests/Requests';
@@ -61,8 +61,6 @@ function App(): JSX.Element {
                   </RequestProvider>
                 </ProtectedRoute>
 
-                <ProtectedRoute exact path="/edit-profile" component={EditMenu} />
-                <ProtectedRoute exact path="/edit-image" component={EditPhoto} />
                 <Route path="*">
                   <Redirect to="/login" />
                 </Route>
