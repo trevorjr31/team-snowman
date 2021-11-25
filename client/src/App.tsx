@@ -32,30 +32,32 @@ function App(): JSX.Element {
               <Switch>
                 <Route exact path="/login" component={Login} />
                 <Route exact path="/signup" component={Signup} />
-                <ProtectedRoute exact path="/dashboard">
-                  <Dashboard />
-                </ProtectedRoute>
-                <RequestProvider>
-                  <ProtectedRoute exact path="/my-jobs">
-                    <Requests />
-                  </ProtectedRoute>
-                </RequestProvider>
-                <ProtectedRoute exact path="/messages">
-                  <Dashboard />
-                </ProtectedRoute>
-                <RequestProvider>
-                  <ProtectedRoute exact path="/checkout" component={Checkout} />
-                </RequestProvider>
-                <RequestProvider>
-                  <ProtectedRoute exact path="/my-sitters">
-                    <Dashboard />
-                  </ProtectedRoute>
-                </RequestProvider>
                 <ProtectedRoute exact path="/edit-profile" component={EditMenu} />
+                <ProtectedRoute exact path="/checkout" component={Checkout} />
                 <ProtectedRoute exact path="/edit-image" component={EditPhoto} />
                 <ProtectedRoute exact path="/payment-profile" component={AddCard} />
                 <ProtectedRoute exact path="/add-card-info" component={AddCardInfo} />
                 <ProtectedRoute exact path="/edit-payment" component={Payment} />
+
+                <ProtectedRoute exact path="/dashboard">
+                  <Dashboard />
+                </ProtectedRoute>
+
+                <ProtectedRoute exact path="/my-jobs">
+                  <RequestProvider>
+                    <Requests />
+                  </RequestProvider>
+                </ProtectedRoute>
+
+                <ProtectedRoute exact path="/messages">
+                  <Dashboard />
+                </ProtectedRoute>
+
+                <ProtectedRoute exact path="/my-sitters">
+                  <RequestProvider>
+                    <Dashboard />
+                  </RequestProvider>
+                </ProtectedRoute>
 
                 <Route path="*">
                   <Redirect to="/login" />

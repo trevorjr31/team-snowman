@@ -7,6 +7,7 @@ import Typography from '@material-ui/core/Typography';
 import useStyles from './useStyles';
 import { CircularProgress } from '@material-ui/core';
 import AuthFooter from '../../../components/AuthFooter/AuthFooter';
+import DemoLoginBtn from '../../../components/DemoLoginBtn/DemoLoginBtn';
 
 interface Props {
   handleSubmit: (
@@ -115,6 +116,9 @@ const SignUpForm = ({ handleSubmit }: Props): JSX.Element => {
             <Button type="submit" size="large" variant="contained" color="primary" className={classes.submit}>
               {isSubmitting ? <CircularProgress style={{ color: 'white' }} /> : 'SIGN UP'}
             </Button>
+          </Box>
+          <Box textAlign="center">
+            <DemoLoginBtn />
           </Box>
           <AuthFooter linkTo="/login" asideText="Already have an account?" btnText="Login" />
         </form>
