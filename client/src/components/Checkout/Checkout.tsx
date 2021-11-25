@@ -18,7 +18,7 @@ export default function Checkout(): JSX.Element {
     { priceId, quantity }: { priceId: string; quantity: number },
     { setSubmitting }: FormikHelpers<{ priceId: string; quantity: number }>,
   ) => {
-    if (loggedInUser != undefined && loggedInUser) {
+    if (loggedInUser) {
       checkout({ priceId: priceId, quantity: quantity, userId: loggedInUser.id }).then((data) => {
         if (data.error) {
           setSubmitting(false);

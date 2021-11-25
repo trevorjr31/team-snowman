@@ -2,8 +2,6 @@ import { useState, useEffect } from 'react';
 import Button from '@material-ui/core/Button';
 import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
-import Radio from '@material-ui/core/Radio';
-import CheckIcon from '@material-ui/icons/Check';
 import { Formik, FormikHelpers } from 'formik';
 import * as Yup from 'yup';
 import Typography from '@material-ui/core/Typography';
@@ -14,6 +12,7 @@ import { addCard } from '../../../helpers/APICalls/addCard';
 import { getAllPaymentMethods } from '../../../helpers/APICalls/getAllPaymentMethods';
 import { useSnackBar } from '../../../context/useSnackbarContext';
 import { useHistory } from 'react-router-dom';
+import CreditCard from './CreditCard/CreditCard';
 
 interface Props {
   handleSubmit: (
@@ -32,18 +31,17 @@ interface Props {
 }
 
 export default function AddCard({ handleSubmit }: Props): JSX.Element {
-  const [paymentMethods, setPaymentMethods] = useState<any>([{}]);
-  const { loggedInUser } = useAuth();
+  const [paymentMethods, setPaymentMethods] = useState<any>([]);
+  const { loggedInUser, loggedInUserProfile } = useAuth();
   const { updateSnackBarMessage } = useSnackBar();
   const history = useHistory();
 
   useEffect(() => {
-    if (loggedInUser != undefined && loggedInUser) {
+    if (loggedInUser) {
       getAllPaymentMethods({ userId: loggedInUser.id }).then((data) => {
         if (data.error) {
           updateSnackBarMessage(data.error.message);
         } else if (data.allPaymentMethods) {
-          console.log(data.allPaymentMethods);
           setPaymentMethods(data.allPaymentMethods);
         } else {
           updateSnackBarMessage('An unexpected error occurred. Please try again');
@@ -53,7 +51,7 @@ export default function AddCard({ handleSubmit }: Props): JSX.Element {
   }, [loggedInUser, updateSnackBarMessage]);
 
   const handleAddCard = () => {
-    if (loggedInUser != undefined && loggedInUser) {
+    if (loggedInUser) {
       addCard({ userId: loggedInUser.id }).then((data) => {
         if (data.error) {
           updateSnackBarMessage(data.error.message);
@@ -72,11 +70,11 @@ export default function AddCard({ handleSubmit }: Props): JSX.Element {
   };
   const classes = useStyles();
 
-  if (process.env.REACT_APP_PRICE_ID != undefined) {
+  if (process.env.REACT_APP_PRICE_ID) {
     return (
       <Formik
         initialValues={{
-          paymentMethod: 'visacard',
+          paymentMethod: loggedInUserProfile ? loggedInUserProfile.defaultPaymentMethod : '',
         }}
         validationSchema={Yup.object().shape({
           paymentMethod: Yup.string().required('PaymentMethod is required'),
@@ -91,37 +89,15 @@ export default function AddCard({ handleSubmit }: Props): JSX.Element {
                   saved payment profiles:
                 </Typography>
                 <Grid container>
-                  <Box marginRight={2} border={2} borderColor="#dddddd" borderRadius={10} width={340} height={190}>
-                    <Radio
-                      checkedIcon={
-                        <CheckIcon style={{ color: '#ffffff', backgroundColor: '#f14140', borderRadius: 10 }} />
-                      }
-                      color="primary"
-                      checked={values.paymentMethod === 'mastercard'}
-                      onChange={(e) => {
-                        setValues({ paymentMethod: e.target.value });
-                        handleSubmit();
-                      }}
-                      value="mastercard"
-                      name="radio-button-demo"
-                      inputProps={{ 'aria-label': 'A' }}
+                  {paymentMethods.map((card: any, index: number) => (
+                    <CreditCard
+                      key={index}
+                      card={card}
+                      setValues={setValues}
+                      handleSubmit={handleSubmit}
+                      values={values}
                     />
-                  </Box>
-                  <Box marginRight={2} border={2} borderColor="#dddddd" borderRadius={10} width={340} height={190}>
-                    <Radio
-                      checkedIcon={
-                        <CheckIcon style={{ color: '#ffffff', backgroundColor: '#f14140', borderRadius: 10 }} />
-                      }
-                      checked={values.paymentMethod === 'visacard'}
-                      onChange={(e) => {
-                        setValues({ paymentMethod: e.target.value });
-                        handleSubmit();
-                      }}
-                      value="visacard"
-                      name="radio-button-demo"
-                      inputProps={{ 'aria-label': 'A' }}
-                    />
-                  </Box>
+                  ))}
                 </Grid>
                 <Box textAlign="flex-start">
                   <Button

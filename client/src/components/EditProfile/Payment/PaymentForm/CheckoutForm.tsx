@@ -1,3 +1,4 @@
+import Button from '@material-ui/core/Button';
 import { useStripe, useElements, PaymentElement } from '@stripe/react-stripe-js';
 
 const CheckoutForm = () => {
@@ -26,7 +27,7 @@ const CheckoutForm = () => {
   return (
     <form onSubmit={handleSubmit}>
       <PaymentElement />
-      <button disabled={!stripe}>Submit</button>
+      <Button disabled={!stripe}>Submit</Button>
     </form>
   );
 };

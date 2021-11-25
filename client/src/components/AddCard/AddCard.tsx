@@ -8,29 +8,24 @@ import { setDefaultPayment } from '../../helpers/APICalls/setDefaultPayment';
 import AddCardForm from './AddCardForm/AddCardForm';
 import { useAuth } from '../../context/useAuthContext';
 import { useSnackBar } from '../../context/useSnackbarContext';
+import editProfile from '../../helpers/APICalls/editProfile';
 
 export default function AddCard(): JSX.Element {
   const classes = useStyles();
   const { updateSnackBarMessage } = useSnackBar();
-  const { loggedInUser } = useAuth();
+  const { loggedInUser, loggedInUserProfile, fetchProfileAndUpdateContext } = useAuth();
 
-  const handleSubmit = (
+  const handleSubmit = async (
     { paymentMethod }: { paymentMethod: string },
     { setSubmitting }: FormikHelpers<{ paymentMethod: string }>,
   ) => {
-    if (loggedInUser != undefined && loggedInUser) {
-      setDefaultPayment({ paymentMethod: paymentMethod, userId: loggedInUser.id }).then((data) => {
-        if (data.error) {
-          setSubmitting(false);
-          updateSnackBarMessage(data.error.message);
-        } else if (data.url) {
-          setSubmitting(false);
-          //window.open(data.url, '', 'width=1000,height=700');
-        } else {
-          setSubmitting(false);
-          updateSnackBarMessage('An unexpected error occurred. Please try again');
-        }
-      });
+    if (loggedInUser) {
+      const profile = loggedInUserProfile;
+      if (profile) {
+        profile.defaultPaymentMethod = paymentMethod;
+        await editProfile(profile);
+        fetchProfileAndUpdateContext();
+      }
     }
   };
 

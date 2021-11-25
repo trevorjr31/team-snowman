@@ -34,8 +34,10 @@ export const theme = createMuiTheme({
     },
     h6: {
       fontSize: 12,
-      color: '#888888',
       textAlign: 'center',
+    },
+    subtitle2: {
+      fontSize: 14,
     },
   },
   palette: {
@@ -44,5 +46,12 @@ export const theme = createMuiTheme({
   },
   shape: {
     borderRadius: 5,
+  },
+  overrides: {
+    MuiTypography: {
+      h6: {
+        color: '#888888',
+      },
+    },
   },
 });
