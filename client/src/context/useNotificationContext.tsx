@@ -39,8 +39,8 @@ export const NotificationProvider: FunctionComponent = ({ children }): JSX.Eleme
     SetNotifications(fetchedNotifications);
   };
 
-  const sendNewNotification = async (id: string, type: string) => {
-    await postNotification(id, type);
+  const sendNewNotification = (id: string, type: string) => {
+    postNotification(id, type);
   };
 
   return (
