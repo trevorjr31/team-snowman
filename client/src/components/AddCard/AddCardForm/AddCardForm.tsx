@@ -32,7 +32,7 @@ interface Props {
 
 export default function AddCard({ handleSubmit }: Props): JSX.Element {
   const [paymentMethods, setPaymentMethods] = useState<any>([]);
-  const { loggedInUser } = useAuth();
+  const { loggedInUser, loggedInUserProfile } = useAuth();
   const { updateSnackBarMessage } = useSnackBar();
   const history = useHistory();
 
@@ -74,7 +74,7 @@ export default function AddCard({ handleSubmit }: Props): JSX.Element {
     return (
       <Formik
         initialValues={{
-          paymentMethod: 'profile.paymentMethod',
+          paymentMethod: loggedInUserProfile ? loggedInUserProfile.defaultPaymentMethod : '',
         }}
         validationSchema={Yup.object().shape({
           paymentMethod: Yup.string().required('PaymentMethod is required'),
