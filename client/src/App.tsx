@@ -24,44 +24,47 @@ function App(): JSX.Element {
       <BrowserRouter>
         <SnackBarProvider>
           <AuthProvider>
-            <SocketProvider>
-              <NotificationProvider>
+            <NotificationProvider>
+              <SocketProvider>
                 <NavBar />
-              </NotificationProvider>
-              <Switch>
-                <Route exact path="/login" component={Login} />
-                <Route exact path="/signup" component={Signup} />
-                <ProtectedRoute exact path="/edit-profile" component={EditMenu} />
-                <ProtectedRoute exact path="/checkout" component={Checkout} />
-                <ProtectedRoute exact path="/edit-image" component={EditPhoto} />
-                <ProtectedRoute exact path="/dashboard">
-                  <Dashboard />
-                </ProtectedRoute>
-                <RequestProvider>
-                  <ProtectedRoute exact path="/my-jobs">
-                    <Requests />
-                  </ProtectedRoute>
-                </RequestProvider>
-                <ProtectedRoute exact path="/messages">
-                  <Dashboard />
-                </ProtectedRoute>
-                <ProtectedRoute exact path="/my-sitters">
-                  <Dashboard />
-                </ProtectedRoute>
 
-                <RequestProvider>
+                <Switch>
+                  <Route exact path="/login" component={Login} />
+                  <Route exact path="/signup" component={Signup} />
+                  <ProtectedRoute exact path="/edit-profile" component={EditMenu} />
+                  <ProtectedRoute exact path="/checkout" component={Checkout} />
+                  <ProtectedRoute exact path="/edit-image" component={EditPhoto} />
+                  <ProtectedRoute exact path="/dashboard">
+                    <Dashboard />
+                  </ProtectedRoute>
+
+                  <RequestProvider>
+                    <ProtectedRoute exact path="/my-jobs">
+                      <Requests />
+                    </ProtectedRoute>
+                  </RequestProvider>
+
+                  <ProtectedRoute exact path="/messages">
+                    <Dashboard />
+                  </ProtectedRoute>
                   <ProtectedRoute exact path="/my-sitters">
                     <Dashboard />
                   </ProtectedRoute>
-                </RequestProvider>
 
-                <ProtectedRoute exact path="/edit-profile" component={EditMenu} />
-                <ProtectedRoute exact path="/edit-image" component={EditPhoto} />
-                <Route path="*">
-                  <Redirect to="/login" />
-                </Route>
-              </Switch>
-            </SocketProvider>
+                  <RequestProvider>
+                    <ProtectedRoute exact path="/my-sitters">
+                      <Dashboard />
+                    </ProtectedRoute>
+                  </RequestProvider>
+
+                  <ProtectedRoute exact path="/edit-profile" component={EditMenu} />
+                  <ProtectedRoute exact path="/edit-image" component={EditPhoto} />
+                  <Route path="*">
+                    <Redirect to="/login" />
+                  </Route>
+                </Switch>
+              </SocketProvider>
+            </NotificationProvider>
           </AuthProvider>
         </SnackBarProvider>
       </BrowserRouter>
