@@ -30,7 +30,8 @@ function App(): JSX.Element {
                 <Route exact path="/login" component={Login} />
                 <Route exact path="/signup" component={Signup} />
                 <Route exact path="/edit-profile" component={EditMenu} />
-                <Route exact path="/edit-image" component={EditPhoto} />
+                <ProtectedRoute exact path="/edit-image" component={EditPhoto} />
+                <ProtectedRoute exact path="/checkout" component={Checkout} />
                 <Route exact path="/dashboard">
                   <Dashboard />
                 </Route>
@@ -47,15 +48,6 @@ function App(): JSX.Element {
 
                 <Route exact path="/my-sitters">
                   <RequestProvider>
-                </ProtectedRoute>
-                <ProtectedRoute exact path="/my-sitters">
-                  <Dashboard />
-                </ProtectedRoute>
-                <Route exact path="/edit-profile" component={EditMenu} />
-                <Route exact path="/checkout" component={Checkout} />
-                <Route exact path="/edit-image" component={EditPhoto} />
-                <RequestProvider>
-                  <ProtectedRoute exact path="/my-sitters">
                     <Dashboard />
                   </RequestProvider>
                 </Route>

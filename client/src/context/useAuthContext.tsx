@@ -38,7 +38,7 @@ export const AuthProvider: FunctionComponent = ({ children }): JSX.Element => {
   const fetchProfileAndUpdateContext = useCallback(async () => {
     await loadProfile().then((data: ProfileData) => {
       if (data.success) {
-        updateProfileContext(data.profile);
+        updateProfileContext(data.success.profile);
       }
     });
   }, [updateProfileContext]);

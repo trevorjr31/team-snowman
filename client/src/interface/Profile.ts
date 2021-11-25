@@ -15,6 +15,5 @@ export interface Profile {
 
 export interface ProfileData {
   error?: string;
-  success?: string;
-  profile: Profile;
+  success?: { profile: Profile };
 }
