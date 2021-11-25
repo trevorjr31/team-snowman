@@ -8,7 +8,7 @@ import NavBar from './components/NavBar/NavBar';
 import EditMenu from './components/EditProfile/EditMenu';
 import Checkout from './components/Checkout/Checkout';
 import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute';
-import { AuthProvider } from './context/useAuthContext';
+import { AuthProvider, useAuth } from './context/useAuthContext';
 import { SocketProvider } from './context/useSocketContext';
 import { SnackBarProvider } from './context/useSnackbarContext';
 import Requests from './components/Requests/Requests';
@@ -29,16 +29,24 @@ function App(): JSX.Element {
               <Switch>
                 <Route exact path="/login" component={Login} />
                 <Route exact path="/signup" component={Signup} />
-                <ProtectedRoute exact path="/dashboard">
+                <Route exact path="/edit-profile" component={EditMenu} />
+                <Route exact path="/edit-image" component={EditPhoto} />
+                <Route exact path="/dashboard">
                   <Dashboard />
-                </ProtectedRoute>
-                <RequestProvider>
-                  <ProtectedRoute exact path="/my-jobs">
+                </Route>
+
+                <Route exact path="/my-jobs">
+                  <RequestProvider>
                     <Requests />
-                  </ProtectedRoute>
-                </RequestProvider>
-                <ProtectedRoute exact path="/messages">
+                  </RequestProvider>
+                </Route>
+
+                <Route exact path="/messages">
                   <Dashboard />
+                </Route>
+
+                <Route exact path="/my-sitters">
+                  <RequestProvider>
                 </ProtectedRoute>
                 <ProtectedRoute exact path="/my-sitters">
                   <Dashboard />
@@ -49,10 +57,8 @@ function App(): JSX.Element {
                 <RequestProvider>
                   <ProtectedRoute exact path="/my-sitters">
                     <Dashboard />
-                  </ProtectedRoute>
-                </RequestProvider>
-                <ProtectedRoute exact path="/edit-profile" component={EditMenu} />
-                <ProtectedRoute exact path="/edit-image" component={EditPhoto} />
+                  </RequestProvider>
+                </Route>
 
                 <Route path="*">
                   <Redirect to="/login" />
