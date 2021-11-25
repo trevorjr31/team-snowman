@@ -20,7 +20,10 @@ exports.payment = asyncHandler(async (req, res) => {
 
     res
       .status(200)
-      .send({ message: "The payment session has been successfully created", url: req.url });
+      .send({
+        message: "The payment session has been successfully created",
+        url: req.url,
+      });
   }
 });
 
@@ -37,7 +40,10 @@ exports.createCustomer = asyncHandler(async (req, res) => {
 
     res
       .status(200)
-      .send({ message: "The customer has been successfully created", customer: req.createdCustomer });
+      .send({
+        message: "The customer has been successfully created",
+        customer: req.createdCustomer,
+      });
   }
 });
 
@@ -54,13 +60,11 @@ exports.newCustomerCreateIntent = asyncHandler(async (req, res) => {
 
     await createIntent(req, res);
 
-    res
-      .status(200)
-      .send({
-        message: "Both customer and intent have been successfully created",
-        customer: req.createdCustomer,
-        intent: req.intent
-      });
+    res.status(200).send({
+      message: "Both customer and intent have been successfully created",
+      customer: req.createdCustomer,
+      intent: req.intent,
+    });
   }
 });
 
@@ -81,13 +85,11 @@ exports.getOrCreateCustomerCreateIntent = asyncHandler(async (req, res) => {
 
     await createIntent(req, res);
 
-    res
-      .status(200)
-      .send({
-        message: "Both customer and intent have been successfully created",
-        customer: req.createdCustomer,
-        intent: req.intent
-      });
+    res.status(200).send({
+      message: "Both customer and intent have been successfully created",
+      customer: req.createdCustomer,
+      intent: req.intent,
+    });
   }
 });
 
@@ -103,18 +105,14 @@ exports.getAllPaymentMethods = asyncHandler(async (req, res) => {
 
     if (req.createdCustomer != undefined) {
       await getPaymentMethods(req, res);
-      res
-        .status(200)
-        .send({
-          message: "Get all payment methods successfully",
-          allPaymentMethods: req.allPaymentMethods
-        });
+      res.status(200).send({
+        message: "Get all payment methods successfully",
+        allPaymentMethods: req.allPaymentMethods,
+      });
     } else {
-      res
-        .status(400)
-        .send({
-          message: "New customer without records"
-        });
+      res.status(400).send({
+        message: "New customer without records",
+      });
     }
   }
 });
@@ -136,11 +134,13 @@ exports.createCheckoutSession = asyncHandler(async (req, res) => {
           },
         });
       } else {
-
       }
     });
     res
       .status(200)
-      .send({ message: "The payment session has been successfully created", url: req.url });
+      .send({
+        message: "The payment session has been successfully created",
+        url: req.url,
+      });
   }
 });

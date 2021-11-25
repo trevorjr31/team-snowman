@@ -1,5 +1,4 @@
-import { ChangeEventHandler, useState } from 'react';
-import { Paper, Box, Grid, Button, IconButton, Avatar, Typography } from '@material-ui/core';
+import { Box, TextField, Grid, Button, IconButton, Avatar, Typography } from '@material-ui/core';
 import useStyles from './useStyles';
 import DeleteSharpIcon from '@material-ui/icons/DeleteSharp';
 import { uploadImage } from '../../../helpers/APICalls/uploadImage';
@@ -31,7 +30,11 @@ export default function EditPhoto(): JSX.Element {
     const profile = loggedInUserProfile;
     if (profile) {
       profile.photo = '';
-      await editProfile(profile);
+      try {
+        await editProfile(profile);
+      } catch (err) {
+        updateSnackBarMessage('Unable to connect to server. Please try again');
+      }
       fetchProfileAndUpdateContext();
     }
   }
