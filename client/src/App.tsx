@@ -11,12 +11,11 @@ import AddCard from './components/AddCard/AddCard';
 import AddCardInfo from './components/AddCard/AddCardInfo/AddCardInfo';
 import Payment from './components/EditProfile/Payment/Payment';
 import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute';
-import { AuthProvider } from './context/useAuthContext';
+import { AuthProvider, useAuth } from './context/useAuthContext';
 import { SocketProvider } from './context/useSocketContext';
 import { SnackBarProvider } from './context/useSnackbarContext';
 import Requests from './components/Requests/Requests';
 import { RequestProvider } from './context/useRequestContext';
-
 import EditPhoto from './components/EditProfile/EditPhoto/EditPhoto';
 
 import './App.css';

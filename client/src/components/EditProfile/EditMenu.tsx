@@ -6,6 +6,7 @@ import Tab from '@material-ui/core/Tab';
 import Paper from '@material-ui/core/Paper';
 import { useState, ChangeEvent } from 'react';
 import ProfileForm from './ProfileForm/ProfileForm';
+import EditPhoto from './EditPhoto/EditPhoto';
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -70,7 +71,9 @@ const EditMenu = (): JSX.Element => {
             </Box>
           </TabPanel>
           <TabPanel value={value} index={1}>
-            Profile Photo Placeholder
+            <Box className={classes.tabComponentHolder}>
+              <EditPhoto />
+            </Box>
           </TabPanel>
           <TabPanel value={value} index={2}>
             Availability Placeholder
