@@ -1,22 +1,25 @@
-import { useState } from 'react';
+import { ChangeEventHandler, useState } from 'react';
 import { Paper, Box, Grid, Button, IconButton, Avatar, Typography } from '@material-ui/core';
 import useStyles from './useStyles';
 import DeleteSharpIcon from '@material-ui/icons/DeleteSharp';
 import { uploadImage } from '../../../helpers/APICalls/uploadImage';
 import editProfile from '../../../helpers/APICalls/editProfile';
 import { useAuth } from '../../../context/useAuthContext';
+import { useSnackBar } from '../../../context/useSnackbarContext';
 
 export default function EditPhoto(): JSX.Element {
   const { loggedInUserProfile, fetchProfileAndUpdateContext } = useAuth();
+  const { updateSnackBarMessage } = useSnackBar();
 
   const classes = useStyles();
 
-  const handleCapture = ({ target }: any) => {
+  const handleCapture = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
     const files = target.files;
     if (files) {
       uploadImage({ file: files[0] })
         .then(() => {
           fetchProfileAndUpdateContext();
+          updateSnackBarMessage('Your photo is uploaded successfully');
         })
         .catch(() => ({
           error: { message: 'Unable to connect to server. Please try again' },
