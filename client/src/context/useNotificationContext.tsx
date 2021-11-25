@@ -8,7 +8,7 @@ interface NotificationContext {
   markNotificationsAsRead: () => void;
 }
 
-export const NotificationContext = createContext<INotificationContext>({
+export const NotificationContext = createContext<NotificationContext>({
   notifications: null,
   markNotificationsAsRead: () => null,
 });
@@ -36,6 +36,6 @@ export const NotificationProvider: FunctionComponent = ({ children }): JSX.Eleme
   );
 };
 
-export function useNotification(): INotificationContext {
+export function useNotification(): NotificationContext {
   return useContext(NotificationContext);
 }

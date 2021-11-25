@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import useStyles from './useStyles';
 import NotificationListing from './NotificationListing/NotifcationListing';
 import ArrowDropUpIcon from '@material-ui/icons/ArrowDropUp';
+import { Notification } from '../../interface/Notification';
 
 const NotificationLink = (): JSX.Element => {
   const classes = useStyles();
@@ -45,7 +46,7 @@ const NotificationLink = (): JSX.Element => {
             <Typography variant="h3">You have no new notifications</Typography>
           </Box>
         ) : (
-          notifications?.map((notification) => {
+          notifications?.map((notification: Notification) => {
             return (
               <MenuItem
                 key={notification._id}
