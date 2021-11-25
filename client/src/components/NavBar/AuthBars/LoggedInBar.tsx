@@ -4,6 +4,7 @@ import Typography from '@material-ui/core/Typography';
 import { Link } from 'react-router-dom';
 import useStyles from './useStyles';
 import AuthMenu from '../../AuthMenu/AuthMenu';
+import NotificationLink from '../../NotificationDisplay/NotificationDisplay';
 
 const LoggedInBar = (): JSX.Element => {
   const classes = useStyles();
@@ -11,9 +12,7 @@ const LoggedInBar = (): JSX.Element => {
   return (
     <Grid container className={classes.navButtons}>
       <Grid item>
-        <Button component={Link} to="/notifications" color="secondary" size="large" variant="text">
-          <Typography variant="h3">Notifications</Typography>
-        </Button>
+        <NotificationLink />
       </Grid>
       <Grid item>
         <Button component={Link} to="/my-jobs" color="secondary" size="large" variant="text">
