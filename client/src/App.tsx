@@ -6,6 +6,7 @@ import Signup from './pages/SignUp/SignUp';
 import Dashboard from './pages/Dashboard/Dashboard';
 import NavBar from './components/NavBar/NavBar';
 import EditMenu from './components/EditProfile/EditMenu';
+import Checkout from './components/Checkout/Checkout';
 import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute';
 import { AuthProvider, useAuth } from './context/useAuthContext';
 import { SocketProvider } from './context/useSocketContext';
@@ -46,6 +47,15 @@ function App(): JSX.Element {
 
                 <ProtectedRoute exact path="/my-sitters">
                   <RequestProvider>
+                </ProtectedRoute>
+                <ProtectedRoute exact path="/my-sitters">
+                  <Dashboard />
+                </ProtectedRoute>
+                <Route exact path="/edit-profile" component={EditMenu} />
+                <Route exact path="/checkout" component={Checkout} />
+                <Route exact path="/edit-image" component={EditPhoto} />
+                <RequestProvider>
+                  <ProtectedRoute exact path="/my-sitters">
                     <Dashboard />
                   </RequestProvider>
                 </ProtectedRoute>

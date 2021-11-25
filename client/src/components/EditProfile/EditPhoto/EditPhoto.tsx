@@ -1,29 +1,29 @@
 import { useState } from 'react';
-import Paper from '@material-ui/core/Paper';
-import Box from '@material-ui/core/Box';
-import Grid from '@material-ui/core/Grid';
-import Button from '@material-ui/core/Button';
-import Avatar from '@material-ui/core/Avatar';
-import Typography from '@material-ui/core/Typography';
+import { Paper, Box, Grid, Button, IconButton, Avatar, Typography } from '@material-ui/core';
 import useStyles from './useStyles';
 import DeleteSharpIcon from '@material-ui/icons/DeleteSharp';
-import IconButton from '@material-ui/core/IconButton';
+import { uploadImage } from '../../../helpers/APICalls/uploadImage';
+import { useAuth } from '../../../context/useAuthContext';
 
 export default function EditPhoto(): JSX.Element {
   const [file, setFile] = useState<string>('');
+  const { loggedInUserProfile, fetchProfileAndUpdateContext } = useAuth();
 
   const classes = useStyles();
 
-  function importData() {
-    const input: HTMLInputElement = document.createElement('input');
-    input.type = 'file';
-    input.accept = 'image/png, image/jpeg';
-    input.onchange = () => {
-      const files = input.files;
-      setFile(files === null ? '' : URL.createObjectURL(files[0]));
-    };
-    input.click();
-  }
+  const handleCapture = ({ target }: any) => {
+    const files = target.files;
+    if (files) {
+      setFile(URL.createObjectURL(files[0]));
+      uploadImage({ file: files[0] })
+        .then(() => {
+          fetchProfileAndUpdateContext();
+        })
+        .catch(() => ({
+          error: { message: 'Unable to connect to server. Please try again' },
+        }));
+    }
+  };
 
   function removeFile() {
     setFile('');
@@ -31,7 +31,7 @@ export default function EditPhoto(): JSX.Element {
 
   return (
     <Grid container component="main" className={classes.root}>
-      <Grid item xs={12} sm={8} md={7} elevation={4} component={Paper} square style={{ height: 560 }}>
+      <Grid item xs={12} sm={8} md={7} elevation={4} component={Paper} square className={classes.paper}>
         <Box
           display="flex"
           alignItems="flex-start"
@@ -49,16 +49,24 @@ export default function EditPhoto(): JSX.Element {
               </Grid>
             </Grid>
             <Box display="flex" alignItems="center" justifyContent="center">
-              <Avatar src={file} className={classes.avatar} />
+              <Avatar src={loggedInUserProfile?.photo} className={classes.avatar} />
             </Box>
             <Box display="flex" alignItems="center" justifyContent="center">
               <Typography className={classes.reminder} component="h4" variant="h6">
                 Be sure to use a photo that clearly shows your face
               </Typography>
             </Box>
-            <Box display="flex" alignItems="center" justifyContent="center">
-              <Button className={classes.uploadButton} variant="outlined" color="primary" onClick={importData}>
+            <Box className={classes.centerRow}>
+              <Button component="label" className={classes.uploadButton} variant="outlined" color="primary">
                 Upload a file from your device
+                <input
+                  style={{ display: 'none' }}
+                  type="file"
+                  accept="image/png, image/jpeg"
+                  id="load-photo-button"
+                  onChange={handleCapture}
+                  hidden
+                />
               </Button>
             </Box>
             <Box display="flex" alignItems="center" justifyContent="center" onClick={removeFile}>
