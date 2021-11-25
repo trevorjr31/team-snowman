@@ -7,7 +7,7 @@ import Dashboard from './pages/Dashboard/Dashboard';
 import NavBar from './components/NavBar/NavBar';
 import EditMenu from './components/EditProfile/EditMenu';
 import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute';
-import { AuthProvider } from './context/useAuthContext';
+import { AuthProvider, useAuth } from './context/useAuthContext';
 import { SocketProvider } from './context/useSocketContext';
 import { SnackBarProvider } from './context/useSnackbarContext';
 import Requests from './components/Requests/Requests';
@@ -28,27 +28,27 @@ function App(): JSX.Element {
               <Switch>
                 <Route exact path="/login" component={Login} />
                 <Route exact path="/signup" component={Signup} />
-                <ProtectedRoute exact path="/edit-profile" component={EditMenu} />
-                <ProtectedRoute exact path="/edit-image" component={EditPhoto} />
-                <ProtectedRoute exact path="/dashboard">
+                <Route exact path="/edit-profile" component={EditMenu} />
+                <Route exact path="/edit-image" component={EditPhoto} />
+                <Route exact path="/dashboard">
                   <Dashboard />
-                </ProtectedRoute>
+                </Route>
 
-                <ProtectedRoute exact path="/my-jobs">
+                <Route exact path="/my-jobs">
                   <RequestProvider>
                     <Requests />
                   </RequestProvider>
-                </ProtectedRoute>
+                </Route>
 
-                <ProtectedRoute exact path="/messages">
+                <Route exact path="/messages">
                   <Dashboard />
-                </ProtectedRoute>
+                </Route>
 
-                <ProtectedRoute exact path="/my-sitters">
+                <Route exact path="/my-sitters">
                   <RequestProvider>
                     <Dashboard />
                   </RequestProvider>
-                </ProtectedRoute>
+                </Route>
 
                 <Route path="*">
                   <Redirect to="/login" />
