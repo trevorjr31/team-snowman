@@ -1,6 +1,10 @@
 const mongoose = require("mongoose");
 
-const timeSlot = new mongoose.Schema({ start: Date, end: Date });
+const timeSlot = new mongoose.Schema({
+  day: Date,
+  startTime: Date,
+  endTime: Date,
+});
 
 const profileSchema = new mongoose.Schema({
   firstName: {
@@ -25,11 +29,11 @@ const profileSchema = new mongoose.Schema({
   },
   dateOfBirth: {
     type: Date,
-    default: null
+    default: null,
   },
   availability: {
     type: [timeSlot],
-    default: []
+    default: [],
   },
   photo: {
     type: String,
@@ -37,7 +41,6 @@ const profileSchema = new mongoose.Schema({
   },
   userId: {
     type: mongoose.Schema.Types.ObjectId,
-    required: true,
     ref: "User",
   },
 });

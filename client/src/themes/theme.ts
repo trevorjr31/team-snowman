@@ -14,8 +14,21 @@ export const theme = createMuiTheme({
       textAlign: 'center',
       textTransform: 'uppercase',
     },
+    subtitle2: {
+      fontSize: 14,
+      color: '#000000',
+      fontWeight: 'lighter',
+      textAlign: 'center',
+      textTransform: 'capitalize',
+    },
     body1: {
       color: '#f14140',
+    },
+    body2: {
+      fontSize: 14,
+      color: '#000000',
+      textAlign: 'center',
+      textTransform: 'capitalize',
     },
     h3: {
       fontSize: 18,

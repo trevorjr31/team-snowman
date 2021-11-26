@@ -71,5 +71,44 @@ exports.uploadProfileImage = asyncHandler(async (req, res, next) => {
       .status(200)
       .send({ message: "The profile has been successfully updated" });
   });
+});
 
+// @route POST /profile/edit-availability
+// @desc edit a users availability
+// @access Private
+exports.editAvailability = asyncHandler(async (req, res, next) => {
+  const profile = await User.findById(req.user.id, "profile");
+
+  if (!profile) {
+    res.status(401);
+    throw new Error("Not authorized");
+  }
+  const timeSlot = await Profile.findOneAndUpdate(
+    { _id: profile, "availability.day": req.body.date.date },
+    {
+      $push: {
+        availability: {
+          day: req.body.date.date,
+          startTime: req.body.start,
+          endTime: req.body.end,
+        },
+      },
+    },
+
+    {
+      new: true,
+      upsert: true,
+    }
+  );
+
+  if (!timeSlot) {
+    res.status(401);
+    throw new Error("Not authorized");
+  }
+
+  res.status(200).json({
+    success: {
+      profile: profile,
+    },
+  });
 });
