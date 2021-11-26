@@ -25,7 +25,6 @@ const SetupForm = () => {
 
     if (error.message) {
       setErrorMessage(error.message);
-    } else {
     }
   };
 
