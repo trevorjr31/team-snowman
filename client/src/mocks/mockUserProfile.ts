@@ -10,6 +10,7 @@ const mockLoggedInUserProfile: Profile = {
   description: '',
   availability: [{ start: new Date(), end: new Date() }],
   photo: '',
+  isSitter: false,
   defaultPaymentMethod: '',
   _id: '',
   _v: 1,
@@ -26,6 +27,7 @@ const mockLoggedInUserProfile1: Profile = {
   availability: [{ start: new Date(), end: new Date() }],
   photo: '',
   defaultPaymentMethod: '',
+  isSitter: false,
   _id: '',
   _v: 1,
 };
@@ -41,6 +43,7 @@ const mockLoggedInUserProfile2: Profile = {
   availability: [{ start: new Date(), end: new Date() }],
   photo: '',
   defaultPaymentMethod: '',
+  isSitter: false,
   _id: '',
   _v: 1,
 };
@@ -56,6 +59,7 @@ const mockLoggedInUserProfile3: Profile = {
   availability: [{ start: new Date(), end: new Date() }],
   photo: '',
   defaultPaymentMethod: '',
+  isSitter: true,
   _id: '',
   _v: 1,
 };

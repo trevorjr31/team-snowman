@@ -85,11 +85,10 @@ export default function EditProfile(): JSX.Element {
         // should not get here from backend but this catch is for an unknown issue
         console.error({ data });
 
-          setSubmitting(false);
-          updateSnackBarMessage('An unexpected error occurred. Please try again');
-        }
-      },
-    );
+        setSubmitting(false);
+        updateSnackBarMessage('An unexpected error occurred. Please try again');
+      }
+    });
   };
 
   return (
