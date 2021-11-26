@@ -18,6 +18,11 @@ const useStyles = makeStyles((theme) => ({
     textAlign: 'left',
     marginBottom: '20px',
   },
+  checkedIcon: {
+    color: '#ffffff',
+    backgroundColor: '#f14140',
+    borderRadius: '1.5rem',
+  },
 }));
 
 export default useStyles;

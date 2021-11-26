@@ -92,7 +92,7 @@ export default function AddCard({ handleSubmit }: Props): JSX.Element {
                 <Grid container>
                   {paymentMethods.map((card: any, index: number) => (
                     <CreditCard
-                      key={index}
+                      key={card}
                       card={card}
                       setValues={setValues}
                       handleSubmit={handleSubmit}

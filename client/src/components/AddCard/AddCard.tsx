@@ -15,8 +15,8 @@ export default function AddCard(): JSX.Element {
     { paymentMethod }: { paymentMethod: string },
     { setSubmitting }: FormikHelpers<{ paymentMethod: string }>,
   ) => {
-    if (loggedInUser) {
-      const profile = loggedInUserProfile;
+    if (loggedInUserProfile) {
+      const profile = Object.create(loggedInUserProfile);
       if (profile) {
         setSubmitting(false);
         profile.defaultPaymentMethod = paymentMethod;
