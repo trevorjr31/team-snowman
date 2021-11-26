@@ -1,8 +1,5 @@
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
-import { FormikHelpers } from 'formik';
-import Typography from '@material-ui/core/Typography';
-import useStyles from './useStyles';
 import { useAuth } from '../../context/useAuthContext';
 import { useSnackBar } from '../../context/useSnackbarContext';
 import { confirmPayments } from '../../helpers/APICalls/confirmPayments';
@@ -13,7 +10,6 @@ interface Props {
 }
 
 export default function AddCard({ totalCost }: Props): JSX.Element {
-  const classes = useStyles();
   const { updateSnackBarMessage } = useSnackBar();
   const { loggedInUser, loggedInUserProfile, fetchProfileAndUpdateContext } = useAuth();
   const history = useHistory();
