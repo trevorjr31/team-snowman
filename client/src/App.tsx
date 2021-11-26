@@ -7,6 +7,7 @@ import Dashboard from './pages/Dashboard/Dashboard';
 import NavBar from './components/NavBar/NavBar';
 import EditMenu from './components/EditProfile/EditMenu';
 import Checkout from './components/Checkout/Checkout';
+import Landing from './pages/Landing/Landing';
 import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute';
 import { AuthProvider } from './context/useAuthContext';
 import { SocketProvider } from './context/useSocketContext';
@@ -29,6 +30,7 @@ function App(): JSX.Element {
                 <NavBar />
               </NotificationProvider>
               <Switch>
+                <Route exact path="/" component={Landing} />
                 <Route exact path="/login" component={Login} />
                 <Route exact path="/signup" component={Signup} />
                 <ProtectedRoute exact path="/edit-profile" component={EditMenu} />
