@@ -1,27 +1,20 @@
 import { makeStyles } from '@material-ui/core/styles';
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
   root: {
     minHeight: '100vh',
-    '& .MuiInput-underline:before': {
-      borderBottom: '1.2px solid rgba(0, 0, 0, 0.2)',
-    },
     justifyContent: 'center',
     alignItems: 'center',
+    margin: theme.spacing(2.5),
   },
-  authWrapper: {
-    display: 'flex',
-    alignItems: 'flex-start',
-    justifyContent: 'space-between',
-    flexDirection: 'column',
-    minHeight: '100%',
-    paddingBottom: 40,
+  paper: {
+    height: '650px',
   },
   title: {
-    padding: 40,
+    padding: theme.spacing(5),
   },
   reminder: {
-    padding: 20,
+    padding: theme.spacing(2.5),
     width: '16vw',
   },
   centerRow: {
@@ -30,24 +23,23 @@ const useStyles = makeStyles(() => ({
     alignItems: 'center',
   },
   avatar: {
-    margin: 10,
-    width: 140,
-    height: 140,
+    margin: theme.spacing(1.25),
+    width: '140px',
+    height: '140px',
     alignSelf: 'center',
   },
   uploadButton: {
     textTransform: 'none',
-    fontSize: 12,
     fontWeight: 700,
-    padding: '12px 30px 12px 30px',
-    margin: '18px 0px 18px 0px',
+    padding: theme.spacing(1.5, 3.75, 1.5, 3.75),
+    margin: theme.spacing(2.25, 0, 2.25, 0),
   },
   deleteIcon: {
-    width: 20,
-    height: 20,
+    width: '20px',
+    height: '20px',
   },
   deleteText: {
-    margin: 10,
+    margin: theme.spacing(1.25),
   },
 }));
 

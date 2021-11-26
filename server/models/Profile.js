@@ -25,11 +25,11 @@ const profileSchema = new mongoose.Schema({
   },
   dateOfBirth: {
     type: Date,
-    default: null
+    default: null,
   },
   availability: {
     type: [timeSlot],
-    default: []
+    default: [],
   },
   photo: {
     type: String,
@@ -38,6 +38,14 @@ const profileSchema = new mongoose.Schema({
   isSitter: {
     type: Boolean,
     default: false,
+  },
+  defaultPaymentMethod: {
+    type: String,
+    default: "",
+  },
+  userId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User",
   },
 });
 

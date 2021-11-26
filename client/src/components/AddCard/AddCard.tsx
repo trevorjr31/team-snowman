@@ -4,33 +4,28 @@ import Grid from '@material-ui/core/Grid';
 import { FormikHelpers } from 'formik';
 import Typography from '@material-ui/core/Typography';
 import useStyles from './useStyles';
-import { checkout } from '../../helpers/APICalls/checkout';
-import CheckoutForm from './CheckoutForm/CheckoutForm';
+import { setDefaultPayment } from '../../helpers/APICalls/setDefaultPayment';
+import AddCardForm from './AddCardForm/AddCardForm';
 import { useAuth } from '../../context/useAuthContext';
 import { useSnackBar } from '../../context/useSnackbarContext';
+import editProfile from '../../helpers/APICalls/editProfile';
 
-export default function Checkout(): JSX.Element {
+export default function AddCard(): JSX.Element {
   const classes = useStyles();
   const { updateSnackBarMessage } = useSnackBar();
-  const { loggedInUser } = useAuth();
+  const { loggedInUser, loggedInUserProfile, fetchProfileAndUpdateContext } = useAuth();
 
-  const handleSubmit = (
-    { priceId, quantity }: { priceId: string; quantity: number },
-    { setSubmitting }: FormikHelpers<{ priceId: string; quantity: number }>,
+  const handleSubmit = async (
+    { paymentMethod }: { paymentMethod: string },
+    { setSubmitting }: FormikHelpers<{ paymentMethod: string }>,
   ) => {
-    if (loggedInUser) {
-      checkout({ priceId: priceId, quantity: quantity, userId: loggedInUser.id }).then((data) => {
-        if (data.error) {
-          setSubmitting(false);
-          updateSnackBarMessage(data.error.message);
-        } else if (data.url) {
-          setSubmitting(false);
-          window.open(data.url, '', 'width=1000,height=700');
-        } else {
-          setSubmitting(false);
-          updateSnackBarMessage('An unexpected error occurred. Please try again');
-        }
-      });
+    if (loggedInUserProfile) {
+      const profile = Object.create(loggedInUserProfile);
+      if (profile) {
+        profile.defaultPaymentMethod = paymentMethod;
+        await editProfile(profile);
+        fetchProfileAndUpdateContext();
+      }
     }
   };
 
@@ -43,16 +38,18 @@ export default function Checkout(): JSX.Element {
           justifyContent="space-between"
           flexDirection="column"
           minHeight="100%"
+          marginTop="60px"
+          marginBottom="80px"
         >
-          <Box width="100%" maxWidth={450} p={3} alignSelf="center">
+          <Box width="100%" maxWidth={1000} p={0} alignSelf="center">
             <Grid container>
               <Grid item xs>
                 <Typography className={classes.welcome} component="h1" variant="h5">
-                  Checkout
+                  Payment Methods
                 </Typography>
               </Grid>
             </Grid>
-            <CheckoutForm handleSubmit={handleSubmit} />
+            <AddCardForm handleSubmit={handleSubmit} />
           </Box>
         </Box>
       </Grid>

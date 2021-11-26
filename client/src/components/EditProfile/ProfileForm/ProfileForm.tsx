@@ -11,6 +11,7 @@ import { CircularProgress, Switch } from '@material-ui/core';
 import DatePicker from '../../DatePicker/DatePicker';
 import editProfile from '../../../helpers/APICalls/editProfile';
 import { useSnackBar } from '../../../context/useSnackbarContext';
+import { useAuth } from '../../../context/useAuthContext';
 
 const genders = [
   { value: 'Male', label: 'Male' },
@@ -24,6 +25,7 @@ const phoneRegExp =
 export default function EditProfile(): JSX.Element {
   const classes = useStyles();
 
+  const { loggedInUserProfile } = useAuth();
   const { updateSnackBarMessage } = useSnackBar();
 
   const handleSubmit = (
@@ -36,6 +38,7 @@ export default function EditProfile(): JSX.Element {
       address,
       description,
       isSitter,
+      defaultPaymentMethod,
     }: {
       firstName: string;
       lastName: string;
@@ -45,6 +48,7 @@ export default function EditProfile(): JSX.Element {
       address: string;
       description: string;
       isSitter: boolean;
+      defaultPaymentMethod: string;
     },
     {
       setSubmitting,
@@ -57,19 +61,29 @@ export default function EditProfile(): JSX.Element {
       address: string;
       description: string;
       isSitter: boolean;
+      defaultPaymentMethod: string;
     }>,
   ) => {
-    editProfile({ firstName, lastName, gender, dateOfBirth, phoneNumber, address, description, isSitter }).then(
-      (data) => {
-        if (data.error) {
-          setSubmitting(false);
-          updateSnackBarMessage('Something went wrong');
-        } else if (data.success) {
-          setSubmitting(false);
-          updateSnackBarMessage('Profile Updated');
-        } else {
-          // should not get here from backend but this catch is for an unknown issue
-          console.error({ data });
+    editProfile({
+      firstName,
+      lastName,
+      gender,
+      dateOfBirth,
+      phoneNumber,
+      address,
+      description,
+      isSitter,
+      defaultPaymentMethod,
+    }).then((data) => {
+      if (data.error) {
+        setSubmitting(false);
+        updateSnackBarMessage('Something went wrong');
+      } else if (data.success) {
+        setSubmitting(false);
+        updateSnackBarMessage('Profile Updated');
+      } else {
+        // should not get here from backend but this catch is for an unknown issue
+        console.error({ data });
 
           setSubmitting(false);
           updateSnackBarMessage('An unexpected error occurred. Please try again');
@@ -89,6 +103,7 @@ export default function EditProfile(): JSX.Element {
         address: '',
         description: '',
         isSitter: false,
+        defaultPaymentMethod: loggedInUserProfile ? loggedInUserProfile.defaultPaymentMethod : '',
       }}
       validationSchema={Yup.object().shape({
         firstName: Yup.string().max(20, 'Name is too long'),

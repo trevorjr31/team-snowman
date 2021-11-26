@@ -9,12 +9,12 @@ export interface Profile {
   availability: [{ start: Date; end: Date }];
   photo: string;
   isSitter: boolean;
+  defaultPaymentMethod: string;
   _id: string;
   _v: number;
 }
 
 export interface ProfileData {
   error?: string;
-  success?: string;
-  profile: Profile;
+  success?: { profile: Profile };
 }

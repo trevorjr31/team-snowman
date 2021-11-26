@@ -12,6 +12,7 @@ interface Props {
   address: string;
   description: string;
   isSitter: boolean;
+  defaultPaymentMethod: string;
 }
 
 const editProfile = async (props: Props): Promise<ProfileData> => {
