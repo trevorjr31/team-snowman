@@ -15,6 +15,7 @@ import Requests from './components/Requests/Requests';
 import { RequestProvider } from './context/useRequestContext';
 import { SitterListingProvider } from './context/useSitterContext';
 
+import { NotificationProvider } from './context/useNotificationContext';
 import EditPhoto from './components/EditProfile/EditPhoto/EditPhoto';
 
 import './App.css';
@@ -26,10 +27,15 @@ function App(): JSX.Element {
         <SnackBarProvider>
           <AuthProvider>
             <SocketProvider>
-              <NavBar />
+              <NotificationProvider>
+                <NavBar />
+              </NotificationProvider>
               <Switch>
                 <Route exact path="/login" component={Login} />
                 <Route exact path="/signup" component={Signup} />
+                <ProtectedRoute exact path="/edit-profile" component={EditMenu} />
+                <ProtectedRoute exact path="/checkout" component={Checkout} />
+                <ProtectedRoute exact path="/edit-image" component={EditPhoto} />
                 <ProtectedRoute exact path="/dashboard">
                   <SitterListingProvider>
                     <Dashboard />
@@ -46,17 +52,15 @@ function App(): JSX.Element {
                 <ProtectedRoute exact path="/my-sitters">
                   <Dashboard />
                 </ProtectedRoute>
-                <Route exact path="/edit-profile" component={EditMenu} />
-                <Route exact path="/checkout" component={Checkout} />
-                <Route exact path="/edit-image" component={EditPhoto} />
+
                 <RequestProvider>
                   <ProtectedRoute exact path="/my-sitters">
                     <Dashboard />
                   </ProtectedRoute>
                 </RequestProvider>
+
                 <ProtectedRoute exact path="/edit-profile" component={EditMenu} />
                 <ProtectedRoute exact path="/edit-image" component={EditPhoto} />
-
                 <Route path="*">
                   <Redirect to="/login" />
                 </Route>
