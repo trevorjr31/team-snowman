@@ -1,8 +1,8 @@
 const mongoose = require("mongoose");
+const Profile = require("./Profile");
 const Schema = mongoose.Schema;
 const message = new Schema({
-  firstName: String,
-  lastName: String,
+  sender: { type: Schema.Types.ObjectId, ref: "Profile" },
   message: String,
   date: Date,
 });

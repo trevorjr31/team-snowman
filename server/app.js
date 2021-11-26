@@ -17,6 +17,7 @@ const profileRouter = require("./routes/profile");
 const notificationRouter = require("./routes/notification");
 const paymentRouter = require("./routes/payment");
 const requestRouter = require("./routes/request");
+const conversationRouter = require("./routes/conversation");
 
 const { json, urlencoded } = express;
 
@@ -78,6 +79,7 @@ app.use("/profile", profileRouter);
 app.use("/request", requestRouter);
 app.use("/request", paymentRouter);
 app.use("/notification", notificationRouter);
+app.use("/conversation", conversationRouter);
 
 if (process.env.NODE_ENV === "production") {
   app.use(express.static(path.join(__dirname, "/client/build")));

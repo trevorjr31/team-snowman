@@ -20,3 +20,13 @@ exports.createConversation = asyncHandler(async (req, res) => {
     }
   );
 });
+
+// @route POST /conversation/new-message
+// @desc creates empty conversation
+// @access Private
+exports.newMessage = asyncHandler(async (req, res) => {
+  const { requestId, sender, message, date } = req.body;
+  const conversation = await Conversation.findOne({ requestId: requestId });
+  conversation.messages.push({ sender: sender, message: message, date: date });
+  await conversation.save()
+});
