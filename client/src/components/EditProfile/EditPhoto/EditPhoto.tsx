@@ -27,8 +27,8 @@ export default function EditPhoto(): JSX.Element {
   };
 
   async function removeFile() {
-    const profile = loggedInUserProfile;
-    if (profile) {
+    if (loggedInUserProfile) {
+      const profile = Object.create(loggedInUserProfile);
       profile.photo = '';
       try {
         await editProfile(profile);

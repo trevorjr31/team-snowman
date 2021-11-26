@@ -28,7 +28,7 @@ const CreditCard = ({ card, setValues, handleSubmit, values }: Props): JSX.Eleme
       <Box height="36px" marginBottom={theme.spacing(0.4)} display="flex" justifyContent="space-between">
         <img src={logos[card.card.brand as keyof logosModel]} className={classes.logo} />
         <Radio
-          checkedIcon={<CheckIcon style={{ color: '#ffffff', backgroundColor: '#f14140', borderRadius: '1.5rem' }} />}
+          checkedIcon={<CheckIcon className={classes.checkedIcon} />}
           color="primary"
           checked={values.paymentMethod === card.id}
           onChange={(e) => {
