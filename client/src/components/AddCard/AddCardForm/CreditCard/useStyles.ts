@@ -22,7 +22,7 @@ const useStyles = makeStyles((theme) => ({
     color: '#ffffff',
     backgroundColor: '#f14140',
     borderRadius: '1.5rem',
-  }
+  },
 }));
 
 export default useStyles;

@@ -26,7 +26,7 @@ const CreditCard = ({ card, setValues, handleSubmit, values }: Props): JSX.Eleme
   return (
     <Box padding="20px" marginRight={2} border={2} borderColor="#dddddd" borderRadius={10} width={340} height={190}>
       <Box height="36px" marginBottom={theme.spacing(0.4)} display="flex" justifyContent="space-between">
-        <img src={logos[card.card.brand as keyof logosModel]} className={classes.logo} />
+        <img alt="brand" src={logos[card.card.brand as keyof logosModel]} className={classes.logo} />
         <Radio
           checkedIcon={<CheckIcon className={classes.checkedIcon} />}
           color="primary"
