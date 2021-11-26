@@ -7,7 +7,7 @@ import { Formik, FormikHelpers, Field } from 'formik';
 import * as Yup from 'yup';
 import Typography from '@material-ui/core/Typography';
 import useStyles from './useStyles';
-import { CircularProgress } from '@material-ui/core';
+import { CircularProgress, Switch } from '@material-ui/core';
 import DatePicker from '../../DatePicker/DatePicker';
 import editProfile from '../../../helpers/APICalls/editProfile';
 import { useSnackBar } from '../../../context/useSnackbarContext';
@@ -35,6 +35,7 @@ export default function EditProfile(): JSX.Element {
       phoneNumber,
       address,
       description,
+      isSitter,
     }: {
       firstName: string;
       lastName: string;
@@ -43,6 +44,7 @@ export default function EditProfile(): JSX.Element {
       phoneNumber: string;
       address: string;
       description: string;
+      isSitter: boolean;
     },
     {
       setSubmitting,
@@ -54,23 +56,26 @@ export default function EditProfile(): JSX.Element {
       phoneNumber: string;
       address: string;
       description: string;
+      isSitter: boolean;
     }>,
   ) => {
-    editProfile({ firstName, lastName, gender, dateOfBirth, phoneNumber, address, description }).then((data) => {
-      if (data.error) {
-        setSubmitting(false);
-        updateSnackBarMessage('Something went wrong');
-      } else if (data.success) {
-        setSubmitting(false);
-        updateSnackBarMessage('Profile Updated');
-      } else {
-        // should not get here from backend but this catch is for an unknown issue
-        console.error({ data });
+    editProfile({ firstName, lastName, gender, dateOfBirth, phoneNumber, address, description, isSitter }).then(
+      (data) => {
+        if (data.error) {
+          setSubmitting(false);
+          updateSnackBarMessage('Something went wrong');
+        } else if (data.success) {
+          setSubmitting(false);
+          updateSnackBarMessage('Profile Updated');
+        } else {
+          // should not get here from backend but this catch is for an unknown issue
+          console.error({ data });
 
-        setSubmitting(false);
-        updateSnackBarMessage('An unexpected error occurred. Please try again');
-      }
-    });
+          setSubmitting(false);
+          updateSnackBarMessage('An unexpected error occurred. Please try again');
+        }
+      },
+    );
   };
 
   return (
@@ -83,6 +88,7 @@ export default function EditProfile(): JSX.Element {
         phoneNumber: '',
         address: '',
         description: '',
+        isSitter: false,
       }}
       validationSchema={Yup.object().shape({
         firstName: Yup.string().max(20, 'Name is too long'),
@@ -247,7 +253,14 @@ export default function EditProfile(): JSX.Element {
                 onChange={handleChange}
               />
             </Grid>
-
+            <Grid item className={classes.field}>
+              <Grid item className={classes.label}>
+                <Typography variant="subtitle1" noWrap>
+                  Become a sitter?
+                </Typography>
+              </Grid>
+              <Switch checked={values.isSitter} onChange={handleChange} name="isSitter" color="primary" />
+            </Grid>
             <Box textAlign="center">
               <Button type="submit" size="large" variant="contained" color="primary" className={classes.submit}>
                 {isSubmitting ? <CircularProgress style={{ color: 'white' }} /> : 'Save'}

@@ -8,6 +8,7 @@ export interface Profile {
   description: string;
   availability: [{ start: Date; end: Date }];
   photo: string;
+  isSitter: boolean;
   _id: string;
   _v: number;
 }
