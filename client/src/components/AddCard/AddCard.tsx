@@ -31,28 +31,26 @@ export default function AddCard(): JSX.Element {
 
   return (
     <Grid container component="main" className={classes.root}>
-      <Grid item xs={12} sm={8} md={7} elevation={4} component={Paper} square>
-        <Box
-          display="flex"
-          alignItems="flex-start"
-          justifyContent="space-between"
-          flexDirection="column"
-          minHeight="100%"
-          marginTop="60px"
-          marginBottom="80px"
-        >
-          <Box width="100%" maxWidth={1000} p={0} alignSelf="center">
-            <Grid container>
-              <Grid item xs>
-                <Typography className={classes.welcome} component="h1" variant="h5">
-                  Payment Methods
-                </Typography>
-              </Grid>
+      <Box
+        display="flex"
+        alignItems="flex-start"
+        justifyContent="space-between"
+        flexDirection="column"
+        minHeight="100%"
+        marginTop="60px"
+        marginBottom="80px"
+      >
+        <Box width="100%" maxWidth={1000} p={0} alignSelf="center">
+          <Grid container>
+            <Grid item xs>
+              <Typography className={classes.welcome} component="h1" variant="h5">
+                Payment Methods
+              </Typography>
             </Grid>
-            <AddCardForm handleSubmit={handleSubmit} />
-          </Box>
+          </Grid>
+          <AddCardForm handleSubmit={handleSubmit} />
         </Box>
-      </Grid>
+      </Box>
     </Grid>
   );
 }
