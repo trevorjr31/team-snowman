@@ -57,8 +57,6 @@ function App(): JSX.Element {
                   </ProtectedRoute>
                 </RequestProvider>
 
-                <ProtectedRoute exact path="/edit-profile" component={EditMenu} />
-                <ProtectedRoute exact path="/edit-image" component={EditPhoto} />
                 <Route path="*">
                   <Redirect to="/login" />
                 </Route>
