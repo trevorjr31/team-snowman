@@ -65,7 +65,7 @@ exports.uploadProfileImage = asyncHandler(async (req, res, next) => {
     }
     
     const update = { photo: req.file.location };
-    console.log(update);
+
     const updateProfile = await Profile.findByIdAndUpdate(
       user.profile,
       update,

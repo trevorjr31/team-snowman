@@ -42,6 +42,7 @@ export default function AddCard({ handleSubmit }: Props): JSX.Element {
         if (data.error) {
           updateSnackBarMessage(data.error.message);
         } else if (data.allPaymentMethods) {
+          console.log(data.allPaymentMethods);
           setPaymentMethods(data.allPaymentMethods);
         } else {
           updateSnackBarMessage('An unexpected error occurred. Please try again');

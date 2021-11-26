@@ -19,7 +19,7 @@ router.route('/:id/new-customer-create-intent').get(protect, newCustomerCreateIn
 
 router.route('/:id/add-card').get(protect, getOrCreateCustomerCreateIntent);
 
-router.route('/:id/checkout-with-created-intent').get(protect, checkoutWithCreatedIntent);
+router.route('/:id/checkout-with-created-intent').post(protect, checkoutWithCreatedIntent);
 
 router.route('/:id/all-payment-methods').get(protect, getAllPaymentMethods);
 

@@ -9,7 +9,6 @@ import EditMenu from './components/EditProfile/EditMenu';
 import Checkout from './components/Checkout/Checkout';
 import AddCard from './components/AddCard/AddCard';
 import AddCardInfo from './components/AddCard/AddCardInfo/AddCardInfo';
-import Payment from './components/EditProfile/Payment/Payment';
 import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute';
 import { AuthProvider } from './context/useAuthContext';
 import { SocketProvider } from './context/useSocketContext';
@@ -39,7 +38,6 @@ function App(): JSX.Element {
                 <ProtectedRoute exact path="/edit-image" component={EditPhoto} />
                 <ProtectedRoute exact path="/payment-profile" component={AddCard} />
                 <ProtectedRoute exact path="/add-card-info" component={AddCardInfo} />
-                <ProtectedRoute exact path="/edit-payment" component={Payment} />
 
                 <ProtectedRoute exact path="/dashboard">
                   <Dashboard />
