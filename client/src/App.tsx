@@ -7,8 +7,10 @@ import Dashboard from './pages/Dashboard/Dashboard';
 import NavBar from './components/NavBar/NavBar';
 import EditMenu from './components/EditProfile/EditMenu';
 import Checkout from './components/Checkout/Checkout';
+import AddCard from './components/AddCard/AddCard';
+import AddCardInfo from './components/AddCard/AddCardInfo/AddCardInfo';
 import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute';
-import { AuthProvider } from './context/useAuthContext';
+import { AuthProvider, useAuth } from './context/useAuthContext';
 import { SocketProvider } from './context/useSocketContext';
 import { SnackBarProvider } from './context/useSnackbarContext';
 import Requests from './components/Requests/Requests';
@@ -27,29 +29,35 @@ function App(): JSX.Element {
             <NotificationProvider>
               <SocketProvider>
                 <NavBar />
+              </NotificationProvider>
+              <Switch>
+                <Route exact path="/login" component={Login} />
+                <Route exact path="/signup" component={Signup} />
+                <ProtectedRoute exact path="/edit-profile" component={EditMenu} />
+                <ProtectedRoute exact path="/checkout" component={Checkout} />
+                <ProtectedRoute exact path="/edit-image" component={EditPhoto} />
+                <ProtectedRoute exact path="/payment-profile" component={AddCard} />
+                <ProtectedRoute exact path="/add-card-info" component={AddCardInfo} />
 
-                <Switch>
-                  <Route exact path="/login" component={Login} />
-                  <Route exact path="/signup" component={Signup} />
-                  <ProtectedRoute exact path="/edit-profile" component={EditMenu} />
-                  <ProtectedRoute exact path="/checkout" component={Checkout} />
-                  <ProtectedRoute exact path="/edit-image" component={EditPhoto} />
-                  <ProtectedRoute exact path="/dashboard">
-                    <Dashboard />
-                  </ProtectedRoute>
+                <ProtectedRoute exact path="/dashboard">
+                  <Dashboard />
+                </ProtectedRoute>
 
+                <ProtectedRoute exact path="/my-jobs">
                   <RequestProvider>
-                    <ProtectedRoute exact path="/my-jobs">
-                      <Requests />
-                    </ProtectedRoute>
+                    <Requests />
                   </RequestProvider>
+                </ProtectedRoute>
 
-                  <ProtectedRoute exact path="/messages">
+                <ProtectedRoute exact path="/messages">
+                  <Dashboard />
+                </ProtectedRoute>
+
+                <ProtectedRoute exact path="/my-sitters">
+                  <RequestProvider>
                     <Dashboard />
-                  </ProtectedRoute>
-                  <ProtectedRoute exact path="/my-sitters">
-                    <Dashboard />
-                  </ProtectedRoute>
+                  </RequestProvider>
+                </ProtectedRoute>
 
                   <RequestProvider>
                     <ProtectedRoute exact path="/my-sitters">
