@@ -17,6 +17,7 @@ import { SnackBarProvider } from './context/useSnackbarContext';
 import Requests from './components/Requests/Requests';
 import { RequestProvider } from './context/useRequestContext';
 import { NotificationProvider } from './context/useNotificationContext';
+import { FindSitterFormProvider } from './context/useFindSitterFormContext';
 import EditPhoto from './components/EditProfile/EditPhoto/EditPhoto';
 
 import './App.css';
@@ -32,7 +33,11 @@ function App(): JSX.Element {
                 <NavBar />
               </NotificationProvider>
               <Switch>
-                <Route exact path="/" component={Landing} />
+                <Route exact path="/">
+                  <FindSitterFormProvider>
+                    <Landing />
+                  </FindSitterFormProvider>
+                </Route>
                 <Route exact path="/login" component={Login} />
                 <Route exact path="/signup" component={Signup} />
                 <ProtectedRoute exact path="/edit-profile" component={EditMenu} />

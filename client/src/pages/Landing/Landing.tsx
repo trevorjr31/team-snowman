@@ -1,24 +1,25 @@
-import CssBaseline from '@material-ui/core/CssBaseline';
 import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
 import { FormikHelpers } from 'formik';
 import Typography from '@material-ui/core/Typography';
 import useStyles from './useStyles';
 import FindSitter from './LandingForm/LandingForm';
-import { useAuth } from '../../context/useAuthContext';
-import { useSnackBar } from '../../context/useSnackbarContext';
+import { useFindSitterForm } from '../../context/useFindSitterFormContext';
 import dogs from '../../Images/pets.jpeg';
+import { useHistory } from 'react-router-dom';
 
 export default function Landing(): JSX.Element {
   const classes = useStyles();
-  const { updateLoginContext } = useAuth();
-  const { updateSnackBarMessage } = useSnackBar();
+  const { updateFindSitterFormContext } = useFindSitterForm();
+  const history = useHistory();
 
   const handleSubmit = (
     { address, startDate, endDate }: { address: string; startDate: Date; endDate: Date },
     { setSubmitting }: FormikHelpers<{ address: string; startDate: Date; endDate: Date }>,
   ) => {
-    //construct this function in the next ticket
+    setSubmitting(false);
+    updateFindSitterFormContext({ city: address, startDate: startDate, endDate: endDate });
+    history.push('/dashboard');
   };
 
   return (
