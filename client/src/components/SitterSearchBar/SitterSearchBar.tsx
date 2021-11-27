@@ -43,8 +43,8 @@ export default function SitterSearchBar(): JSX.Element {
 
   function DateRangeInputDisplay() {
     const from = dateRange ? dateRange[0] : '';
-    const to = dateRange ? dateRange[dateRange.length - 1] : '';
-    const input = from && to ? `${from.day}-${to.day} ${from.month.shortName} ${from.year}` : from ? `${from}` : '';
+    const to = dateRange && dateRange.length > 1 ? dateRange[dateRange.length - 1] : '';
+    const input = from && to ? `${from.month.shortName} ${from.day}-${to.day} ${from.year}` : from ? `${from}` : '';
     return (
       <TextField
         value={input}
