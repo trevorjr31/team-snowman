@@ -1,4 +1,5 @@
 import { makeStyles } from '@material-ui/core/styles';
+import { keyframes } from '@mui/styled-engine';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -16,6 +17,14 @@ const useStyles = makeStyles((theme) => ({
   reminder: {
     padding: theme.spacing(2.5),
     width: '16vw',
+    color: '#ff0000',
+    animation: '$colorAnimate 10s infinite',
+  },
+  '@keyframes colorAnimate': {
+    '0%': { color: '#ff0000' },
+    '33%': { color: '#00ff00' },
+    '66%': { color: '#0000ff' },
+    '100%': { color: '#ff0000' },
   },
   centerRow: {
     display: 'flex',
