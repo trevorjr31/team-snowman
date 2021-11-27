@@ -25,15 +25,23 @@ const profileSchema = new mongoose.Schema({
   },
   dateOfBirth: {
     type: Date,
-    default: null
+    default: null,
   },
   availability: {
     type: [timeSlot],
-    default: []
+    default: [],
   },
   photo: {
     type: String,
     default: "",
+  },
+  defaultPaymentMethod: {
+    type: String,
+    default: "",
+  },
+  userId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User",
   },
 });
 
