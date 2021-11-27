@@ -18,13 +18,13 @@ export default function Requests(): JSX.Element {
   if (requests) {
     return (
       <Box component="main" display="flex">
-        <Slide direction="down" in={showComponent} timeout={2000} mountOnEnter unmountOnExit>
+        <Slide direction="up" in={showComponent} timeout={2000} mountOnEnter unmountOnExit>
           <Box>
             <NextRequest request={requests?.nextRequest} />
             <CurrentRequests requests={requests} />
           </Box>
         </Slide>
-        <Slide direction="up" in={showComponent} timeout={2000} mountOnEnter unmountOnExit>
+        <Slide direction="down" in={showComponent} timeout={2000} mountOnEnter unmountOnExit>
           <Box>
             <RequestCalendar />
           </Box>

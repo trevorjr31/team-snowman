@@ -22,8 +22,8 @@ const useStyles = makeStyles((theme) => ({
   },
   '@keyframes colorAnimate': {
     '0%': { color: '#ff0000' },
-    '33%': { color: '#00ff00' },
-    '66%': { color: '#0000ff' },
+    '33%': { color: '#00cc00' },
+    '66%': { color: '#0000ee' },
     '100%': { color: '#ff0000' },
   },
   centerRow: {
