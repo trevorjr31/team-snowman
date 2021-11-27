@@ -5,7 +5,7 @@ export interface Profile {
   phoneNumber: string;
   address: string;
   description: string;
-  availability: [{ start: Date; end: Date }];
+  availability: [{ day: Date; start: Date; end: Date }];
   photo: string;
   isSitter: Boolean;
   hourlyRate: Number;

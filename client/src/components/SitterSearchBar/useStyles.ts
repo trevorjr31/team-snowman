@@ -74,6 +74,9 @@ const useStyles = makeStyles((theme) => ({
       border: 'solid 1px rgb(0,0,0,0.3)',
     },
   },
+  clear: {
+    marginRight: theme.spacing(-1),
+  },
 }));
 
 export default useStyles;
