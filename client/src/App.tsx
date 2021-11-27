@@ -7,6 +7,7 @@ import Dashboard from './pages/Dashboard/Dashboard';
 import NavBar from './components/NavBar/NavBar';
 import EditMenu from './components/EditProfile/EditMenu';
 import Checkout from './components/Checkout/Checkout';
+import Landing from './pages/Landing/Landing';
 import AddCard from './components/AddCard/AddCard';
 import AddCardInfo from './components/AddCard/AddCardInfo/AddCardInfo';
 import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute';
@@ -31,6 +32,7 @@ function App(): JSX.Element {
                 <NavBar />
               </NotificationProvider>
               <Switch>
+                <Route exact path="/" component={Landing} />
                 <Route exact path="/login" component={Login} />
                 <Route exact path="/signup" component={Signup} />
                 <ProtectedRoute exact path="/edit-profile" component={EditMenu} />
@@ -59,8 +61,6 @@ function App(): JSX.Element {
                   </RequestProvider>
                 </ProtectedRoute>
 
-                <ProtectedRoute exact path="/edit-profile" component={EditMenu} />
-                <ProtectedRoute exact path="/edit-image" component={EditPhoto} />
                 <Route path="*">
                   <Redirect to="/login" />
                 </Route>
