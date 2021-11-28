@@ -41,7 +41,9 @@ function App(): JSX.Element {
                 <ProtectedRoute exact path="/edit-image" component={EditPhoto} />
                 <ProtectedRoute exact path="/payment-profile" component={AddCard} />
                 <ProtectedRoute exact path="/add-card-info" component={AddCardInfo} />
-
+                <SitterListingProvider>
+                  <Route exact path="/sitter-profile" component={SitterProfile} />
+                </SitterListingProvider>
                 <ProtectedRoute exact path="/dashboard">
                   <SitterListingProvider>
                     <Dashboard />
