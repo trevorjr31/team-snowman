@@ -1,5 +1,5 @@
 const sortRequests = (listToSort) => {
-  return listToSort.sort(function(reqA, reqB) {
+  return listToSort.sort(function (reqA, reqB) {
     return Date.parse(reqA.duration.start) <= Date.parse(reqB.duration.start);
   });
 };
@@ -8,7 +8,7 @@ const getNext = (upcomingRequests) => {
   if (filteredRequests.length < 1) {
     return null;
   }
-  nextRequest = filteredRequests.reduce(function(reqA, reqB) {
+  nextRequest = filteredRequests.reduce(function (reqA, reqB) {
     return Date.parse(reqA.duration.start) < Date.parse(reqB.duration.start)
       ? reqA
       : reqB;

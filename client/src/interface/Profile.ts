@@ -11,12 +11,12 @@ export interface Profile {
   hourlyRate: Number;
   title: string;
   userId: string;
+  defaultPaymentMethod: string;
   _id: string;
   _v: number;
 }
 
 export interface ProfileData {
   error?: string;
-  success?: string;
-  profile: Profile;
+  success?: { profile: Profile };
 }

@@ -29,7 +29,7 @@ interface Props {
 export default function Checkout({ handleSubmit }: Props): JSX.Element {
   const classes = useStyles();
 
-  if (process.env.REACT_APP_PRICE_ID != undefined) {
+  if (process.env.REACT_APP_PRICE_ID) {
     return (
       <Formik
         initialValues={{

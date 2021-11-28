@@ -24,7 +24,7 @@ const NavBar = (): JSX.Element => {
   if (loggedInUser === undefined) return <CircularProgress />;
 
   return (
-    <AppBar className={classes.appbar} position="absolute">
+    <AppBar className={classes.appbar} position="static">
       <CssBaseline />
       <ToolBar className={classes.toolbar}>
         <img src={logo} alt="logo" />

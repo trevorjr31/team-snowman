@@ -1,3 +1,5 @@
+const upload = require("../services/ImageUpload");
+const singleUpload = upload.single("image");
 const Profile = require("../models/Profile");
 const User = require("../models/User");
 const asyncHandler = require("express-async-handler");
@@ -28,7 +30,8 @@ exports.editProfile = asyncHandler(async (req, res, next) => {
 // @desc Get user profile data
 // @access Private
 exports.loadProfile = asyncHandler(async (req, res, next) => {
-  const profile = await User.findById(req.user.id, "profile");
+  const user = await User.findById(req.user.id, "profile");
+  const profile = await Profile.findById(user.profile);
 
   if (!profile) {
     res.status(401);
@@ -48,7 +51,7 @@ exports.loadProfile = asyncHandler(async (req, res, next) => {
 exports.uploadProfileImage = asyncHandler(async (req, res, next) => {
   const id = req.user.id;
 
-  singleUpload(req, res, function(err) {
+  singleUpload(req, res, async function(err) {
     if (err) {
       return res.json({
         success: false,
