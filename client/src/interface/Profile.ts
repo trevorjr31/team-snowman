@@ -8,12 +8,12 @@ export interface Profile {
   description: string;
   availability: [{ start: Date; end: Date }];
   photo: string;
+  defaultPaymentMethod: string;
   _id: string;
   _v: number;
 }
 
 export interface ProfileData {
   error?: string;
-  success?: string;
-  profile: Profile;
+  success?: { profile: Profile };
 }

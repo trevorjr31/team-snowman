@@ -11,6 +11,7 @@ interface Props {
   phoneNumber: string;
   address: string;
   description: string;
+  defaultPaymentMethod: string;
 }
 
 const editProfile = async (props: Props): Promise<ProfileData> => {
