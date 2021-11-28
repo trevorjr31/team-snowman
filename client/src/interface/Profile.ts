@@ -9,6 +9,7 @@ export interface Profile {
   photo: string;
   isSitter: Boolean;
   hourlyRate: Number;
+  gender: string;
   title: string;
   userId: string;
   defaultPaymentMethod: string;
