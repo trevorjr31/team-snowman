@@ -50,9 +50,12 @@ io.use((socket, next) => {
 
 io.on("connection", (socket) => {
   console.log("connected");
-
-  socket.on("goOnline", (connectionId) => {
-    console.log(`New socket connection, id:'${connectionId}'`);
+  socket.on("goOnline", (onlineUser) => {
+    console.log(`New socket connection, id:'${onlineUser.id}'`);
+    socket.join(`${onlineUser.id}`);
+  });
+  socket.on("sendNotification", (userId) => {
+    io.sockets.to(`${userId}`).emit("newNotification");
   });
 });
 
