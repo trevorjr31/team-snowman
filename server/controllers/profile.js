@@ -1,5 +1,3 @@
-const upload = require("../services/ImageUpload");
-const singleUpload = upload.single("image");
 const Profile = require("../models/Profile");
 const User = require("../models/User");
 const asyncHandler = require("express-async-handler");
@@ -79,7 +77,7 @@ exports.uploadProfileImage = asyncHandler(async (req, res, next) => {
 exports.loadSitterProfiles = asyncHandler(async (req, res) => {
   const sitterProfiles = await Profile.find({ isSitter: true });
 
-  if (!sitterProfiles) {
+  if (!sitterProfiles.length) {
     res.status(500);
     throw new Error("An error occured");
   }
