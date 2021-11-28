@@ -33,38 +33,35 @@ function App(): JSX.Element {
               <SocketProvider>
                 <NavBar />
 
-              <Switch>
-                <Route exact path="/login" component={Login} />
-                <Route exact path="/signup" component={Signup} />
-                <ProtectedRoute exact path="/edit-profile" component={EditMenu} />
-                <ProtectedRoute exact path="/checkout" component={Checkout} />
-                <ProtectedRoute exact path="/edit-image" component={EditPhoto} />
-                <ProtectedRoute exact path="/payment-profile" component={AddCard} />
-                <ProtectedRoute exact path="/add-card-info" component={AddCardInfo} />
-                <SitterListingProvider>
-                  <Route exact path="/sitter-profile" component={SitterProfile} />
-                </SitterListingProvider>
-                <ProtectedRoute exact path="/dashboard">
+                <Switch>
+                  <Route exact path="/login" component={Login} />
+                  <Route exact path="/signup" component={Signup} />
+                  <ProtectedRoute exact path="/edit-profile" component={EditMenu} />
+                  <ProtectedRoute exact path="/checkout" component={Checkout} />
+                  <ProtectedRoute exact path="/edit-image" component={EditPhoto} />
+                  <ProtectedRoute exact path="/payment-profile" component={AddCard} />
+                  <ProtectedRoute exact path="/add-card-info" component={AddCardInfo} />
                   <SitterListingProvider>
-                    <Dashboard />
+                    <Route exact path="/sitter-profile" component={SitterProfile} />
+                    <Route exact path="/dashboard">
+                      <Dashboard />
+                    </Route>
                   </SitterListingProvider>
-                </ProtectedRoute>
+                  <ProtectedRoute exact path="/my-jobs">
+                    <RequestProvider>
+                      <Requests />
+                    </RequestProvider>
+                  </ProtectedRoute>
 
-                <ProtectedRoute exact path="/my-jobs">
-                  <RequestProvider>
-                    <Requests />
-                  </RequestProvider>
-                </ProtectedRoute>
-
-                <ProtectedRoute exact path="/messages">
-                  <Dashboard />
-                </ProtectedRoute>
-
-                <ProtectedRoute exact path="/my-sitters">
-                  <RequestProvider>
+                  <ProtectedRoute exact path="/messages">
                     <Dashboard />
-                  </RequestProvider>
-                </ProtectedRoute>
+                  </ProtectedRoute>
+
+                  <ProtectedRoute exact path="/my-sitters">
+                    <RequestProvider>
+                      <Dashboard />
+                    </RequestProvider>
+                  </ProtectedRoute>
 
                   <ProtectedRoute exact path="/edit-profile" component={EditMenu} />
                   <ProtectedRoute exact path="/edit-image" component={EditPhoto} />
