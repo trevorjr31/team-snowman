@@ -14,6 +14,7 @@ import { SnackBarProvider } from './context/useSnackbarContext';
 import Requests from './components/Requests/Requests';
 import { RequestProvider } from './context/useRequestContext';
 import { SitterListingProvider } from './context/useSitterContext';
+import SitterProfile from './components/SitterProfile/SitterProfile';
 
 import { NotificationProvider } from './context/useNotificationContext';
 import EditPhoto from './components/EditProfile/EditPhoto/EditPhoto';
@@ -39,8 +40,8 @@ function App(): JSX.Element {
                 <ProtectedRoute exact path="/dashboard">
                   <SitterListingProvider>
                     <Dashboard />
-                  </SitterListingProvider>
-                </ProtectedRoute>
+                  </ProtectedRoute>
+                </SitterListingProvider>
                 <RequestProvider>
                   <ProtectedRoute exact path="/my-jobs">
                     <Requests />
