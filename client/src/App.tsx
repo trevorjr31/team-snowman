@@ -32,7 +32,6 @@ function App(): JSX.Element {
             <NotificationProvider>
               <SocketProvider>
                 <NavBar />
-
                 <Switch>
                   <Route exact path="/login" component={Login} />
                   <Route exact path="/signup" component={Signup} />
@@ -42,16 +41,13 @@ function App(): JSX.Element {
                   <ProtectedRoute exact path="/payment-profile" component={AddCard} />
                   <ProtectedRoute exact path="/add-card-info" component={AddCardInfo} />
                   <SitterListingProvider>
-                    <Route exact path="/sitter-profile" component={SitterProfile} />
-                    <Route exact path="/dashboard">
-                      <Dashboard />
-                    </Route>
-                  </SitterListingProvider>
-                  <ProtectedRoute exact path="/my-jobs">
                     <RequestProvider>
-                      <Requests />
+                      <ProtectedRoute exact path="/my-jobs" component={Requests} />
+
+                      <Route exact path="/sitter-profile" component={SitterProfile} />
+                      <Route exact path="/dashboard" component={Dashboard} />
                     </RequestProvider>
-                  </ProtectedRoute>
+                  </SitterListingProvider>
 
                   <ProtectedRoute exact path="/messages">
                     <Dashboard />
@@ -64,7 +60,9 @@ function App(): JSX.Element {
                   </ProtectedRoute>
 
                   <ProtectedRoute exact path="/edit-profile" component={EditMenu} />
+
                   <ProtectedRoute exact path="/edit-image" component={EditPhoto} />
+
                   <Route path="*">
                     <Redirect to="/login" />
                   </Route>
