@@ -1,39 +1,39 @@
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
-  root: {
-    minHeight: '100vh',
-    marginTop: theme.spacing(17),
-  },
-  divider: {
-    height: 50,
-    margin: theme.spacing(1),
-  },
-  title: {
+  fieldLabel: {
     color: 'black',
-    fontSize: 24,
+    fontSize: 11,
     fontWeight: 600,
-    textTransform: 'capitalize',
+    textTransform: 'uppercase',
   },
-  searchBar: {
-    width: 650,
+  dateSelectText: {
+    color: 'black',
+    fontSize: 12,
     fontWeight: 600,
   },
-  searchBarText: {
-    fontSize: 14,
+  calendarIcon: { opacity: 0.4 },
+  submit: {
+    margin: theme.spacing(1, 2, 2),
+    padding: 10,
+    width: 170,
+    height: 50,
+    borderRadius: theme.shape.borderRadius,
+    fontSize: 11,
+    fontWeight: 'bold',
+  },
+  name: {
+    fontSize: 18,
+    color: 'black',
     fontWeight: 600,
-    borderBottom: 'none',
+    textDecoration: 'none',
   },
-  dateIcon: {
-    opacity: 0.3,
-  },
-  dateSelector: {
-    width: 200,
-  },
-  dashboard: {
-    flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'center',
+  cardMain: {
+    height: '375px',
+    width: '350px',
+    marginTop: theme.spacing(16),
+    paddingLeft: theme.spacing(0),
+    paddingRight: theme.spacing(0),
   },
   calendar: {
     '& .rmdp-header-values': {
@@ -73,9 +73,6 @@ const useStyles = makeStyles((theme) => ({
       color: 'black !important',
       border: 'solid 1px rgb(0,0,0,0.3)',
     },
-  },
-  clear: {
-    marginRight: theme.spacing(-1),
   },
 }));
 
