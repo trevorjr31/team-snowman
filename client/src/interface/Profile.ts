@@ -11,6 +11,9 @@ export interface Profile {
   hourlyRate: Number;
   title: string;
   userId: string;
+  heroImage: string;
+  about: string;
+  album: [string];
   _id: string;
   _v: number;
 }

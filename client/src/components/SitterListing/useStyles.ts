@@ -35,12 +35,18 @@ const useStyles = makeStyles((theme) => ({
     height: '300px',
     width: '275px',
     marginBottom: theme.spacing(5),
+    '&:hover': {
+      transform: 'scale(1.05)',
+    },
   },
   divider: {
     marginTop: theme.spacing(8),
     marginBottom: theme.spacing(2),
     marginLeft: theme.spacing(-3),
     width: '275px',
+  },
+  link: {
+    textDecoration: 'none',
   },
 }));
 

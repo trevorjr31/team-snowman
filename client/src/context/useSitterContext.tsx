@@ -6,6 +6,8 @@ import DateObject from 'react-date-object';
 interface SitterListingContext {
   sitterProfiles: [Profile] | null | undefined;
   sitterSearchResults: [Profile] | Profile[] | null | undefined;
+  selectedSitter: Profile | null | undefined;
+  selectSitter: (sitter: Profile) => void;
   updateSearch: (
     searchTerm: string | null,
     dateRange: DateObject[] | Date[] | null,
@@ -16,6 +18,8 @@ interface SitterListingContext {
 export const SitterListingContext = createContext<SitterListingContext>({
   sitterProfiles: null,
   sitterSearchResults: null,
+  selectedSitter: null,
+  selectSitter: (sitter: Profile) => null,
   updateSearch: (
     searchTerm: string | null,
     dateRange: DateObject[] | Date[] | null,
@@ -26,6 +30,7 @@ export const SitterListingContext = createContext<SitterListingContext>({
 export const SitterListingProvider: FunctionComponent = ({ children }): JSX.Element => {
   const [sitterProfiles, setSitterProfiles] = useState<[Profile] | null | undefined>();
   const [sitterSearchResults, setSitterSearchResults] = useState<[Profile] | Profile[] | null | undefined>();
+  const [selectedSitter, setSelectedSitter] = useState<Profile | null | undefined>();
   const filterByDateRange = (dateRange: DateObject[] | Date[] | null, days?: { [id: string]: boolean }) => {
     if (sitterProfiles) {
       let updatedSitterList = Array.from(sitterProfiles);
@@ -73,6 +78,10 @@ export const SitterListingProvider: FunctionComponent = ({ children }): JSX.Elem
     }
   };
 
+  const selectSitter = (sitter: Profile) => {
+    setSelectedSitter(sitter);
+  };
+
   useEffect(() => {
     const getProfiles = async () => {
       const fetchedProfiles = await fetchSitterProfiles();
@@ -83,7 +92,9 @@ export const SitterListingProvider: FunctionComponent = ({ children }): JSX.Elem
   }, []);
 
   return (
-    <SitterListingContext.Provider value={{ sitterProfiles, sitterSearchResults, updateSearch }}>
+    <SitterListingContext.Provider
+      value={{ sitterProfiles, sitterSearchResults, updateSearch, selectSitter, selectedSitter }}
+    >
       {children}
     </SitterListingContext.Provider>
   );
