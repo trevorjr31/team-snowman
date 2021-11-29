@@ -2,6 +2,7 @@ export interface Profile {
   firstName: string;
   lastName: string;
   dateOfBirth: Date;
+  gender: string;
   phoneNumber: string;
   address: string;
   description: string;
@@ -9,7 +10,6 @@ export interface Profile {
   photo: string;
   isSitter: Boolean;
   hourlyRate: Number;
-  gender: string;
   title: string;
   userId: string;
   defaultPaymentMethod: string;
