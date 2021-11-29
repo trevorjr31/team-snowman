@@ -1,13 +1,15 @@
 import { makeStyles } from '@material-ui/core/styles';
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
   root: {
-    minHeight: '100vh',
+    marginTop: theme.spacing(17),
   },
-  dashboard: {
-    flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'center',
+  title: {
+    color: 'black',
+    fontSize: 28,
+    marginBottom: theme.spacing(4),
+    fontWeight: 600,
+    textTransform: 'capitalize',
   },
 }));
 

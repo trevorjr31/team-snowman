@@ -1,17 +1,17 @@
 import { FetchOptions } from '../../interface/FetchOptions';
+import { Profile } from '../../interface/Profile';
 
-interface Props {
-  userId: string;
-}
-
-export async function getAllPaymentMethods({ userId }: Props) {
+export async function fetchSitterProfiles(): Promise<[Profile]> {
   const fetchOptions: FetchOptions = {
     method: 'GET',
     credentials: 'include',
   };
-
-  return await fetch(`/request/` + userId + `/all-payment-methods`, fetchOptions)
+  return await fetch(`/profile/load/sitters`, fetchOptions)
     .then((res) => res.json())
+    .then((data) => {
+      const profiles = data.success.sitterProfiles;
+      return profiles;
+    })
     .catch(() => ({
       error: { message: 'Unable to connect to server. Please try again' },
     }));

@@ -11,6 +11,10 @@ const profileSchema = new mongoose.Schema({
     type: String,
     default: "",
   },
+  gender: {
+    type: String,
+    default: "",
+  },
   description: {
     type: String,
     default: "",
@@ -29,7 +33,6 @@ const profileSchema = new mongoose.Schema({
   },
   availability: {
     type: [timeSlot],
-    default: [],
   },
   photo: {
     type: String,
@@ -38,6 +41,14 @@ const profileSchema = new mongoose.Schema({
   isSitter: {
     type: Boolean,
     default: false,
+  },
+  hourlyRate: {
+    type: Number,
+    default: null,
+  },
+  title: {
+    type: String,
+    default: null,
   },
   defaultPaymentMethod: {
     type: String,

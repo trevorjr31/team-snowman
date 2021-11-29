@@ -10,11 +10,14 @@ import Checkout from './components/Checkout/Checkout';
 import AddCard from './components/AddCard/AddCard';
 import AddCardInfo from './components/AddCard/AddCardInfo/AddCardInfo';
 import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute';
-import { AuthProvider, useAuth } from './context/useAuthContext';
+import { AuthProvider } from './context/useAuthContext';
 import { SocketProvider } from './context/useSocketContext';
 import { SnackBarProvider } from './context/useSnackbarContext';
 import Requests from './components/Requests/Requests';
 import { RequestProvider } from './context/useRequestContext';
+import { SitterListingProvider } from './context/useSitterContext';
+import SitterProfile from './components/SitterProfile/SitterProfile';
+
 import { NotificationProvider } from './context/useNotificationContext';
 import EditPhoto from './components/EditProfile/EditPhoto/EditPhoto';
 
@@ -26,46 +29,46 @@ function App(): JSX.Element {
       <BrowserRouter>
         <SnackBarProvider>
           <AuthProvider>
-            <SocketProvider>
-              <NotificationProvider>
+            <NotificationProvider>
+              <SocketProvider>
                 <NavBar />
-              </NotificationProvider>
-              <Switch>
-                <Route exact path="/login" component={Login} />
-                <Route exact path="/signup" component={Signup} />
-                <ProtectedRoute exact path="/edit-profile" component={EditMenu} />
-                <ProtectedRoute exact path="/checkout" component={Checkout} />
-                <ProtectedRoute exact path="/edit-image" component={EditPhoto} />
-                <ProtectedRoute exact path="/payment-profile" component={AddCard} />
-                <ProtectedRoute exact path="/add-card-info" component={AddCardInfo} />
+                <Switch>
+                  <Route exact path="/login" component={Login} />
+                  <Route exact path="/signup" component={Signup} />
+                  <ProtectedRoute exact path="/edit-profile" component={EditMenu} />
+                  <ProtectedRoute exact path="/checkout" component={Checkout} />
+                  <ProtectedRoute exact path="/edit-image" component={EditPhoto} />
+                  <ProtectedRoute exact path="/payment-profile" component={AddCard} />
+                  <ProtectedRoute exact path="/add-card-info" component={AddCardInfo} />
+                  <SitterListingProvider>
+                    <RequestProvider>
+                      <ProtectedRoute exact path="/my-jobs" component={Requests} />
 
-                <ProtectedRoute exact path="/dashboard">
-                  <Dashboard />
-                </ProtectedRoute>
+                      <Route exact path="/sitter-profile" component={SitterProfile} />
+                      <Route exact path="/dashboard" component={Dashboard} />
+                    </RequestProvider>
+                  </SitterListingProvider>
 
-                <ProtectedRoute exact path="/my-jobs">
-                  <RequestProvider>
-                    <Requests />
-                  </RequestProvider>
-                </ProtectedRoute>
-
-                <ProtectedRoute exact path="/messages">
-                  <Dashboard />
-                </ProtectedRoute>
-
-                <ProtectedRoute exact path="/my-sitters">
-                  <RequestProvider>
+                  <ProtectedRoute exact path="/messages">
                     <Dashboard />
-                  </RequestProvider>
-                </ProtectedRoute>
+                  </ProtectedRoute>
 
-                <ProtectedRoute exact path="/edit-profile" component={EditMenu} />
-                <ProtectedRoute exact path="/edit-image" component={EditPhoto} />
-                <Route path="*">
-                  <Redirect to="/login" />
-                </Route>
-              </Switch>
-            </SocketProvider>
+                  <ProtectedRoute exact path="/my-sitters">
+                    <RequestProvider>
+                      <Dashboard />
+                    </RequestProvider>
+                  </ProtectedRoute>
+
+                  <ProtectedRoute exact path="/edit-profile" component={EditMenu} />
+
+                  <ProtectedRoute exact path="/edit-image" component={EditPhoto} />
+
+                  <Route path="*">
+                    <Redirect to="/login" />
+                  </Route>
+                </Switch>
+              </SocketProvider>
+            </NotificationProvider>
           </AuthProvider>
         </SnackBarProvider>
       </BrowserRouter>
