@@ -36,3 +36,25 @@ export const updateRequest = async (bookingStatus: string, requestId: string): P
       error: { message: 'Unable to connect to server. Please try again' },
     }));
 };
+
+export const postRequest = async (
+  sitter: string | undefined,
+  start: Date | null | undefined,
+  end: Date | null | undefined,
+): Promise<RequestData> => {
+  const fetchOptions: FetchOptions = {
+    method: 'POST',
+    body: `{"sitter":"${sitter}","duration":{"start":"${start}", "end":"${end}"}}`,
+    headers: { 'Content-Type': 'application/json' },
+    credentials: 'include',
+  };
+  return await fetch(`/request`, fetchOptions)
+    .then((res) => res.json())
+    .then((data) => {
+      const newRequest = data.success.request;
+      return newRequest;
+    })
+    .catch(() => ({
+      error: { message: 'Unable to connect to server. Please try again' },
+    }));
+};
