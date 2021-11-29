@@ -13,7 +13,7 @@ const NotificationListing = ({ notification }: Props): JSX.Element => {
       ? {
           title: 'Dog Sitting',
           message:
-            notification.type == 'newRquest'
+            notification.type == 'newRequest'
               ? `${notification.data.firstName} has requested your service for ${notification.data.duration} ${
                   notification.data.duration === 1 ? 'hour' : 'hours'
                 }`
