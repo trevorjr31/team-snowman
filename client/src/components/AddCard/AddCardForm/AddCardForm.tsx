@@ -35,6 +35,7 @@ export default function AddCard({ handleSubmit }: Props): JSX.Element {
   const { loggedInUser, loggedInUserProfile } = useAuth();
   const { updateSnackBarMessage } = useSnackBar();
   const history = useHistory();
+  const classes = useStyles();
 
   useEffect(() => {
     if (loggedInUser) {
@@ -69,7 +70,6 @@ export default function AddCard({ handleSubmit }: Props): JSX.Element {
       });
     }
   };
-  const classes = useStyles();
 
   if (process.env.REACT_APP_PRICE_ID) {
     return (

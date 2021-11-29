@@ -50,9 +50,8 @@ exports.loadProfile = asyncHandler(async (req, res, next) => {
 // @access Private
 exports.uploadProfileImage = asyncHandler(async (req, res, next) => {
   const id = req.user.id;
-  const user = await User.findById(id, "profile");
 
-  singleUpload(req, res, async function (err) {
+  singleUpload(req, res, async function(err) {
     if (err) {
       return res.json({
         success: false,
@@ -63,21 +62,32 @@ exports.uploadProfileImage = asyncHandler(async (req, res, next) => {
         },
       });
     }
-    
+
     const update = { photo: req.file.location };
 
-    const updateProfile = await Profile.findByIdAndUpdate(
-      user.profile,
-      update,
-      {
-        new: true,
-      }
-    );
-
-    res.status(200).json({
-      success: {
-        profile: updateProfile,
-      },
+    await Profile.findOneAndUpdate({ userId: id }, update, {
+      new: true,
     });
+    res
+      .status(200)
+      .send({ message: "The profile has been successfully updated" });
+  });
+});
+
+// @route GET /profile/load/sitters
+// @desc Get all sitter profiles
+// @access Private
+exports.loadSitterProfiles = asyncHandler(async (req, res) => {
+  const sitterProfiles = await Profile.find({ isSitter: true });
+
+  if (!sitterProfiles.length) {
+    res.status(500);
+    throw new Error("An error occured");
+  }
+
+  res.status(200).json({
+    success: {
+      sitterProfiles,
+    },
   });
 });
