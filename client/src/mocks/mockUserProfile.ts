@@ -14,7 +14,6 @@ const mockLoggedInUserProfile: Profile = {
   userId: '',
   availability: [{ day: new Date(), start: new Date(), end: new Date() }],
   photo: '',
-  isSitter: false,
   defaultPaymentMethod: '',
   heroImage: '',
   about: '',
