@@ -7,7 +7,7 @@ import { Formik, FormikHelpers, Field } from 'formik';
 import * as Yup from 'yup';
 import Typography from '@material-ui/core/Typography';
 import useStyles from './useStyles';
-import { CircularProgress } from '@material-ui/core';
+import { CircularProgress, Switch } from '@material-ui/core';
 import DatePicker from '../../DatePicker/DatePicker';
 import editProfile from '../../../helpers/APICalls/editProfile';
 import { useSnackBar } from '../../../context/useSnackbarContext';
@@ -37,6 +37,7 @@ export default function EditProfile(): JSX.Element {
       phoneNumber,
       address,
       description,
+      isSitter,
       defaultPaymentMethod,
     }: {
       firstName: string;
@@ -46,6 +47,7 @@ export default function EditProfile(): JSX.Element {
       phoneNumber: string;
       address: string;
       description: string;
+      isSitter: boolean;
       defaultPaymentMethod: string;
     },
     {
@@ -58,6 +60,7 @@ export default function EditProfile(): JSX.Element {
       phoneNumber: string;
       address: string;
       description: string;
+      isSitter: boolean;
       defaultPaymentMethod: string;
     }>,
   ) => {
@@ -69,6 +72,7 @@ export default function EditProfile(): JSX.Element {
       phoneNumber,
       address,
       description,
+      isSitter,
       defaultPaymentMethod,
     }).then((data) => {
       if (data.error) {
@@ -97,6 +101,7 @@ export default function EditProfile(): JSX.Element {
         phoneNumber: '',
         address: '',
         description: '',
+        isSitter: false,
         defaultPaymentMethod: loggedInUserProfile ? loggedInUserProfile.defaultPaymentMethod : '',
       }}
       validationSchema={Yup.object().shape({
@@ -262,7 +267,14 @@ export default function EditProfile(): JSX.Element {
                 onChange={handleChange}
               />
             </Grid>
-
+            <Grid item className={classes.field}>
+              <Grid item className={classes.label}>
+                <Typography variant="subtitle1" noWrap>
+                  Become a sitter?
+                </Typography>
+              </Grid>
+              <Switch checked={values.isSitter} onChange={handleChange} name="isSitter" color="primary" />
+            </Grid>
             <Box textAlign="center">
               <Button type="submit" size="large" variant="contained" color="primary" className={classes.submit}>
                 {isSubmitting ? <CircularProgress style={{ color: 'white' }} /> : 'Save'}

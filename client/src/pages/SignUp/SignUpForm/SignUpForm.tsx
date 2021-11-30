@@ -8,6 +8,8 @@ import useStyles from './useStyles';
 import { CircularProgress } from '@material-ui/core';
 import AuthFooter from '../../../components/AuthFooter/AuthFooter';
 import DemoLoginBtn from '../../../components/DemoLoginBtn/DemoLoginBtn';
+import { useTour } from '@reactour/tour';
+import { useEffect } from 'react';
 
 interface Props {
   handleSubmit: (
@@ -33,6 +35,17 @@ interface Props {
 
 const SignUpForm = ({ handleSubmit }: Props): JSX.Element => {
   const classes = useStyles();
+  const { isOpen, setIsOpen, currentStep, setCurrentStep } = useTour();
+
+  useEffect(() => {
+    setCurrentStep(0);
+  }, [setCurrentStep, isOpen]);
+
+  useEffect(() => {
+    if (currentStep > 3) {
+      setIsOpen(false);
+    }
+  }, [currentStep, setIsOpen]);
 
   return (
     <Formik
@@ -54,6 +67,7 @@ const SignUpForm = ({ handleSubmit }: Props): JSX.Element => {
       {({ handleSubmit, handleChange, values, touched, errors, isSubmitting }) => (
         <form onSubmit={handleSubmit} className={classes.form} noValidate>
           <TextField
+            data-tour="signup-name"
             id="username"
             label={<Typography className={classes.label}>Username</Typography>}
             fullWidth
@@ -74,6 +88,7 @@ const SignUpForm = ({ handleSubmit }: Props): JSX.Element => {
             onChange={handleChange}
           />
           <TextField
+            data-tour="signup-email"
             id="email"
             label={<Typography className={classes.label}>E-mail address</Typography>}
             fullWidth
@@ -93,6 +108,7 @@ const SignUpForm = ({ handleSubmit }: Props): JSX.Element => {
             onChange={handleChange}
           />
           <TextField
+            data-tour="signup-password"
             id="password"
             label={<Typography className={classes.label}>Password</Typography>}
             fullWidth
@@ -113,7 +129,14 @@ const SignUpForm = ({ handleSubmit }: Props): JSX.Element => {
           />
 
           <Box textAlign="center">
-            <Button type="submit" size="large" variant="contained" color="primary" className={classes.submit}>
+            <Button
+              data-tour="signup-submit"
+              type="submit"
+              size="large"
+              variant="contained"
+              color="primary"
+              className={classes.submit}
+            >
               {isSubmitting ? <CircularProgress style={{ color: 'white' }} /> : 'SIGN UP'}
             </Button>
           </Box>
@@ -121,6 +144,9 @@ const SignUpForm = ({ handleSubmit }: Props): JSX.Element => {
             <DemoLoginBtn />
           </Box>
           <AuthFooter linkTo="/login" asideText="Already have an account?" btnText="Login" />
+          <Button variant="outlined" color="primary" onClick={() => setIsOpen(true)}>
+            Try our tour
+          </Button>
         </form>
       )}
     </Formik>
