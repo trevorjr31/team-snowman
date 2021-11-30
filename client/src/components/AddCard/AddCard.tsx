@@ -1,18 +1,14 @@
-import Paper from '@material-ui/core/Paper';
 import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
 import { FormikHelpers } from 'formik';
 import Typography from '@material-ui/core/Typography';
 import useStyles from './useStyles';
-import { setDefaultPayment } from '../../helpers/APICalls/setDefaultPayment';
 import AddCardForm from './AddCardForm/AddCardForm';
 import { useAuth } from '../../context/useAuthContext';
-import { useSnackBar } from '../../context/useSnackbarContext';
 import editProfile from '../../helpers/APICalls/editProfile';
 
 export default function AddCard(): JSX.Element {
   const classes = useStyles();
-  const { updateSnackBarMessage } = useSnackBar();
   const { loggedInUser, loggedInUserProfile, fetchProfileAndUpdateContext } = useAuth();
 
   const handleSubmit = async (
@@ -22,6 +18,7 @@ export default function AddCard(): JSX.Element {
     if (loggedInUserProfile) {
       const profile = Object.create(loggedInUserProfile);
       if (profile) {
+        setSubmitting(false);
         profile.defaultPaymentMethod = paymentMethod;
         await editProfile(profile);
         fetchProfileAndUpdateContext();

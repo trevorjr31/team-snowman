@@ -34,11 +34,12 @@ const NotificationLink = (props: NotificationLinkProps): JSX.Element => {
         <ArrowDropUpIcon />
       </Box>
       <Menu
+        getContentAnchorEl={null}
         className={classes.menu}
         id="simple-menu"
         anchorEl={notificationDisplay}
         anchorOrigin={{
-          vertical: 'bottom',
+          vertical: 'center',
           horizontal: 'center',
         }}
         transformOrigin={{ vertical: 'top', horizontal: 'center' }}
