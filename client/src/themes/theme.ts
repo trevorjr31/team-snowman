@@ -17,6 +17,12 @@ export const theme = createMuiTheme({
     body1: {
       color: '#f14140',
     },
+    h2: {
+      fontSize: 34,
+      color: '#000000',
+      fontWeight: 700,
+      fontFamily: "'Arial'",
+    },
     h3: {
       fontSize: 18,
       color: '#000000',
@@ -38,11 +44,13 @@ export const theme = createMuiTheme({
     },
     subtitle2: {
       fontSize: 14,
+      color: '#ffffff',
+      fontFamily: "'Roboto'",
     },
   },
   palette: {
     primary: { main: '#f14140' },
-    secondary: { main: '#FFFFFF' },
+    secondary: { main: '#ffffff' },
   },
   shape: {
     borderRadius: 5,
