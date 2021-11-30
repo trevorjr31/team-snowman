@@ -14,7 +14,10 @@ export const styles = {
     borderRadius: radius,
   }),
   maskArea: (base: any) => ({ ...base, rx: radius }),
-  maskWrapper: (base: any) => ({ ...base, color: '#ef5a3d' }),
+  maskWrapper: (base: any) => ({
+    ...base,
+    color: '#335599',
+  }),
   badge: (base: any) => ({
     ...base,
     left: 'auto',

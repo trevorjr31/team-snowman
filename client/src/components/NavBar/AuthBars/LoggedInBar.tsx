@@ -35,23 +35,18 @@ const LoggedInBar = (): JSX.Element => {
       setShowText2(true);
     }
   }, [showText2]);
-              
-                useEffect(() => {
-    setCurrentStep(7);
-  }, [setCurrentStep, isOpen]);
 
-  useEffect(() => {
-    if (currentStep < 7 || currentStep > 11) {
-      setIsOpen(false);
-    }
-  }, [currentStep, setIsOpen]);
+  const handleClick = () => {
+    setCurrentStep(6);
+    setIsOpen(true);
+  };
 
   return (
     <Grid container className={classes.navButtons}>
-      <Button variant="outlined" color="primary" onClick={() => setIsOpen(true)}>
+      <Button variant="outlined" color="primary" onClick={handleClick}>
         Try our tour
       </Button>
-      <Grid data-tour="narbar-notifications" item>
+      <Grid data-tour="navbar-notifications" item>
         <NotificationLink>
           <Typography variant="h3">
             <TextTransition text={showText2 ? 'Notifications' : ''} springConfig={presets.default} />
@@ -60,26 +55,26 @@ const LoggedInBar = (): JSX.Element => {
       </Grid>
       <Grid item>
         <Button component={Link} to="/my-jobs" color="secondary" size="large" variant="text">
-          <Typography data-tour="narbar-my-jobs" variant="h3">
+          <Typography data-tour="navbar-my-jobs" variant="h3">
             <TextTransition text={showText1 ? 'My Jobs' : ''} springConfig={presets.default} />
           </Typography>
         </Button>
       </Grid>
       <Grid item>
         <Button component={Link} to="/messages" color="secondary" size="large" variant="text">
-          <Typography data-tour="narbar-messages" variant="h3">
+          <Typography data-tour="navbar-messages" variant="h3">
             <TextTransition text={showText2 ? 'Messages' : ''} springConfig={presets.slow} />
           </Typography>
         </Button>
       </Grid>
       <Grid item>
         <Button component={Link} to="/my-sitters" color="secondary" size="large" variant="text">
-          <Typography data-tour="narbar-my-sitters" variant="h3">
+          <Typography data-tour="navbar-my-sitters" variant="h3">
             <TextTransition text={showText1 ? 'My Sitters' : ''} springConfig={presets.slow} />
           </Typography>
         </Button>
       </Grid>
-      <Grid data-tour="narbar-avatar" item>
+      <Grid data-tour="navbar-avatar" item>
         <AuthMenu />
       </Grid>
     </Grid>

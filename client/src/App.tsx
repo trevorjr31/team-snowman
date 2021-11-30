@@ -44,34 +44,29 @@ function App(): JSX.Element {
         }}
         badgeContent={({ totalSteps, currentStep }) => `${currentStep + 1}/${totalSteps}`}
         scrollSmooth
-      >        
-      <BrowserRouter>
-        <SnackBarProvider>
-          <AuthProvider>
-            <NotificationProvider>
-              <SocketProvider>
-                <NavBar />
-                <Switch>
-                  <Route exact path="/">
-                    <FindSitterFormProvider>
-                      <Landing />
-                    </FindSitterFormProvider>
-                  </Route>
-                  <Route exact path="/login" component={Login} />
-                  <Route exact path="/signup" component={Signup} />
-                  <ProtectedRoute exact path="/edit-profile" component={EditMenu} />
-                  <ProtectedRoute exact path="/checkout" component={Checkout} />
-                  <ProtectedRoute exact path="/edit-image" component={EditPhoto} />
-                  <ProtectedRoute exact path="/payment-profile" component={AddCard} />
-                  <ProtectedRoute exact path="/add-card-info" component={AddCardInfo} />
-                  <SitterListingProvider>
-                    <RequestProvider>
-                      <ProtectedRoute exact path="/my-jobs" component={Requests} />
-
-                      <Route exact path="/sitter-profile" component={SitterProfile} />
-                      <Route exact path="/dashboard" component={Dashboard} />
-                    </RequestProvider>
-                  </SitterListingProvider>
+      >
+        <BrowserRouter>
+          <SnackBarProvider>
+            <AuthProvider>
+              <NotificationProvider>
+                <SocketProvider>
+                  <NavBar />
+                  <Switch>
+                    <Route exact path="/">
+                      <FindSitterFormProvider>
+                        <Landing />
+                      </FindSitterFormProvider>
+                    </Route>
+                    <Route exact path="/login" component={Login} />
+                    <Route exact path="/signup" component={Signup} />
+                    <ProtectedRoute exact path="/edit-profile" component={EditMenu} />
+                    <ProtectedRoute exact path="/checkout" component={Checkout} />
+                    <ProtectedRoute exact path="/edit-image" component={EditPhoto} />
+                    <ProtectedRoute exact path="/payment-profile" component={AddCard} />
+                    <ProtectedRoute exact path="/add-card-info" component={AddCardInfo} />
+                    <SitterListingProvider>
+                      <RequestProvider>
+                        <ProtectedRoute exact path="/my-jobs" component={Requests} />
 
                         <Route exact path="/sitter-profile" component={SitterProfile} />
                         <Route exact path="/dashboard" component={Dashboard} />

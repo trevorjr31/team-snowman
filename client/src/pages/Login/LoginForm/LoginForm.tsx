@@ -8,8 +8,6 @@ import useStyles from './useStyles';
 import DemoLoginBtn from '../../../components/DemoLoginBtn/DemoLoginBtn';
 import { CircularProgress } from '@material-ui/core';
 import AuthFooter from '../../../components/AuthFooter/AuthFooter';
-import { useTour } from '@reactour/tour';
-import { useEffect } from 'react';
 
 interface Props {
   handleSubmit: (
@@ -32,17 +30,6 @@ interface Props {
 
 export default function Login({ handleSubmit }: Props): JSX.Element {
   const classes = useStyles();
-  const { isOpen, setIsOpen, currentStep, setCurrentStep } = useTour();
-
-  useEffect(() => {
-    setCurrentStep(4);
-  }, [setCurrentStep, isOpen]);
-
-  useEffect(() => {
-    if (currentStep < 4 || currentStep > 6) {
-      setIsOpen(false);
-    }
-  }, [currentStep, setIsOpen]);
 
   return (
     <Formik
@@ -62,7 +49,6 @@ export default function Login({ handleSubmit }: Props): JSX.Element {
       {({ handleSubmit, handleChange, values, touched, errors, isSubmitting }) => (
         <form onSubmit={handleSubmit} className={classes.form} noValidate>
           <TextField
-            data-tour="login-email"
             id="email"
             label={<Typography className={classes.label}>E-mail address</Typography>}
             fullWidth
@@ -83,7 +69,6 @@ export default function Login({ handleSubmit }: Props): JSX.Element {
             onChange={handleChange}
           />
           <TextField
-            data-tour="login-password"
             id="password"
             label={<Typography className={classes.label}>Password</Typography>}
             fullWidth
@@ -104,14 +89,7 @@ export default function Login({ handleSubmit }: Props): JSX.Element {
             onChange={handleChange}
           />
           <Box textAlign="center">
-            <Button
-              data-tour="login-submit"
-              type="submit"
-              size="large"
-              variant="contained"
-              color="primary"
-              className={classes.submit}
-            >
+            <Button type="submit" size="large" variant="contained" color="primary" className={classes.submit}>
               {isSubmitting ? <CircularProgress style={{ color: 'white' }} /> : 'Login'}
             </Button>
           </Box>
@@ -119,9 +97,6 @@ export default function Login({ handleSubmit }: Props): JSX.Element {
             <DemoLoginBtn />
           </Box>
           <AuthFooter linkTo="/signup" asideText="Not a member?" btnText="Sign Up" />
-          <Button variant="outlined" color="primary" onClick={() => setIsOpen(true)}>
-            Try our tour
-          </Button>
         </form>
       )}
     </Formik>
