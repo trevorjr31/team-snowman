@@ -49,7 +49,12 @@ exports.getRequests = asyncHandler(async (req, res) => {
     $or: [{ owner: req.user.id }, { sitter: req.user.id }],
   })
     .populate("sitter", ["username", "email", "_id"])
-    .populate("owner", ["username", "email", "_id"]);
+    .populate({
+      path: "owner",
+      model: "User",
+      select: "email profile _id username",
+      populate: { path: "profile", model: "Profile" },
+    });
   const processedRequests = await organizeRequests(requests);
   res.status(200).json({
     success: {
@@ -94,7 +99,12 @@ exports.editRequest = asyncHandler(async (req, res, next) => {
       $or: [{ owner: req.user.id }, { sitter: req.user.id }],
     })
       .populate("sitter", ["username", "email", "_id"])
-      .populate("owner", ["username", "email", "_id"]);
+      .populate({
+        path: "owner",
+        model: "User",
+        select: "email profile _id username",
+        populate: { path: "profile", model: "Profile" },
+      });
     const processedRequests = await organizeRequests(requests);
     res.status(200).json({
       success: {
