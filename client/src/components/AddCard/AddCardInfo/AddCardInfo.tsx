@@ -6,7 +6,6 @@ import AddCardInfoForm from './AddCardInfoForm/AddCardInfoForm';
 const AddCardInfo = (props: any): JSX.Element => {
   const options = {
     clientSecret: props.location.state.clientSecret,
-    appearance: {},
   };
 
   if (process.env.REACT_APP_SECRET_KEY === undefined) {

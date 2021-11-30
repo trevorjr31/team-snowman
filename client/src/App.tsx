@@ -7,10 +7,11 @@ import Dashboard from './pages/Dashboard/Dashboard';
 import NavBar from './components/NavBar/NavBar';
 import EditMenu from './components/EditProfile/EditMenu';
 import Checkout from './components/Checkout/Checkout';
+import Landing from './pages/Landing/Landing';
 import AddCard from './components/AddCard/AddCard';
 import AddCardInfo from './components/AddCard/AddCardInfo/AddCardInfo';
 import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute';
-import { AuthProvider, useAuth } from './context/useAuthContext';
+import { AuthProvider } from './context/useAuthContext';
 import { SocketProvider } from './context/useSocketContext';
 import { SnackBarProvider } from './context/useSnackbarContext';
 import Requests from './components/Requests/Requests';
@@ -19,6 +20,7 @@ import { SitterListingProvider } from './context/useSitterContext';
 import SitterProfile from './components/SitterProfile/SitterProfile';
 
 import { NotificationProvider } from './context/useNotificationContext';
+import { FindSitterFormProvider } from './context/useFindSitterFormContext';
 import EditPhoto from './components/EditProfile/EditPhoto/EditPhoto';
 
 import './App.css';
@@ -33,6 +35,11 @@ function App(): JSX.Element {
               <SocketProvider>
                 <NavBar />
                 <Switch>
+                  <Route exact path="/">
+                    <FindSitterFormProvider>
+                      <Landing />
+                    </FindSitterFormProvider>
+                  </Route>
                   <Route exact path="/login" component={Login} />
                   <Route exact path="/signup" component={Signup} />
                   <ProtectedRoute exact path="/edit-profile" component={EditMenu} />
@@ -58,10 +65,6 @@ function App(): JSX.Element {
                       <Dashboard />
                     </RequestProvider>
                   </ProtectedRoute>
-
-                  <ProtectedRoute exact path="/edit-profile" component={EditMenu} />
-
-                  <ProtectedRoute exact path="/edit-image" component={EditPhoto} />
 
                   <Route path="*">
                     <Redirect to="/login" />
