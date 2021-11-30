@@ -36,7 +36,7 @@ exports.registerUser = asyncHandler(async (req, res, next) => {
     new: true,
   });
 
-  if (user) {
+  if (user && updatedProfile) {
     const token = generateToken(user._id);
     const secondsInWeek = 604800;
 
