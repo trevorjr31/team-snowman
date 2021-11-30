@@ -1,13 +1,13 @@
 import Grid from '@material-ui/core/Grid';
 import AppBar from '@material-ui/core/AppBar';
 import ToolBar from '@material-ui/core/Toolbar';
+import Box from '@material-ui/core/Box';
 import useStyles from './useStyles';
 import logo from '../../Images/logo.png';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { useAuth } from '../../context/useAuthContext';
 import { useHistory } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import { useEffect } from 'react';
 import LoggedInBar from './AuthBars/LoggedInBar';
 import LoggedOutBar from './AuthBars/LoggedOutBar';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -37,28 +37,23 @@ const NavBar = ({ children }: Props): JSX.Element => {
   if (loggedInUser === undefined) return <CircularProgress />;
 
   return (
-    <Grid>
-      <AppBar
-        elevation={history.location.pathname === '/' ? 0 : 6}
-        className={isLandingPage ? classes.landingPageBar : classes.appbar}
-        position="static"
-      >
-        <ToolBar className={classes.toolbar}>
-          <img src={logo} alt="logo" />
-          {loggedInUser ? <LoggedInBar /> : <LoggedOutBar isLandingPage={isLandingPage} />}
-        </ToolBar>
-      </AppBar>
-      {children}
-    </Grid>
-    <AppBar className={classes.appbar} position="static">
-      <CssBaseline />
-      <ToolBar className={classes.toolbar}>
-        <Link to="/dashboard">
-          <img src={logo} alt="logo" />{' '}
-        </Link>
-        {loggedInUser ? <LoggedInBar /> : <LoggedOutBar />}
-      </ToolBar>
-    </AppBar>
+    <Box>
+      <Grid>
+        <AppBar
+          elevation={history.location.pathname === '/' ? 0 : 6}
+          className={isLandingPage ? classes.landingPageBar : classes.appbar}
+          position="static"
+        >
+          <ToolBar className={classes.toolbar}>
+            <Link to="/dashboard">
+              <img src={logo} alt="logo" />
+            </Link>
+            {loggedInUser ? <LoggedInBar /> : <LoggedOutBar isLandingPage={isLandingPage} />}
+          </ToolBar>
+        </AppBar>
+        {children}
+      </Grid>
+    </Box>
   );
 };
 
