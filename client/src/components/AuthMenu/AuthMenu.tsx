@@ -9,7 +9,7 @@ import { Link } from 'react-router-dom';
 const AuthMenu = (): JSX.Element => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
-  const { logout, loggedInUser } = useAuth();
+  const { logout, loggedInUserProfile } = useAuth();
 
   const handleClick = (event: MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
@@ -27,7 +27,7 @@ const AuthMenu = (): JSX.Element => {
   return (
     <div>
       <IconButton aria-label="show auth menu" aria-controls="auth-menu" aria-haspopup="true" onClick={handleClick}>
-        <Avatar src={loggedInUser?.profile?.photo} />
+        <Avatar src={loggedInUserProfile?.photo} />
       </IconButton>
       <Menu
         id="auth-menu"
