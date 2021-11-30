@@ -36,7 +36,7 @@ const NavBar = ({ children }: Props): JSX.Element => {
       <AppBar
         elevation={history.location.pathname === '/' ? 0 : 6}
         className={isLandingPage ? classes.landingPageBar : classes.appbar}
-        position="absolute"
+        position="static"
       >
         <ToolBar className={classes.toolbar}>
           <img src={logo} alt="logo" />
