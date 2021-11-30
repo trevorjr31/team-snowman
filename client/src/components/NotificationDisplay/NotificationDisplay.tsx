@@ -7,7 +7,12 @@ import NotificationListing from './NotificationListing/NotifcationListing';
 import ArrowDropUpIcon from '@material-ui/icons/ArrowDropUp';
 import { Notification } from '../../interface/Notification';
 
-const NotificationLink = (): JSX.Element => {
+interface NotificationLinkProps {
+  children: React.ReactNode;
+}
+
+const NotificationLink = (props: NotificationLinkProps): JSX.Element => {
+  const { children, ...other } = props;
   const classes = useStyles();
   const { notifications, markNotificationsAsRead } = useNotification();
   const [notificationDisplay, SetNotificationDisplay] = React.useState<null | HTMLElement>(null);
@@ -22,7 +27,7 @@ const NotificationLink = (): JSX.Element => {
     <Box display="flex">
       <Button color="secondary" size="large" variant="text" onClick={handleClick}>
         <Badge variant="dot" className={classes.badge} invisible={!notifications?.length}>
-          <Typography variant="h3">Notifications</Typography>
+          {children}
         </Badge>
       </Button>
       <Box className={notificationDisplay ? classes.point : classes.pointClosed}>
