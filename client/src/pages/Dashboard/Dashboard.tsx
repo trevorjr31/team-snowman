@@ -14,13 +14,15 @@ export default function Dashboard(): JSX.Element {
         <SitterSearchBar />
       </Box>
       <Grid container component="main">
-        {sitterSearchResults?.map((profile) => {
-          return (
-            <Grid item xs={12} sm={6} md={4} lg={4} key={profile._id}>
-              <SitterListing profile={profile} />
-            </Grid>
-          );
-        })}
+        {sitterSearchResults &&
+          sitterSearchResults[0] &&
+          sitterSearchResults?.map((profile) => {
+            return (
+              <Grid item xs={12} sm={6} md={4} lg={4} key={profile._id}>
+                <SitterListing profile={profile} />
+              </Grid>
+            );
+          })}
       </Grid>
     </Box>
   );

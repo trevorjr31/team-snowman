@@ -13,7 +13,7 @@ const useStyles = makeStyles((theme) => ({
     fontWeight: 600,
     width: '80px',
   },
-  calendarIcon: { opacity: 0.4 },
+  calendarIcon: { opacity: 0.4, margin: theme.spacing(-2, -2) },
   submit: {
     margin: theme.spacing(1, 2, 2),
     padding: 10,
@@ -23,7 +23,6 @@ const useStyles = makeStyles((theme) => ({
     fontSize: 11,
     fontWeight: 'bold',
   },
-  submitText: { color: 'white', fontSize: 11, fontWeight: 'bold' },
   name: {
     fontSize: 18,
     color: 'black',

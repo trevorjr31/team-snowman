@@ -128,6 +128,7 @@ exports.getAllPaymentMethods = asyncHandler(async (req, res) => {
   const id = req.user.id;
   const user = await User.findById(id);
   req.email = user.email;
+
   if (id === req.params.id) {
     await getCustomer(req, res);
 

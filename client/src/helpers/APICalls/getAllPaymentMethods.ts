@@ -9,6 +9,7 @@ export async function getAllPaymentMethods({ userId }: Props) {
     method: 'GET',
     credentials: 'include',
   };
+
   return await fetch(`/request/` + userId + `/all-payment-methods`, fetchOptions)
     .then((res) => res.json())
     .catch(() => ({

@@ -2,6 +2,7 @@ export interface Profile {
   firstName: string;
   lastName: string;
   dateOfBirth: Date;
+  gender: string;
   phoneNumber: string;
   address: string;
   description: string;

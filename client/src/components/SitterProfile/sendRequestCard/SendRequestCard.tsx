@@ -1,20 +1,35 @@
-import { Typography, Box, Container, Paper, InputAdornment, TextField, Button } from '@material-ui/core';
+import { Typography, Box, Container, Paper, Button, CircularProgress } from '@material-ui/core';
 import useStyles from './useStyles';
 import Rating from '@material-ui/lab/Rating';
-import DateRangeIcon from '@material-ui/icons/DateRange';
 import { useSitters } from '../../../context/useSitterContext';
-import DatePicker from 'react-multi-date-picker';
-import TimePicker from 'react-multi-date-picker/plugins/time_picker';
-import { useRef } from 'react';
+import SendRequestDateTimePicker from './SendRequestDateTimePicker/SendRequestDateTimePicker';
+import { useRequest } from '../../../context/useRequestContext';
+import { useState } from 'react';
+import { useSnackBar } from '../../../context/useSnackbarContext';
 
 export default function SendRequestCard(): JSX.Element {
   const classes = useStyles();
   const { selectedSitter } = useSitters();
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const startDatePickerRef = useRef<any | null>();
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const endDatePickerRef = useRef<any | null>();
-  const fields = ['start', 'end'];
+  const { updateSnackBarMessage } = useSnackBar();
+  const { sendARequest, requestedStart, requestedEnd } = useRequest();
+  const [isSubmitting, setIsSubmitting] = useState<boolean | null | undefined>(null);
+  const handleSubmit = async () => {
+    setIsSubmitting(true);
+    if (!requestedStart || !requestedEnd) {
+      updateSnackBarMessage('Please select dates');
+      setIsSubmitting(false);
+      return false;
+    }
+    try {
+      await sendARequest(selectedSitter);
+      setIsSubmitting(false);
+      updateSnackBarMessage('Request Sent');
+    } catch (err) {
+      updateSnackBarMessage('An error occured');
+      setIsSubmitting(false);
+    }
+  };
+
   return (
     <Box display="flex">
       <Container className={classes.cardMain} component={Paper}>
@@ -26,52 +41,29 @@ export default function SendRequestCard(): JSX.Element {
             <Rating name="read-only" value={4} readOnly />
           </Box>
           <Box>
-            {fields.map((field) => {
-              return (
-                <Box key="field">
-                  <Box display="flex" justifyContent="start" marginLeft={9}>
-                    <Typography className={classes.fieldLabel}>{field}</Typography>
-                  </Box>
-                  <Box className={classes.calendar} display="flex" justifyContent="center" marginBottom={3}>
-                    <DatePicker
-                      multiple={false}
-                      //  value={dateRange}
-                      className="red"
-                      ref={field === 'start' ? startDatePickerRef : endDatePickerRef}
-                      format="MMM D YYYY HH:mm A"
-                      //onChange={handleDateEntry}
-                      render={
-                        <TextField
-                          variant="outlined"
-                          InputProps={{
-                            classes: {
-                              input: classes.dateSelectText,
-                            },
-                            startAdornment: (
-                              <InputAdornment position="start">
-                                <DateRangeIcon className={classes.calendarIcon} />
-                              </InputAdornment>
-                            ),
-                          }}
-                          onFocus={() => {
-                            field === 'start'
-                              ? startDatePickerRef?.current?.openCalendar()
-                              : endDatePickerRef?.current?.openCalendar();
-                          }}
-                        ></TextField>
-                      }
-                      plugins={[<TimePicker hideSeconds key={'timepicker'} position="bottom" />]}
-                    />
-                  </Box>
-                </Box>
-              );
-            })}
-
-            <Box display="flex" justifyContent="center">
-              <Button type="submit" size="large" variant="contained" color="primary" className={classes.submit}>
-                send request
-              </Button>
+            <Box display="flex" justifyContent="start" marginLeft={9}>
+              <Typography className={classes.fieldLabel}>start</Typography>
             </Box>
+            <Box>
+              <SendRequestDateTimePicker type={'start'} />
+              <SendRequestDateTimePicker type={'end'} />
+            </Box>
+          </Box>
+          <Box display="flex" justifyContent="center">
+            <Button
+              onClick={handleSubmit}
+              type="submit"
+              size="large"
+              variant="contained"
+              color="primary"
+              className={classes.submit}
+            >
+              {isSubmitting ? (
+                <CircularProgress />
+              ) : (
+                <Typography className={classes.submitText}>send request</Typography>
+              )}
+            </Button>
           </Box>
         </Box>
       </Container>

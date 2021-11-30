@@ -11,6 +11,7 @@ interface Props {
   phoneNumber: string;
   address: string;
   description: string;
+  isSitter: boolean;
   defaultPaymentMethod: string;
 }
 
