@@ -32,7 +32,20 @@ const NavBar = ({ children }: Props): JSX.Element => {
     } else {
       setIsLandingPage(false);
     }
-  }, [history.location.pathname]);
+  }, [setIsLandingPage, history]);
+
+  useEffect(() => {
+    const unlisten = history.listen((location) => {
+      if (window.location.pathname === '/') {
+        setIsLandingPage(true);
+      } else {
+        setIsLandingPage(false);
+      }
+    });
+    return function cleanup() {
+      unlisten();
+    };
+  }, [history]);
 
   if (loggedInUser === undefined) return <CircularProgress />;
 
@@ -42,7 +55,7 @@ const NavBar = ({ children }: Props): JSX.Element => {
         <AppBar
           elevation={history.location.pathname === '/' ? 0 : 6}
           className={isLandingPage ? classes.landingPageBar : classes.appbar}
-          position="static"
+          position="absolute"
         >
           <ToolBar className={classes.toolbar}>
             <Link to="/dashboard">
