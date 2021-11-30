@@ -16,12 +16,14 @@ const LoggedInBar = (): JSX.Element => {
   const { isOpen, setIsOpen, currentStep, setCurrentStep } = useTour();
 
   useEffect(() => {
-    setInterval(() => {
-      setShowText1(false);
-      setTimeout(() => {
-        setShowText2(false);
-      }, 3000);
-    }, 6000);
+    if (window.innerWidth > 600) {
+      setInterval(() => {
+        setShowText1(false);
+        setTimeout(() => {
+          setShowText2(false);
+        }, 3000);
+      }, 6000);
+    }
   }, [setShowText1, setShowText2]);
 
   useEffect(() => {

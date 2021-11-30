@@ -1,12 +1,12 @@
 import { FindSitterForm } from '../interface/FindSitterForm';
 import { createContext, FunctionComponent, useState, useContext, useCallback } from 'react';
 
-interface IFindSitterFormContext {
+interface FindSitterFormContext {
   findSitterFormContext: FindSitterForm | null | undefined;
   updateFindSitterFormContext: (findSitterForm: FindSitterForm) => void;
 }
 
-export const FindSitterFormContext = createContext<IFindSitterFormContext>({
+export const FindSitterFormContext = createContext<FindSitterFormContext>({
   findSitterFormContext: undefined,
   updateFindSitterFormContext: () => null,
 });
@@ -28,6 +28,6 @@ export const FindSitterFormProvider: FunctionComponent = ({ children }): JSX.Ele
   );
 };
 
-export function useFindSitterForm(): IFindSitterFormContext {
+export function useFindSitterForm(): FindSitterFormContext {
   return useContext(FindSitterFormContext);
 }
