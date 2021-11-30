@@ -28,6 +28,12 @@ export const SocketProvider: FunctionComponent = ({ children }): JSX.Element => 
     );
   }, []);
 
+  useEffect(() => {
+    if (loggedInUser) {
+      initSocket();
+    }
+  }, [loggedInUser, initSocket]);
+
   const emitNotification = (userId: string) => {
     socket?.emit('sendNotification', userId);
   };
