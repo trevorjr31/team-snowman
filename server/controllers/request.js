@@ -85,7 +85,7 @@ exports.editRequest = asyncHandler(async (req, res, next) => {
   }
   const verifyUser = await Request.findOne({ _id: newRequestData.id });
 
-  if (req.user.id != (verifyUser.owner || verifyUser.sitter)) {
+  if (!(req.user.id == verifyUser.owner || req.user.id == verifyUser.sitter)) {
     res.status(401);
     throw new Error("Not authorized");
   }
