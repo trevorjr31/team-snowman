@@ -23,11 +23,28 @@ import { NotificationProvider } from './context/useNotificationContext';
 import { FindSitterFormProvider } from './context/useFindSitterFormContext';
 import EditPhoto from './components/EditProfile/EditPhoto/EditPhoto';
 
+import { disableBodyScroll, enableBodyScroll } from 'body-scroll-lock';
+import { TourProvider } from '@reactour/tour';
+import { steps } from './steps';
+import { styles } from './tour';
+
 import './App.css';
 
 function App(): JSX.Element {
   return (
     <MuiThemeProvider theme={theme}>
+      <TourProvider
+        steps={steps}
+        styles={styles}
+        afterOpen={(e: Element | null) => {
+          if (e) disableBodyScroll(e);
+        }}
+        beforeClose={(e: Element | null) => {
+          if (e) enableBodyScroll(e);
+        }}
+        badgeContent={({ totalSteps, currentStep }) => `${currentStep + 1}/${totalSteps}`}
+        scrollSmooth
+      >        
       <BrowserRouter>
         <SnackBarProvider>
           <AuthProvider>
@@ -56,25 +73,31 @@ function App(): JSX.Element {
                     </RequestProvider>
                   </SitterListingProvider>
 
-                  <ProtectedRoute exact path="/messages">
-                    <Dashboard />
-                  </ProtectedRoute>
+                        <Route exact path="/sitter-profile" component={SitterProfile} />
+                        <Route exact path="/dashboard" component={Dashboard} />
+                      </RequestProvider>
+                    </SitterListingProvider>
 
-                  <ProtectedRoute exact path="/my-sitters">
-                    <RequestProvider>
+                    <ProtectedRoute exact path="/messages">
                       <Dashboard />
-                    </RequestProvider>
-                  </ProtectedRoute>
+                    </ProtectedRoute>
 
-                  <Route path="*">
-                    <Redirect to="/login" />
-                  </Route>
-                </Switch>
-              </SocketProvider>
-            </NotificationProvider>
-          </AuthProvider>
-        </SnackBarProvider>
-      </BrowserRouter>
+                    <ProtectedRoute exact path="/my-sitters">
+                      <RequestProvider>
+                        <Dashboard />
+                      </RequestProvider>
+                    </ProtectedRoute>
+
+                    <Route path="*">
+                      <Redirect to="/login" />
+                    </Route>
+                  </Switch>
+                </SocketProvider>
+              </NotificationProvider>
+            </AuthProvider>
+          </SnackBarProvider>
+        </BrowserRouter>
+      </TourProvider>
     </MuiThemeProvider>
   );
 }
