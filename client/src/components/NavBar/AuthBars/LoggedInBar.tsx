@@ -35,8 +35,8 @@ const LoggedInBar = (): JSX.Element => {
       setShowText2(true);
     }
   }, [showText2]);
-              
-                useEffect(() => {
+
+  useEffect(() => {
     setCurrentStep(7);
   }, [setCurrentStep, isOpen]);
 
