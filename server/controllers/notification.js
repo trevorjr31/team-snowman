@@ -19,19 +19,34 @@ exports.createNotification = asyncHandler(async (req, res) => {
   }
 
   const request = await Request.findById(data);
-  const recipient = type === "newRequest" ? "sitter" : "owner";
-  const profile = await User.findById(request[recipient]).populate("profile");
+  let recipient = "";
+  let sender = "";
+  if (type == "newRequest") {
+    recipient = "sitter";
+    sender = "owner";
+  }
+  if (type == "requestUpdate") {
+    recipient = "owner";
+    sender = "sitter";
+  }
+
+  const senderProfile = await User.findById(request[sender]).populate(
+    "profile"
+  );
+  const recipientProfile = await User.findById(request[recipient]).populate(
+    "profile"
+  );
   const date = new Date(request.duration.start).toLocaleDateString();
   const durationMS = request.duration.end - request.duration.start;
   const duration = Math.floor((durationMS / (1000 * 60 * 60)) % 24);
 
   const newNotification = await Notification.create({
     type,
-    userId: profile.profile.userId,
+    userId: recipientProfile.profile.userId,
     data: {
       requestId: data,
-      firstName: profile.profile.firstName || "",
-      photo: profile.profile.photo || "nophoto",
+      firstName: senderProfile.profile.firstName || "",
+      photo: senderProfile.profile.photo || "nophoto",
       duration,
       date,
     },
