@@ -36,12 +36,14 @@ const useStyles = makeStyles((theme) => ({
   },
   heroImage: {
     width: 500,
+    objectFit: 'cover',
   },
   albumImage: {
     width: 85,
     height: 85,
     borderRadius: theme.shape.borderRadius,
     margin: theme.spacing(1),
+    objectFit: 'cover',
   },
   heroImageContainer: {
     overflow: 'hidden',
