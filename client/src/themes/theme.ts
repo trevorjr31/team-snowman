@@ -17,6 +17,11 @@ export const theme = createMuiTheme({
     body1: {
       color: '#f14140',
     },
+    body2: {
+      fontSize: 13,
+      color: 'black',
+      fontWeight: 500,
+    },
     h2: {
       fontSize: 34,
       color: '#000000',

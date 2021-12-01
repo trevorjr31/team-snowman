@@ -21,18 +21,23 @@ export default function SitterProfile(): JSX.Element {
           </Box>
           <Box display="flex" justifyContent="center" marginTop={2}>
             <Typography
+              variant="h3"
               className={classes.name}
             >{`${selectedSitter?.firstName} ${selectedSitter?.lastName}`}</Typography>
           </Box>
           <Box display="flex" justifyContent="center">
-            <Typography className={classes.title}>{selectedSitter?.title}</Typography>
+            <Typography variant="h6" className={classes.title}>
+              {selectedSitter?.title}
+            </Typography>
           </Box>
           <Box display="flex" marginTop={1} justifyContent="center">
             <LocationOnIcon color="primary" />
-            <Typography className={classes.address}>{selectedSitter?.address}</Typography>
+            <Typography variant="h6" className={classes.address}>
+              {selectedSitter?.address}
+            </Typography>
           </Box>
           <Box height={2} marginTop={-1} padding={3} justifyContent="start">
-            <Typography className={classes.description}>About me</Typography>
+            <Typography variant="body2">About me</Typography>
             <Box marginTop={1}>
               <Typography className={classes.about}>{selectedSitter?.about}</Typography>
             </Box>

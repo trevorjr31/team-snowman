@@ -25,22 +25,26 @@ const SitterListing = ({ profile }: Props): JSX.Element => {
             <Avatar variant="square" className={classes.avatar} alt={profile.firstName} src={profile.photo} />
           </Box>
           <Box display="flex" justifyContent="center" marginTop={2}>
-            <Typography className={classes.name}>{`${profile.firstName} ${profile.lastName}`}</Typography>
+            <Typography variant="h3" className={classes.name}>{`${profile.firstName} ${profile.lastName}`}</Typography>
           </Box>
           <Box display="flex" justifyContent="center">
-            <Typography className={classes.title}>{profile.title}</Typography>
+            <Typography variant="h6" className={classes.title}>
+              {profile.title}
+            </Typography>
           </Box>
           <Box display="flex" marginTop={1} justifyContent="center">
             <Rating name="read-only" value={4} readOnly />
           </Box>
           <Box display="flex" height={2} marginTop={2} justifyContent="center">
-            <Typography className={classes.description}>{profile.description}</Typography>
+            <Typography variant="body2">{profile.description}</Typography>
           </Box>
           <Divider className={classes.divider} orientation="horizontal" />
           <Box display="flex" justifyContent="space-between">
             <Box display="flex" marginLeft={-1}>
               <LocationOnIcon color="primary" />
-              <Typography className={classes.address}>{profile.address}</Typography>
+              <Typography variant="h6" className={classes.address}>
+                {profile.address}
+              </Typography>
             </Box>
             <Typography className={classes.mainText}>{`$${profile.hourlyRate}/hr`}</Typography>
           </Box>

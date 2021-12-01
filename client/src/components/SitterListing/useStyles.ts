@@ -9,23 +9,15 @@ const useStyles = makeStyles((theme) => ({
     color: 'black',
     fontWeight: 600,
   },
-  description: {
-    fontSize: 13,
-    color: 'black',
-    fontWeight: 500,
-  },
+
   name: {
-    fontSize: 18,
-    color: 'black',
     fontWeight: 600,
   },
   title: {
-    fontSize: 11,
     color: 'rgb(0,0,0,0.5)',
     fontWeight: 500,
   },
   address: {
-    fontSize: 11,
     color: 'rgb(0,0,0,0.5)',
     fontWeight: 500,
     marginTop: theme.spacing(0.3),
