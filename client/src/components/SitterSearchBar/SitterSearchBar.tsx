@@ -3,17 +3,28 @@ import useStyles from './useStyles';
 import SearchIcon from '@material-ui/icons/Search';
 import DateRangeIcon from '@material-ui/icons/DateRange';
 import DatePicker, { getAllDatesInRange } from 'react-multi-date-picker';
-import { useState, useRef, ChangeEvent, MouseEvent } from 'react';
+import { useState, useRef, ChangeEvent, MouseEvent, useEffect } from 'react';
 import DateObject from 'react-date-object';
 import ClearIcon from '@material-ui/icons/Clear';
 import { useSitters } from '../../context/useSitterContext';
+import { useFindSitterForm } from '../../context/useFindSitterFormContext';
+import fi from 'date-fns/esm/locale/fi/index.js';
 
 export default function SitterSearchBar(): JSX.Element {
   const classes = useStyles();
+  const { findSitterFormContext } = useFindSitterForm();
   const { updateSearch } = useSitters();
+  const startDate = findSitterFormContext?.startDate ? findSitterFormContext?.startDate : new Date();
+  const startDateObject = new DateObject(startDate);
+  const endDate = findSitterFormContext?.endDate ? findSitterFormContext?.endDate : new Date();
+  const endDateObject = new DateObject(endDate);
+  const city = findSitterFormContext?.city ? findSitterFormContext?.city : '';
+  const [dateRange, setDateRange] = useState<DateObject[] | null>([startDateObject, endDateObject]);
+  const [citySearchText, setCitySearchText] = useState<string | null>(city);
 
-  const [dateRange, setDateRange] = useState<DateObject[] | null>(null);
-  const [citySearchText, setCitySearchText] = useState<string | null>('');
+  useEffect(() => {
+    updateSearch(citySearchText, dateRange);
+  });
 
   const handleSearch = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     updateSearch(event.target.value, dateRange);

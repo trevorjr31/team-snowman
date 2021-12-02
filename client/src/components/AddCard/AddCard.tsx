@@ -20,7 +20,8 @@ export default function AddCard(): JSX.Element {
       if (profile) {
         setSubmitting(false);
         profile.defaultPaymentMethod = paymentMethod;
-        await editProfile(profile);
+        const updatedProfile = await editProfile(profile);
+        console.log(updatedProfile);
         fetchProfileAndUpdateContext();
       }
     }

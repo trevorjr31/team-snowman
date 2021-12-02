@@ -57,6 +57,15 @@ function App(): JSX.Element {
                         <Landing />
                       </FindSitterFormProvider>
                     </Route>
+                    <Route exact path="/dashboard">
+                      <FindSitterFormProvider>
+                        <SitterListingProvider>
+                          <RequestProvider>
+                            <Dashboard />
+                          </RequestProvider>
+                        </SitterListingProvider>
+                      </FindSitterFormProvider>
+                    </Route>
                     <Route exact path="/login" component={Login} />
                     <Route exact path="/signup" component={Signup} />
                     <ProtectedRoute exact path="/edit-profile" component={EditMenu} />
@@ -67,20 +76,14 @@ function App(): JSX.Element {
                     <SitterListingProvider>
                       <RequestProvider>
                         <ProtectedRoute exact path="/my-jobs" component={Requests} />
+                        <ProtectedRoute exact path="/my-sitters" component={Requests} />
 
                         <Route exact path="/sitter-profile" component={SitterProfile} />
-                        <Route exact path="/dashboard" component={Dashboard} />
                       </RequestProvider>
                     </SitterListingProvider>
 
                     <ProtectedRoute exact path="/messages">
                       <Dashboard />
-                    </ProtectedRoute>
-
-                    <ProtectedRoute exact path="/my-sitters">
-                      <RequestProvider>
-                        <Dashboard />
-                      </RequestProvider>
                     </ProtectedRoute>
 
                     <Route path="*">

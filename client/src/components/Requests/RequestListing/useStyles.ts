@@ -28,7 +28,7 @@ const useStyles = makeStyles(() => ({
   },
   status: {
     textTransform: 'uppercase',
-    marginLeft: theme.spacing(25),
+    marginLeft: theme.spacing(10),
     fontWeight: 600,
     color: 'rgb(0,0,0,0.3)',
   },

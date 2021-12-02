@@ -4,6 +4,7 @@ import Request from '../../../interface/Request';
 import useStyles from './useStyles';
 import Avatar from '@material-ui/core/Avatar';
 import RequestMenu from '../RequestMenu/RequestMenu';
+import ConfirmPaymentButton from '../../ConfirmPaymentButton/ConfirmPaymentButton';
 
 interface Props {
   request: Request | null | undefined;
@@ -54,6 +55,7 @@ const RequestListing = ({ request, component }: Props): JSX.Element => {
           >
             {status}
           </Typography>
+          {status === 'accepted' && !request.paid && <ConfirmPaymentButton totalCost={request.totalCost} />}
         </Box>
       </Box>
     );

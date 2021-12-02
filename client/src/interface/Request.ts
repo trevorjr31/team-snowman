@@ -2,7 +2,7 @@ import { Profile } from './Profile';
 
 export default interface Request {
   accepted: boolean | null;
-  totalCost: boolean;
+  totalCost: number;
   paid: boolean;
   completed: boolean;
   rating: boolean;

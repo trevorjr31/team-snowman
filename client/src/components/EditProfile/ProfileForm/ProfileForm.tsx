@@ -211,7 +211,7 @@ export default function EditProfile(): JSX.Element {
                 </Typography>
               </Grid>
               <TextField
-                id="email"
+                id="phoneNumber"
                 fullWidth
                 margin="normal"
                 InputLabelProps={{
@@ -221,7 +221,7 @@ export default function EditProfile(): JSX.Element {
                   classes: { input: classes.inputs },
                 }}
                 variant="outlined"
-                autoComplete="email"
+                autoComplete="phone"
                 helperText={touched.phoneNumber ? errors.phoneNumber : ''}
                 value={values.phoneNumber}
                 onChange={handleChange}

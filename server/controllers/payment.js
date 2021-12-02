@@ -8,6 +8,7 @@ const {
   subscriptionOneTimePayment,
   createIntent,
   getPaymentMethods,
+  createPaymentIntent,
 } = stripeServices;
 
 // @route POST /:id/single-pay

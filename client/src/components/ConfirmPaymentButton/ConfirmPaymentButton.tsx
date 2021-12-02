@@ -9,7 +9,7 @@ interface Props {
   totalCost: number;
 }
 
-export default function AddCard({ totalCost }: Props): JSX.Element {
+export default function ConfirmPaymentButton({ totalCost }: Props): JSX.Element {
   const { updateSnackBarMessage } = useSnackBar();
   const { loggedInUser, loggedInUserProfile, fetchProfileAndUpdateContext } = useAuth();
   const history = useHistory();
@@ -17,7 +17,7 @@ export default function AddCard({ totalCost }: Props): JSX.Element {
   const handleSubmit = async () => {
     if (loggedInUserProfile && loggedInUserProfile.defaultPaymentMethod != '' && loggedInUser) {
       confirmPayments({
-        totalCost: totalCost,
+        totalCost: totalCost * 100,
         paymentMethod: loggedInUserProfile.defaultPaymentMethod,
         userId: loggedInUser?.id,
       }).then((data) => {
@@ -38,7 +38,9 @@ export default function AddCard({ totalCost }: Props): JSX.Element {
 
   return (
     <Box>
-      <Button onClick={handleSubmit}>Confirm payment</Button>
+      <Button variant="outlined" color="primary" onClick={handleSubmit}>
+        Confirm payment
+      </Button>
     </Box>
   );
 }
