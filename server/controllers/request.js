@@ -74,7 +74,9 @@ exports.editRequest = asyncHandler(async (req, res, next) => {
     completed,
     notes,
     viewed,
+    paid,
   } = req.body);
+
   const newRequestData = {
     ...req.params,
     ...bodyData,

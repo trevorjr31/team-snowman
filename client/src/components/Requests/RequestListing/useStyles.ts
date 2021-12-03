@@ -39,6 +39,13 @@ const useStyles = makeStyles(() => ({
     color: theme.palette.primary.main,
     opacity: 0.7,
   },
+  paid: {
+    textTransform: 'uppercase',
+    color: theme.palette.primary.main,
+    paddingLeft: theme.spacing(5),
+    fontWeight: 600,
+    opacity: 0.7,
+  },
 }));
 
 export default useStyles;

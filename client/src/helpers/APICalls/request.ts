@@ -18,14 +18,15 @@ export const fetchRequests = async (): Promise<RequestData> => {
     }));
 };
 
-export const updateRequest = async (bookingStatus: string, requestId: string): Promise<RequestData> => {
+export const updateRequest = async (bookingStatus: string, requestId: string, paid: boolean): Promise<RequestData> => {
   const accepted = bookingStatus == 'accept' ? true : false;
   const fetchOptions: FetchOptions = {
     method: 'PATCH',
-    body: `{"accepted":${accepted}}`,
+    body: `{"accepted":${accepted}, "paid":${paid}}`,
     headers: { 'Content-Type': 'application/json' },
     credentials: 'include',
   };
+
   return await fetch(`/request/${requestId}`, fetchOptions)
     .then((res) => res.json())
     .then((data) => {

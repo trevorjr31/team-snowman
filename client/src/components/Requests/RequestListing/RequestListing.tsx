@@ -55,7 +55,12 @@ const RequestListing = ({ request, component }: Props): JSX.Element => {
           >
             {status}
           </Typography>
-          {status === 'accepted' && !request.paid && <ConfirmPaymentButton totalCost={request.totalCost} />}
+          {status === 'accepted' &&
+            (request.paid ? (
+              <Typography className={classes.paid}>Paid</Typography>
+            ) : (
+              <ConfirmPaymentButton totalCost={request.totalCost} request={request} />
+            ))}
         </Box>
       </Box>
     );

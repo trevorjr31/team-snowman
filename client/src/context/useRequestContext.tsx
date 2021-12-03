@@ -9,7 +9,7 @@ import { Profile } from '../interface/Profile';
 
 interface IRequestContext {
   requests: requestData | null | undefined;
-  sendResponse: (bookingStatus: string, requestId: string, ownerId: string) => void;
+  sendResponse: (bookingStatus: string, requestId: string, ownerId: string, paid: boolean) => void;
   requestADate: (requestedDate: DateObject | null | undefined, time: string, type: string) => void;
   requestedStart: Date | null | undefined;
   requestedEnd: Date | null | undefined;
@@ -55,8 +55,8 @@ export const RequestProvider: FunctionComponent = ({ children }): JSX.Element =>
     }
   };
 
-  const sendResponse = async (bookingStatus: string, requestId: string, ownerId: string) => {
-    const updated = await updateRequest(bookingStatus, requestId);
+  const sendResponse = async (bookingStatus: string, requestId: string, ownerId: string, paid: boolean) => {
+    const updated = await updateRequest(bookingStatus, requestId, paid);
     sendNewNotification(requestId, 'requestUpdate');
     setRequests(updated);
     emitNotification(ownerId);

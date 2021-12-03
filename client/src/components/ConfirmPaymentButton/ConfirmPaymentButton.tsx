@@ -4,15 +4,19 @@ import { useAuth } from '../../context/useAuthContext';
 import { useSnackBar } from '../../context/useSnackbarContext';
 import { confirmPayments } from '../../helpers/APICalls/confirmPayments';
 import { useHistory } from 'react-router-dom';
+import { useRequest } from '../../context/useRequestContext';
+import Request from '../../interface/Request';
 
 interface Props {
   totalCost: number;
+  request: Request | null | undefined;
 }
 
-export default function ConfirmPaymentButton({ totalCost }: Props): JSX.Element {
+export default function ConfirmPaymentButton({ totalCost, request }: Props): JSX.Element {
   const { updateSnackBarMessage } = useSnackBar();
   const { loggedInUser, loggedInUserProfile, fetchProfileAndUpdateContext } = useAuth();
   const history = useHistory();
+  const { sendResponse } = useRequest();
 
   const handleSubmit = async () => {
     if (loggedInUserProfile && loggedInUserProfile.defaultPaymentMethod != '' && loggedInUser) {
@@ -24,8 +28,11 @@ export default function ConfirmPaymentButton({ totalCost }: Props): JSX.Element 
         if (data.error) {
           updateSnackBarMessage(data.error.message);
         } else if (data.paymentIntent) {
-          history.push('/dashboard');
           updateSnackBarMessage('Confirm payment successfully');
+          if (request) {
+            sendResponse('accept', request._id, request.owner._id, true);
+          }
+          history.push('/dashboard');
         } else {
           updateSnackBarMessage('An unexpected error occurred. Please try again');
         }
