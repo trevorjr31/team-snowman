@@ -7,16 +7,22 @@ import FindSitter from './LandingForm/LandingForm';
 import { useFindSitterForm } from '../../context/useFindSitterFormContext';
 import dogs from '../../Images/pets.jpeg';
 import { useHistory } from 'react-router-dom';
+import { useSitters } from '../../context/useSitterContext';
+import DateObject from 'react-date-object';
 
 export default function Landing(): JSX.Element {
   const classes = useStyles();
   const { updateFindSitterFormContext } = useFindSitterForm();
   const history = useHistory();
+  const { updateSearch } = useSitters();
 
-  const handleSubmit = (
+  const handleSubmit = async (
     { address, startDate, endDate }: { address: string; startDate: Date; endDate: Date },
     { setSubmitting }: FormikHelpers<{ address: string; startDate: Date; endDate: Date }>,
   ) => {
+    const startDateObject = new DateObject(startDate);
+    const endDateObject = new DateObject(endDate);
+    updateSearch(address, [startDateObject, endDateObject]);
     setSubmitting(false);
     updateFindSitterFormContext({ city: address, startDate: startDate, endDate: endDate });
     history.push('/dashboard');

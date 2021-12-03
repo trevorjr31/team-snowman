@@ -11,12 +11,22 @@ import LoginForm from './LoginForm/LoginForm';
 import { useAuth } from '../../context/useAuthContext';
 import { useSnackBar } from '../../context/useSnackbarContext';
 import { useEffect, useState } from 'react';
+import { useSitters } from '../../context/useSitterContext';
+import DateObject from 'react-date-object';
+import { useFindSitterForm } from '../../context/useFindSitterFormContext';
 
 export default function Login(): JSX.Element {
   const classes = useStyles();
   const { updateLoginContext } = useAuth();
   const { updateSnackBarMessage } = useSnackBar();
   const [showForm, setShowForm] = useState<boolean>(false);
+  const { updateSearch } = useSitters();
+  const { findSitterFormContext } = useFindSitterForm();
+  const startDate = findSitterFormContext?.startDate ? findSitterFormContext?.startDate : new Date();
+  const startDateObject = new DateObject(startDate);
+  const endDate = findSitterFormContext?.endDate ? findSitterFormContext?.endDate : new Date();
+  const endDateObject = new DateObject(endDate);
+  const city = findSitterFormContext?.city ? findSitterFormContext?.city : '';
 
   useEffect(() => {
     setShowForm(true);
@@ -31,6 +41,7 @@ export default function Login(): JSX.Element {
         setSubmitting(false);
         updateSnackBarMessage(data.error.message);
       } else if (data.success) {
+        updateSearch(city, [startDateObject, endDateObject]);
         updateLoginContext(data.success);
       } else {
         // should not get here from backend but this catch is for an unknown issue

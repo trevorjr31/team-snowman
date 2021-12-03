@@ -50,46 +50,50 @@ function App(): JSX.Element {
             <AuthProvider>
               <NotificationProvider>
                 <SocketProvider>
-                  <NavBar />
-                  <Switch>
-                    <Route exact path="/">
-                      <FindSitterFormProvider>
-                        <Landing />
-                      </FindSitterFormProvider>
-                    </Route>
-                    <Route exact path="/dashboard">
-                      <FindSitterFormProvider>
+                  <FindSitterFormProvider>
+                    <NavBar />
+                    <Switch>
+                      <Route exact path="/">
+                        <SitterListingProvider>
+                          <Landing />
+                        </SitterListingProvider>
+                      </Route>
+                      <Route exact path="/dashboard">
                         <SitterListingProvider>
                           <RequestProvider>
                             <Dashboard />
                           </RequestProvider>
                         </SitterListingProvider>
-                      </FindSitterFormProvider>
-                    </Route>
-                    <Route exact path="/login" component={Login} />
-                    <Route exact path="/signup" component={Signup} />
-                    <ProtectedRoute exact path="/edit-profile" component={EditMenu} />
-                    <ProtectedRoute exact path="/checkout" component={Checkout} />
-                    <ProtectedRoute exact path="/edit-image" component={EditPhoto} />
-                    <ProtectedRoute exact path="/payment-profile" component={AddCard} />
-                    <ProtectedRoute exact path="/add-card-info" component={AddCardInfo} />
-                    <SitterListingProvider>
-                      <RequestProvider>
-                        <ProtectedRoute exact path="/my-jobs" component={Requests} />
-                        <ProtectedRoute exact path="/my-sitters" component={Requests} />
+                      </Route>
+                      <Route exact path="/login">
+                        <SitterListingProvider>
+                          <Login />
+                        </SitterListingProvider>
+                      </Route>
+                      <Route exact path="/signup" component={Signup} />
+                      <ProtectedRoute exact path="/edit-profile" component={EditMenu} />
+                      <ProtectedRoute exact path="/checkout" component={Checkout} />
+                      <ProtectedRoute exact path="/edit-image" component={EditPhoto} />
+                      <ProtectedRoute exact path="/payment-profile" component={AddCard} />
+                      <ProtectedRoute exact path="/add-card-info" component={AddCardInfo} />
+                      <SitterListingProvider>
+                        <RequestProvider>
+                          <ProtectedRoute exact path="/my-jobs" component={Requests} />
+                          <ProtectedRoute exact path="/my-sitters" component={Requests} />
 
-                        <Route exact path="/sitter-profile" component={SitterProfile} />
-                      </RequestProvider>
-                    </SitterListingProvider>
+                          <Route exact path="/sitter-profile" component={SitterProfile} />
+                        </RequestProvider>
+                      </SitterListingProvider>
 
-                    <ProtectedRoute exact path="/messages">
-                      <Dashboard />
-                    </ProtectedRoute>
+                      <ProtectedRoute exact path="/messages">
+                        <Dashboard />
+                      </ProtectedRoute>
 
-                    <Route path="*">
-                      <Redirect to="/login" />
-                    </Route>
-                  </Switch>
+                      <Route path="*">
+                        <Redirect to="/login" />
+                      </Route>
+                    </Switch>
+                  </FindSitterFormProvider>
                 </SocketProvider>
               </NotificationProvider>
             </AuthProvider>

@@ -22,10 +22,6 @@ export default function SitterSearchBar(): JSX.Element {
   const [dateRange, setDateRange] = useState<DateObject[] | null>([startDateObject, endDateObject]);
   const [citySearchText, setCitySearchText] = useState<string | null>(city);
 
-  useEffect(() => {
-    updateSearch(citySearchText, dateRange);
-  });
-
   const handleSearch = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     updateSearch(event.target.value, dateRange);
     setCitySearchText(event.target.value);
