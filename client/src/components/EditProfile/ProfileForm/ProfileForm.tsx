@@ -90,199 +90,206 @@ export default function EditProfile(): JSX.Element {
       }
     });
   };
-
-  return (
-    <Formik
-      initialValues={{
-        firstName: '',
-        lastName: '',
-        gender: '',
-        dateOfBirth: new Date(),
-        phoneNumber: '',
-        address: '',
-        description: '',
-        isSitter: false,
-        defaultPaymentMethod: loggedInUserProfile ? loggedInUserProfile.defaultPaymentMethod : '',
-      }}
-      validationSchema={Yup.object().shape({
-        firstName: Yup.string().max(20, 'Name is too long'),
-        lastName: Yup.string().max(20, 'Name is too long'),
-        phoneNumber: Yup.string()
-          .required('required')
-          .matches(phoneRegExp, 'Phone number is not valid')
-          .min(10, 'to short')
-          .max(10, 'to long'),
-      })}
-      onSubmit={handleSubmit}
-    >
-      {({ handleSubmit, handleChange, values, touched, errors, isSubmitting }) => (
-        <Grid container>
-          <Grid item className={classes.title}>
-            <Typography variant="h5">Edit Profile</Typography>
+  if (loggedInUserProfile) {
+    return (
+      <Formik
+        initialValues={{
+          firstName: loggedInUserProfile.firstName || '',
+          lastName: loggedInUserProfile.lastName || '',
+          gender: loggedInUserProfile.gender || 'Male',
+          dateOfBirth: loggedInUserProfile.dateOfBirth || new Date(),
+          phoneNumber: loggedInUserProfile.phoneNumber || '',
+          address: loggedInUserProfile.address || '',
+          description: loggedInUserProfile.description || '',
+          isSitter: loggedInUserProfile.isSitter || false,
+          defaultPaymentMethod: loggedInUserProfile.defaultPaymentMethod || '',
+        }}
+        validationSchema={Yup.object().shape({
+          firstName: Yup.string().max(20, 'Name is too long'),
+          lastName: Yup.string().max(20, 'Name is too long'),
+          phoneNumber: Yup.string()
+            .required('required')
+            .matches(phoneRegExp, 'Phone number is not valid')
+            .min(10, 'to short')
+            .max(10, 'to long'),
+        })}
+        onSubmit={handleSubmit}
+      >
+        {({ handleSubmit, handleChange, values, touched, errors, isSubmitting }) => (
+          <Grid container>
+            <Grid item className={classes.title}>
+              <Typography variant="h5">Edit Profile</Typography>
+            </Grid>
+            <form onSubmit={handleSubmit} className={classes.form} noValidate>
+              <Grid item className={classes.field}>
+                <Grid item className={classes.label}>
+                  <Typography variant="subtitle1" noWrap>
+                    First Name
+                  </Typography>
+                </Grid>
+                <TextField
+                  id="firstName"
+                  fullWidth
+                  margin="normal"
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
+                  InputProps={{
+                    classes: { input: classes.inputs },
+                  }}
+                  variant="outlined"
+                  name="firstName"
+                  autoComplete="first-name"
+                  autoFocus
+                  helperText={touched.firstName ? errors.firstName : ''}
+                  error={touched.firstName && Boolean(errors.firstName)}
+                  value={values.firstName}
+                  onChange={handleChange}
+                />
+              </Grid>
+              <Grid item className={classes.field}>
+                <Grid item className={classes.label}>
+                  <Typography variant="subtitle1" noWrap>
+                    Last Name
+                  </Typography>
+                </Grid>
+                <TextField
+                  id="lastName"
+                  fullWidth
+                  margin="normal"
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
+                  InputProps={{
+                    classes: { input: classes.inputs },
+                  }}
+                  variant="outlined"
+                  autoComplete="lastName"
+                  helperText={touched.lastName ? errors.lastName : ''}
+                  value={values.lastName}
+                  onChange={handleChange}
+                />
+              </Grid>
+              <Grid item className={classes.field}>
+                <Grid item className={classes.label}>
+                  <Typography variant="subtitle1" noWrap>
+                    Gender
+                  </Typography>
+                </Grid>
+                <TextField
+                  id="gender"
+                  variant="outlined"
+                  margin="normal"
+                  select
+                  name="gender"
+                  style={{ width: 200 }}
+                  value={values.gender}
+                  onChange={handleChange}
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
+                >
+                  {genders.map((option) => (
+                    <MenuItem key={option.value} value={option.value}>
+                      {option.label}
+                    </MenuItem>
+                  ))}
+                </TextField>
+              </Grid>
+              <Grid item className={classes.field}>
+                <Grid item className={classes.label}>
+                  <Typography variant="subtitle1" noWrap>
+                    Birthday
+                  </Typography>
+                </Grid>
+                <Field name="dateOfBirth" component={DatePicker} value={loggedInUserProfile.dateOfBirth} />
+              </Grid>
+              <Grid item className={classes.field}>
+                <Grid item className={classes.label}>
+                  <Typography variant="subtitle1" noWrap>
+                    Phone Number
+                  </Typography>
+                </Grid>
+                <TextField
+                  id="phoneNumber"
+                  fullWidth
+                  margin="normal"
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
+                  InputProps={{
+                    classes: { input: classes.inputs },
+                  }}
+                  variant="outlined"
+                  autoComplete="phone"
+                  helperText={touched.phoneNumber ? errors.phoneNumber : ''}
+                  value={values.phoneNumber}
+                  onChange={handleChange}
+                />
+              </Grid>
+              <Grid item className={classes.field}>
+                <Grid item className={classes.label}>
+                  <Typography variant="subtitle1" noWrap>
+                    Address
+                  </Typography>
+                </Grid>
+                <TextField
+                  id="address"
+                  fullWidth
+                  margin="normal"
+                  InputProps={{
+                    classes: { input: classes.inputs },
+                  }}
+                  variant="outlined"
+                  autoComplete="address"
+                  helperText={touched.address ? errors.address : ''}
+                  value={values.address}
+                  onChange={handleChange}
+                />
+              </Grid>
+              <Grid item className={classes.field}>
+                <Grid item className={classes.label}>
+                  <Typography variant="subtitle1" noWrap>
+                    Description
+                  </Typography>
+                </Grid>
+                <TextField
+                  id="description"
+                  fullWidth
+                  margin="normal"
+                  InputProps={{
+                    classes: { input: classes.inputs },
+                  }}
+                  variant="outlined"
+                  autoComplete="description"
+                  helperText={touched.description ? errors.description : ''}
+                  value={values.description}
+                  onChange={handleChange}
+                />
+              </Grid>
+              <Grid item className={classes.field}>
+                <Grid item className={classes.label}>
+                  <Typography variant="subtitle1" noWrap>
+                    Become a sitter?
+                  </Typography>
+                </Grid>
+                <Switch
+                  checked={loggedInUserProfile.isSitter}
+                  onChange={handleChange}
+                  name="isSitter"
+                  color="primary"
+                />
+              </Grid>
+              <Box textAlign="center">
+                <Button type="submit" size="large" variant="contained" color="primary" className={classes.submit}>
+                  {isSubmitting ? <CircularProgress style={{ color: 'white' }} /> : 'Save'}
+                </Button>
+              </Box>
+            </form>
           </Grid>
-          <form onSubmit={handleSubmit} className={classes.form} noValidate>
-            <Grid item className={classes.field}>
-              <Grid item className={classes.label}>
-                <Typography variant="subtitle1" noWrap>
-                  First Name
-                </Typography>
-              </Grid>
-              <TextField
-                id="firstName"
-                fullWidth
-                margin="normal"
-                InputLabelProps={{
-                  shrink: true,
-                }}
-                InputProps={{
-                  classes: { input: classes.inputs },
-                }}
-                variant="outlined"
-                name="firstName"
-                autoComplete="first-name"
-                autoFocus
-                helperText={touched.firstName ? errors.firstName : ''}
-                error={touched.firstName && Boolean(errors.firstName)}
-                value={values.firstName}
-                onChange={handleChange}
-              />
-            </Grid>
-            <Grid item className={classes.field}>
-              <Grid item className={classes.label}>
-                <Typography variant="subtitle1" noWrap>
-                  Last Name
-                </Typography>
-              </Grid>
-              <TextField
-                id="lastName"
-                fullWidth
-                margin="normal"
-                InputLabelProps={{
-                  shrink: true,
-                }}
-                InputProps={{
-                  classes: { input: classes.inputs },
-                }}
-                variant="outlined"
-                autoComplete="lastName"
-                helperText={touched.lastName ? errors.lastName : ''}
-                value={values.lastName}
-                onChange={handleChange}
-              />
-            </Grid>
-            <Grid item className={classes.field}>
-              <Grid item className={classes.label}>
-                <Typography variant="subtitle1" noWrap>
-                  Gender
-                </Typography>
-              </Grid>
-              <TextField
-                id="gender"
-                variant="outlined"
-                margin="normal"
-                select
-                name="gender"
-                style={{ width: 200 }}
-                value={values.gender}
-                onChange={handleChange}
-                InputLabelProps={{
-                  shrink: true,
-                }}
-              >
-                {genders.map((option) => (
-                  <MenuItem key={option.value} value={option.value}>
-                    {option.label}
-                  </MenuItem>
-                ))}
-              </TextField>
-            </Grid>
-            <Grid item className={classes.field}>
-              <Grid item className={classes.label}>
-                <Typography variant="subtitle1" noWrap>
-                  Birthday
-                </Typography>
-              </Grid>
-              <Field name="dateOfBirth" component={DatePicker} />
-            </Grid>
-            <Grid item className={classes.field}>
-              <Grid item className={classes.label}>
-                <Typography variant="subtitle1" noWrap>
-                  Phone Number
-                </Typography>
-              </Grid>
-              <TextField
-                id="email"
-                fullWidth
-                margin="normal"
-                InputLabelProps={{
-                  shrink: true,
-                }}
-                InputProps={{
-                  classes: { input: classes.inputs },
-                }}
-                variant="outlined"
-                autoComplete="email"
-                helperText={touched.phoneNumber ? errors.phoneNumber : ''}
-                value={values.phoneNumber}
-                onChange={handleChange}
-              />
-            </Grid>
-            <Grid item className={classes.field}>
-              <Grid item className={classes.label}>
-                <Typography variant="subtitle1" noWrap>
-                  Address
-                </Typography>
-              </Grid>
-              <TextField
-                id="address"
-                fullWidth
-                margin="normal"
-                InputProps={{
-                  classes: { input: classes.inputs },
-                }}
-                variant="outlined"
-                autoComplete="address"
-                helperText={touched.address ? errors.address : ''}
-                value={values.address}
-                onChange={handleChange}
-              />
-            </Grid>
-            <Grid item className={classes.field}>
-              <Grid item className={classes.label}>
-                <Typography variant="subtitle1" noWrap>
-                  Description
-                </Typography>
-              </Grid>
-              <TextField
-                id="description"
-                fullWidth
-                margin="normal"
-                InputProps={{
-                  classes: { input: classes.inputs },
-                }}
-                variant="outlined"
-                autoComplete="description"
-                helperText={touched.description ? errors.description : ''}
-                value={values.description}
-                onChange={handleChange}
-              />
-            </Grid>
-            <Grid item className={classes.field}>
-              <Grid item className={classes.label}>
-                <Typography variant="subtitle1" noWrap>
-                  Become a sitter?
-                </Typography>
-              </Grid>
-              <Switch checked={values.isSitter} onChange={handleChange} name="isSitter" color="primary" />
-            </Grid>
-            <Box textAlign="center">
-              <Button type="submit" size="large" variant="contained" color="primary" className={classes.submit}>
-                {isSubmitting ? <CircularProgress style={{ color: 'white' }} /> : 'Save'}
-              </Button>
-            </Box>
-          </form>
-        </Grid>
-      )}
-    </Formik>
-  );
+        )}
+      </Formik>
+    );
+  }
+  return <CircularProgress />;
 }
