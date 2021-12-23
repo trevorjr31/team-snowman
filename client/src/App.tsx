@@ -33,23 +33,12 @@ import './App.css';
 function App(): JSX.Element {
   return (
     <MuiThemeProvider theme={theme}>
-      <TourProvider
-        steps={steps}
-        styles={styles}
-        afterOpen={(e: Element | null) => {
-          if (e) disableBodyScroll(e);
-        }}
-        beforeClose={(e: Element | null) => {
-          if (e) enableBodyScroll(e);
-        }}
-        badgeContent={({ totalSteps, currentStep }) => `${currentStep + 1}/${totalSteps}`}
-        scrollSmooth
-      >
-        <BrowserRouter>
-          <SnackBarProvider>
-            <AuthProvider>
-              <NotificationProvider>
-                <SocketProvider>
+      <BrowserRouter>
+        <SnackBarProvider>
+          <AuthProvider>
+            <NotificationProvider>
+              <SocketProvider>
+                <SitterListingProvider>
                   <NavBar />
                   <Switch>
                     <Route exact path="/">
@@ -57,6 +46,7 @@ function App(): JSX.Element {
                         <Landing />
                       </FindSitterFormProvider>
                     </Route>
+                    <Route exact path="/dashboard" component={Dashboard} />
                     <Route exact path="/login" component={Login} />
                     <Route exact path="/signup" component={Signup} />
                     <ProtectedRoute exact path="/edit-profile" component={EditMenu} />
@@ -64,35 +54,26 @@ function App(): JSX.Element {
                     <ProtectedRoute exact path="/edit-image" component={EditPhoto} />
                     <ProtectedRoute exact path="/payment-profile" component={AddCard} />
                     <ProtectedRoute exact path="/add-card-info" component={AddCardInfo} />
-                    <SitterListingProvider>
-                      <RequestProvider>
-                        <ProtectedRoute exact path="/my-jobs" component={Requests} />
 
-                        <Route exact path="/sitter-profile" component={SitterProfile} />
-                        <Route exact path="/dashboard" component={Dashboard} />
-                      </RequestProvider>
-                    </SitterListingProvider>
+                    <RequestProvider>
+                      <ProtectedRoute exact path="/my-jobs" component={Requests} />
+                      <Route exact path="/sitter-profile" component={SitterProfile} />
+                    </RequestProvider>
 
-                    <ProtectedRoute exact path="/messages">
-                      <Dashboard />
-                    </ProtectedRoute>
+                    <ProtectedRoute exact path="/messages"></ProtectedRoute>
 
-                    <ProtectedRoute exact path="/my-sitters">
-                      <RequestProvider>
-                        <Dashboard />
-                      </RequestProvider>
-                    </ProtectedRoute>
+                    <ProtectedRoute exact path="/my-sitters"></ProtectedRoute>
 
                     <Route path="*">
                       <Redirect to="/login" />
                     </Route>
                   </Switch>
-                </SocketProvider>
-              </NotificationProvider>
-            </AuthProvider>
-          </SnackBarProvider>
-        </BrowserRouter>
-      </TourProvider>
+                </SitterListingProvider>
+              </SocketProvider>
+            </NotificationProvider>
+          </AuthProvider>
+        </SnackBarProvider>
+      </BrowserRouter>
     </MuiThemeProvider>
   );
 }

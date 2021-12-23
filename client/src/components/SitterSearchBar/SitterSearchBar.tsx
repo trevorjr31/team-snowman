@@ -3,15 +3,14 @@ import useStyles from './useStyles';
 import SearchIcon from '@material-ui/icons/Search';
 import DateRangeIcon from '@material-ui/icons/DateRange';
 import DatePicker, { getAllDatesInRange } from 'react-multi-date-picker';
-import { useState, useRef, ChangeEvent, MouseEvent } from 'react';
+import { useState, useRef, ChangeEvent, MouseEvent, useEffect, useCallback } from 'react';
 import DateObject from 'react-date-object';
 import ClearIcon from '@material-ui/icons/Clear';
 import { useSitters } from '../../context/useSitterContext';
 
 export default function SitterSearchBar(): JSX.Element {
   const classes = useStyles();
-  const { updateSearch } = useSitters();
-
+  const { updateSearch, selectedCity, selectedDates, clearLandingPageData } = useSitters();
   const [dateRange, setDateRange] = useState<DateObject[] | null>(null);
   const [citySearchText, setCitySearchText] = useState<string | null>('');
 
@@ -25,18 +24,35 @@ export default function SitterSearchBar(): JSX.Element {
     updateSearch(citySearchText, null);
   };
 
-  const handleDateEntry = (newDateRange: DateObject[]) => {
-    const updatedDateRange = getAllDatesInRange(newDateRange);
+  const handleDateEntry = useCallback(
+    (newDateRange: DateObject[]) => {
+      const updatedDateRange = getAllDatesInRange(newDateRange);
 
-    const dateObjects = [];
-    for (const i of updatedDateRange) {
-      dateObjects.push(new DateObject(i));
+      const dateObjects = [];
+      for (const i of updatedDateRange) {
+        dateObjects.push(new DateObject(i));
+      }
+      if (newDateRange) {
+        setDateRange(dateObjects);
+        updateSearch(citySearchText, dateObjects);
+      }
+    },
+    [citySearchText, updateSearch],
+  );
+
+  useEffect(() => {
+    if (selectedCity) {
+      setCitySearchText(selectedCity);
     }
-    if (newDateRange) {
-      setDateRange(dateObjects);
-      updateSearch(citySearchText, dateObjects);
+    if (selectedDates) {
+      const dateObjects = [];
+      for (const i of selectedDates) {
+        dateObjects.push(new DateObject(i));
+        setDateRange(dateObjects);
+      }
+      //clearLandingPageData();
     }
-  };
+  }, [selectedCity, selectedDates, clearLandingPageData]);
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const datePickerRef = useRef<any | null>();

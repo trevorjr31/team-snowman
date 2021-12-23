@@ -1,6 +1,6 @@
 import { makeStyles } from '@material-ui/core/styles';
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
   root: {
     minHeight: '100vh',
     '& .MuiInput-underline:before': {
@@ -18,8 +18,16 @@ const useStyles = makeStyles(() => ({
     objectFit: 'cover',
   },
   welcome: {
-    padding: '100px 0px 30px 0px',
+    padding: '0px 0px 50px 0px',
+  },
+  submit: {
     width: 300,
+    height: 70,
+    borderRadius: theme.shape.borderRadius,
+    marginTop: 10,
+    fontSize: 16,
+    backgroundColor: '#f14140',
+    fontWeight: 600,
   },
 }));
 

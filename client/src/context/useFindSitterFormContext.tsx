@@ -3,7 +3,7 @@ import { createContext, FunctionComponent, useState, useContext, useCallback } f
 
 interface FindSitterFormContext {
   findSitterFormContext: FindSitterForm | null | undefined;
-  updateFindSitterFormContext: (findSitterForm: FindSitterForm) => void;
+  updateFindSitterFormContext: (findSitterForm: FindSitterForm | null) => void;
 }
 
 export const FindSitterFormContext = createContext<FindSitterFormContext>({
@@ -12,10 +12,10 @@ export const FindSitterFormContext = createContext<FindSitterFormContext>({
 });
 
 export const FindSitterFormProvider: FunctionComponent = ({ children }): JSX.Element => {
-  const [findSitterFormContext, setFindSitterFormContext] = useState<FindSitterForm | null | undefined>();
+  const [findSitterFormContext, setFindSitterFormContext] = useState<FindSitterForm | null | undefined>(null);
 
   const updateFindSitterFormContext = useCallback(
-    (findSitterForm: FindSitterForm) => {
+    (findSitterForm: FindSitterForm | null) => {
       setFindSitterFormContext(findSitterForm);
     },
     [setFindSitterFormContext],

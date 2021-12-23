@@ -7,30 +7,30 @@ interface SitterListingContext {
   sitterProfiles: [Profile] | null | undefined;
   sitterSearchResults: [Profile] | Profile[] | null | undefined;
   selectedSitter: Profile | null | undefined;
+  selectedCity: string | null | undefined;
+  selectedDates: DateObject[] | null | undefined;
+  clearLandingPageData: () => void;
   selectSitter: (sitter: Profile) => void;
-  updateSearch: (
-    searchTerm: string | null,
-    dateRange: DateObject[] | Date[] | null,
-    days?: { [id: string]: boolean },
-  ) => void;
+  updateSearch: (searchTerm: string | null, dateRange: DateObject[] | null, days?: { [id: string]: boolean }) => void;
 }
 
 export const SitterListingContext = createContext<SitterListingContext>({
   sitterProfiles: null,
   sitterSearchResults: null,
   selectedSitter: null,
+  selectedCity: null,
+  selectedDates: null,
+  clearLandingPageData: () => null,
   selectSitter: (sitter: Profile) => null,
-  updateSearch: (
-    searchTerm: string | null,
-    dateRange: DateObject[] | Date[] | null,
-    days?: { [id: string]: boolean },
-  ) => null,
+  updateSearch: (searchTerm: string | null, dateRange: DateObject[] | null, days?: { [id: string]: boolean }) => null,
 });
 
 export const SitterListingProvider: FunctionComponent = ({ children }): JSX.Element => {
   const [sitterProfiles, setSitterProfiles] = useState<[Profile] | null | undefined>();
   const [sitterSearchResults, setSitterSearchResults] = useState<[Profile] | Profile[] | null | undefined>();
   const [selectedSitter, setSelectedSitter] = useState<Profile | null | undefined>();
+  const [selectedCity, setSelectedCity] = useState<string | null | undefined>();
+  const [selectedDates, setSelectedDates] = useState<DateObject[] | null | undefined>();
   const filterByDateRange = (dateRange: DateObject[] | Date[] | null, days?: { [id: string]: boolean }) => {
     if (sitterProfiles) {
       let updatedSitterList = Array.from(sitterProfiles);
@@ -63,7 +63,12 @@ export const SitterListingProvider: FunctionComponent = ({ children }): JSX.Elem
     }
   };
 
-  const updateSearch = (searchTerm: string | null, dateRange: DateObject[] | Date[] | null) => {
+  const clearLandingPageData = () => {
+    setSelectedCity(null);
+    setSelectedDates(null);
+  };
+
+  const updateSearch = (searchTerm: string | null, dateRange: DateObject[] | null) => {
     if (sitterProfiles) {
       if (!dateRange && !searchTerm) {
         setSitterSearchResults(sitterProfiles);
@@ -75,6 +80,8 @@ export const SitterListingProvider: FunctionComponent = ({ children }): JSX.Elem
         });
       }
       setSitterSearchResults(updatedSitterList);
+      setSelectedCity(searchTerm);
+      setSelectedDates(dateRange);
     }
   };
 
@@ -93,7 +100,16 @@ export const SitterListingProvider: FunctionComponent = ({ children }): JSX.Elem
 
   return (
     <SitterListingContext.Provider
-      value={{ sitterProfiles, sitterSearchResults, updateSearch, selectSitter, selectedSitter }}
+      value={{
+        sitterProfiles,
+        sitterSearchResults,
+        updateSearch,
+        selectSitter,
+        clearLandingPageData,
+        selectedSitter,
+        selectedCity,
+        selectedDates,
+      }}
     >
       {children}
     </SitterListingContext.Provider>
