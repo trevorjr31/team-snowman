@@ -11,9 +11,8 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'center',
   },
   inputs: {
-    marginTop: '.8rem',
     height: '2rem',
-    padding: '5px',
+    padding: '12px',
   },
   forgot: {
     paddingRight: 10,

@@ -8,8 +8,8 @@ export interface Profile {
   description: string;
   availability: [{ day: Date; start: Date; end: Date }];
   photo: string;
-  isSitter: Boolean;
-  hourlyRate: Number;
+  isSitter: boolean;
+  hourlyRate: number;
   title: string;
   userId: string;
   defaultPaymentMethod: string;

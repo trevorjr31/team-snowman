@@ -68,7 +68,7 @@ export const RequestProvider: FunctionComponent = ({ children }): JSX.Element =>
       const newRequest = success._id;
       if (sitter) {
         sendNewNotification(newRequest, 'newRequest');
-        emitNotification(sitter?.userId);
+        emitNotification(sitter.userId);
         return true;
       } else {
         return false;
